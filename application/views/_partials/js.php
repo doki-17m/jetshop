@@ -54,38 +54,6 @@
 <script src="<?php echo base_url('assets/cust/js/Destination-js.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Courier-js.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Account-js.js')  ?>"></script>
-<script src="<?php echo base_url('assets/cust/js/User-js.js')  ?>"></script>
+<script src="<?php echo base_url('assets/cust/js/User.min.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Sales.js')  ?>"></script>
 
-<script>
-var pathUrl;
-
-usrGreeting(); 
-usrJob();
-
-function usrGreeting() {
-	pathUrl = '<?= site_url('greeting/showGreeting') ?>';
-	
-	$.getJSON(pathUrl, function (response) {
-		$('[name = usr_greeting]').append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
-			var greeting_id = elem.m_greeting_id;
-			var greeting_name = elem.name;
-			$('[name = usr_greeting]').append('<option value="'+greeting_id+'">'+greeting_name+'</option>');
-		});
-	});
-}
-
-function usrJob() {
-	pathUrl = '<?= site_url('job/showJob') ?>';
-
-	$.getJSON(url, function (response) {
-		$('[name = usr_job]').append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
-			var job_id = elem.m_job_id;
-			var job_name = elem.name;
-			$('[name = usr_job]').append('<option value="'+job_id+'">'+job_name+'</option>');
-		});
-	});
-}
-</script>
