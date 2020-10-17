@@ -18,6 +18,9 @@ const errURUsername = $('#error_usr_username'),
 
 const usrIsSales = $('#usr_issalesrep');
 
+usrGreeting(); 
+usrJob();
+
 btnNewUsr.click(function () {
 	openModalForm();
 	Scrollmodal();
@@ -151,5 +154,30 @@ function unchkdUsr() { //unchecked
 	fillURDesc.prop('readonly', false);
 }
 
+function usrGreeting() {
+	url = CUST_URL + GREETING + '/showGreeting';
+	
+	$.getJSON(url, function (response) {
+		fillURGre.append('<option selected="selected" value="">-- Choose One --</option>');
+		$.each(response, function(idx, elem) {
+			var greeting_id = elem.m_greeting_id;
+			var greeting_name = elem.name;
+			fillURGre.append('<option value="'+greeting_id+'">'+greeting_name+'</option>');
+		});
+	});
+}
+
+function usrJob() {
+	url = CUST_URL + JOB + '/showJob';
+
+	$.getJSON(url, function (response) {
+		fillURJob.append('<option selected="selected" value="">-- Choose One --</option>');
+		$.each(response, function(idx, elem) {
+			var job_id = elem.m_job_id;
+			var job_name = elem.name;
+			fillURJob.append('<option value="'+job_id+'">'+job_name+'</option>');
+		});
+	});
+}
 
 
