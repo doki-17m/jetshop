@@ -8,7 +8,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a href="javascript:void(0)"><b>Admin</b>LTE</a>
+			<a href="javascript:void(0)"><b>JSBoutique</b></a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="card">
