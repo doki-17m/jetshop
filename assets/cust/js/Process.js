@@ -1,34 +1,3 @@
-$(document).ready(function () {
-	$('.select2').select2({
-		placeholder: 'Select an option',
-		width: '100%'
-	});
-
-	$('.datepicker').datepicker({
-		format: 'dd-mm-yyyy',
-		todayHighlight: true,
-		todayBtn: true,
-		orientation: 'bottom auto',
-		autoclose: true,
-		startDate: new Date(),
-		autoclose: true
-	})
-
-	Toast = Swal.mixin({
-		toast: true,
-		position: 'top',
-		showConfirmButton: false,
-		timer: 4000
-	});
-
-	classNumber.on('keypress keyup blur', function (evt) {    
-		$(this).val($(this).val().replace(/[^\d].+/, ""));
-		 if ((evt.which < 48 || evt.which > 57)) {
-			evt.preventDefault();
-		 }
-	});
-});
-
 // process save data form
 btnSave.click(function () {
 	const formProp = document.getElementById('form-all').firstElementChild.id;
@@ -456,3 +425,34 @@ function isActive(form) {
 				
 	});
 }
+
+$(document).ready(function () {
+	$('.select2').select2({
+		placeholder: 'Select an option',
+		width: '100%'
+	});
+
+	$('.datepicker').datepicker({
+		format: 'dd-mm-yyyy',
+		todayHighlight: true,
+		todayBtn: true,
+		orientation: 'bottom auto',
+		autoclose: true,
+		startDate: new Date(),
+		autoclose: true
+	})
+
+	Toast = Swal.mixin({
+		toast: true,
+		position: 'top',
+		showConfirmButton: false,
+		timer: 4000
+	});
+
+	classNumber.on('keypress keyup blur', function (evt) {    
+		$(this).val($(this).val().replace(/[^\d].+/, ""));
+		 if ((evt.which < 48 || evt.which > 57)) {
+			evt.preventDefault();
+		 }
+	});
+});
