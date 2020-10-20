@@ -106,6 +106,15 @@ class Category extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function showCategory()
+	{
+		$status = $this->status;
+		$category = $this->m_category;
+		$isActive = $status->ACTIVE;
+		$response = $category->listCategory($isActive)->result();
+		echo json_encode($response);
+	}
+
 	public function check_catsk()
 	{
 		$status = $this->status;

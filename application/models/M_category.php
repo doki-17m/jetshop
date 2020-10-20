@@ -66,6 +66,11 @@ class M_category extends CI_Model
 		return $this->db->delete($this->_table, array('m_product_category_id' => $id));
 	}
 
+	public function listCategory($params)
+	{
+		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $params));
+	}
+
 	public function callbackSearchKey($post)
 	{
 		$this->db->select('value');
