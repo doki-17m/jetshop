@@ -1,6 +1,7 @@
 //defined table product
 _tablePro = $('#tb_product').DataTable({
 	'ajax': SITE_URL + SHOWALL,
+	'processing': true,
 	'language': {
 		'processing': '<i class="fas fa-spinner fa-spin fa-1x fa-fw"></i><span> Processing...</span>'
 	},
