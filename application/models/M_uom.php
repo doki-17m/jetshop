@@ -66,6 +66,11 @@ class M_uom extends CI_Model
 		return $this->db->delete($this->_table, array('m_uom_id' => $id));
 	}
 
+	public function listUom($params)
+	{
+		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $params));
+	}
+
 	public function callbackCode($post)
 	{
 		$this->db->select('value');

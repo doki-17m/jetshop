@@ -106,6 +106,15 @@ class Uom extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function showUom()
+	{
+		$status = $this->status;
+		$uom = $this->m_uom;
+		$isActive = $status->ACTIVE;
+		$response = $uom->listUom($isActive)->result();
+		echo json_encode($response);
+	}
+
 	public function check_uomcode()
 	{
 		$status = $this->status;
