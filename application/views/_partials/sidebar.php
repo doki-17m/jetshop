@@ -46,12 +46,12 @@
 					<p>Product Data<i class="fas fa-angle-left right"></i></p>
 				</a>
 				<ul class="nav nav-treeview">
-					<!-- <li class="nav-item">
+					<li class="nav-item">
 						<a href="<?php echo site_url('product') ?>" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
 							<p>Product</p>
 						</a>
-					</li> -->
+					</li>
 					<li class="nav-item">
 						<a href="<?php echo site_url('category') ?>" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
