@@ -39,12 +39,14 @@
 <!-- <script src="<?php //echo base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') ?>"></script> -->
 <!-- Bootstrap Toggle -->
 <!-- <script src="<?php //echo base_url('assets/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js') ?>"></script> -->
+<script src="<?php echo base_url('/assets/plugins/auto-numeric/autoNumeric.js') ?>"></script>
+
 <!-- JS -->
 <script src="<?php echo base_url('assets/cust/js/Variables.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Process.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Tables.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Auth.js')  ?>"></script>
-<script src="<?php echo base_url('assets/cust/js/Product-js.js')  ?>"></script>
+<script src="<?php echo base_url('assets/cust/js/Product.min.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Category-js.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Job-js.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Greeting-js.js')  ?>"></script>
