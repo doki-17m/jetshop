@@ -41,3 +41,8 @@
             redirect('auth');
         }
 	}
+
+	function replaceFormat($rupiah) {
+		$bilangan = preg_replace("/\./", "", $rupiah);
+		return $bilangan;
+	}
