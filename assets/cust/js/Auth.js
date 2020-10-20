@@ -22,9 +22,10 @@ fillLUsername.on('keyup', function (e) {
 		fillLUsername.removeClass(isInvalid);
 });
 
-btnLogin.click(function (e) {
+lgnForm.on('submit', function (e) {
+	e.preventDefault();
 	url = CUST_URL + AUTH + '/login';
-	const formData = lgnForm.serialize();
+	const formData = $(this).serialize();
 
 	$.ajax({
 		url: url,
@@ -32,7 +33,6 @@ btnLogin.click(function (e) {
 		data: formData,
 		dataType: 'JSON',
 		success: function(result) {
-			console.log(result)
 			if (result.success)
 				lgnForm[0].reset(),
 				clearLgn(),
@@ -72,6 +72,26 @@ btnLogin.click(function (e) {
 		}
 	});
 });
+
+// $(function(){
+	// $("#login").on("submit",function(e){
+		// e.preventDefault();
+		// var btn = $(".btn-success").html();
+		// console.log('test')
+		// $(".btn-success").html("<i class='la la-spin la-spinner'></i> Tunggu Sebentar...");
+		// $.post("https://panel.bikin.online/ngadimin/auth",$(this).serialize(),function(msg){
+		// 	var dt = eval("("+msg+")");
+		// 	$(".btn-success").html(btn);
+		// 	if(dt.success == true){
+		// 		swal.fire("Berhasil!","selamat datang kembali "+dt.name,"success").then(function(){
+		// 			window.location.href = "https://panel.bikin.online/ngadimin";
+		// 		});
+		// 	}else{
+		// 		swal.fire("Gagal!","gagal masuk, cek kembali username & password anda","warning");
+		// 	}
+		// });
+	// });
+// });
 
 
 function clearLgn() {

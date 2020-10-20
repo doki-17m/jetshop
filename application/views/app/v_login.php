@@ -49,7 +49,7 @@
 						</div>
 						<!-- /.col -->
 						<div class="col-4">
-							<button type="button" class="btn btn-primary btn-block" id="do_login">Sign In</button>
+							<button type="submit" class="btn btn-primary btn-block" id="do_login">Sign In</button>
 						</div>
 						<!-- /.col -->
 					</div>
