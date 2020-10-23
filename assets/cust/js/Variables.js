@@ -4,7 +4,9 @@ var ORI_URL = window.location.origin, //domain
 const SEGMENT_3 = ('/' + SITE_URL.split('/')[3]); //name host application index 3
 var CUST_URL = ORI_URL + SEGMENT_3;
 
-var url, ID, setSave, Toast;
+var url, ID, setSave, Toast, setAction;
+
+var imgSrc = 0;
 
 const classActive = $('.active'), //checkbox class active
 	classSalesrep = $('.salesrep'); //checkbox class active
@@ -95,7 +97,8 @@ const btnSave = $('#save_form'),
 	btnNewDetails = $('#new_details'),
 	btnLogin = $('#do_login');
 
-const btnClose = $('#close_form');
+const btnClose = $('#close_form'),
+	btnCloseX = $('.close');
 
 // css class property
 const isInvalid = ('is-invalid'),
@@ -108,4 +111,5 @@ const CITY = '/city',
 	GREETING = '/greeting',
 	USER = '/user',
 	JOB = '/job',
-	AUTH = '/auth';
+	AUTH = '/auth',
+	PRODUCT = '/product';
