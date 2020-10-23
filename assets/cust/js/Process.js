@@ -1,6 +1,6 @@
+const formID = document.getElementById('form-all').firstElementChild.id;
 // process save data form
 btnSave.click(function () {
-	const formProp = document.getElementById('form-all').firstElementChild.id;
 	const form = getForm(formProp);
 	const formID = form[0]; // initial id form when input
 	const formData = form[1]; // data form when input
@@ -9,7 +9,7 @@ btnSave.click(function () {
 		url = SITE_URL + CREATE;
 	else
 		url = SITE_URL + EDIT + ID;
-
+		
 	$.ajax({
 		url: url,
 		type: 'POST',
@@ -24,6 +24,14 @@ btnSave.click(function () {
 			alert(errorThrown)
 		}
 	});
+});
+
+$(document).on('click', '#close_form, .close', function() {
+	if (formID == 'form_product')
+		setAction = 'close',
+		deleteImage(imgSrc);
+	
+	closeModalForm(formID);
 });
 
 // delete data table
@@ -101,7 +109,10 @@ function getForm(form) {
 		arrForm = [
 			form,
 			proForm.serialize() +
-			'&isactive=' + ActiveValue()
+			'&isactive=' + ActiveValue() +
+			'&pro_catg=' + $('#pro_catg option:selected').val() +
+			'&pro_uom='	+ $('#pro_uom option:selected').val() +
+			'&pro_img='	+ imgSrc
 		];
 	else if (form == 'form_so')
 		arrForm = [
@@ -229,7 +240,7 @@ function resultForm(form, result) {
 //clear error field
 function errorClear(form) {
 	if (form == 'form_product')
-		fillCName.removeClass('is-invalid');		
+		clearPro();
 	else if (form == 'form_so')
 		fillCName.removeClass('is-invalid');
 	else if (form == 'form_category')
@@ -256,7 +267,7 @@ function errorClear(form) {
 function readonly(form, value) {
 	if (value == true)
 		if (form == 'form_product')
-			fillCDesc.prop('readonly', false);			
+			chkdPro();
 		else if (form == 'form_so')
 			fillCDesc.prop('readonly', false);
 		else if (form == 'form_category')
@@ -279,7 +290,7 @@ function readonly(form, value) {
 			chkdUsr();
 	else
 		if (form == 'form_product')
-			fillCDesc.prop('readonly', false);			
+			unchkdPro();
 		else if (form == 'form_so')
 			fillCDesc.prop('readonly', false);
 		else if (form == 'form_category')
@@ -309,7 +320,7 @@ function closeModalForm(form) {
 		errorClear(form);
 
 		if (form == 'form_product')
-			fillCName.removeClass('is-invalid');			
+			unchkdPro();
 		else if (form == 'form_so')
 			fillCName.removeClass('is-invalid');
 		else if (form == 'form_category')
@@ -340,7 +351,7 @@ function isActive(form) {
 		if (classActive.is(':checked'))
 			switch(form) {
 				case 'form_product':
-					// unchkdCat();
+					unchkdPro();
 				break;
 				case 'form_so':
 					// unchkdCat();
@@ -384,11 +395,11 @@ function isActive(form) {
 		else
 			switch(form) {
 				case 'form_product':
-					// chkdCat();
-					break;
+					chkdPro();
+				break;
 				case 'form_so':
 					// chkdCat();
-					break;
+				break;
 				case 'form_category':
 					chkdCat();
 				break;
@@ -426,6 +437,26 @@ function isActive(form) {
 	});
 }
 
+function formatRupiah(numeric) {
+	var number_string = numeric.toString(),
+		split = number_string.split(','),
+		sisa = split[0].length % 3,
+		rupiah = split[0].substr(0, sisa),
+		ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+	// tambahkan titik jika yang di input sudah menjadi angka ribuan
+	if (ribuan) {
+		separator = sisa ? '.' : '';
+		rupiah += separator + ribuan.join('.'); //penambahan separator titik setelah bilangan satuan
+	}
+
+	return rupiah ? rupiah : '';
+}
+
+function replaceChar(string) {
+	return string.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "").replace(/""/img, "");
+}
+
 $(document).ready(function () {
 	$('.select2').select2({
 		placeholder: 'Select an option',
@@ -454,5 +485,11 @@ $(document).ready(function () {
 		 if ((evt.which < 48 || evt.which > 57)) {
 			evt.preventDefault();
 		 }
+	});
+
+	$('.rupiah').autoNumeric('init', {
+		aSep: '.',
+		aDec: ',',
+		mDec: '0'
 	});
 });
