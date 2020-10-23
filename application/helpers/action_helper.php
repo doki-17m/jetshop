@@ -43,6 +43,9 @@
 	}
 
 	function replaceFormat($rupiah) {
-		$bilangan = preg_replace("/\./", "", $rupiah);
-		return $bilangan;
+		return preg_replace("/\./", "", $rupiah);
 	}
+
+	function formatRupiah($numeric) {
+        return number_format($numeric, 0, '', '.');
+    }
