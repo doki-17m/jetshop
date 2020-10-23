@@ -66,10 +66,18 @@ class M_customer extends CI_Model
 		$this->phone = $post['cus_phone'];
 		$this->phone2 = $post['cus_phone2'];
 		$this->email = $post['cus_email'];
-		$this->m_greeting_id = $post['cus_greeting'];
-		$this->province_id = $post['cus_province'];
-		$this->city_id = $post['cus_city'];
-		$this->salesrep_id = $post['cus_sales'];
+		if ($post['cus_greeting'] !== 'undefined') {
+			$this->m_greeting_id = $post['cus_greeting'];
+		}
+		if ($post['cus_province'] !== 'undefined') {
+			$this->province_id = $post['cus_province'];
+		}
+		if ($post['cus_city'] !== 'undefined') {
+			$this->city_id = $post['cus_city'];
+		}
+		if ($post['cus_sales'] !== 'undefined') {
+			$this->salesrep_id = $post['cus_sales'];
+		}
 		$this->isactive = $post['isactive'];
 		$where = array('m_bpartner_id' => $id);
 		return $this->db->where($where)
