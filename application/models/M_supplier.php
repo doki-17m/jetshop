@@ -63,7 +63,9 @@ class M_supplier extends CI_Model
 		$this->phone = $post['sup_phone'];
 		$this->phone2 = $post['sup_phone2'];
 		$this->email = $post['sup_email'];
-		$this->m_greeting_id = $post['sup_greeting'];
+		if ($post['sup_greeting'] !== 'undefined') {
+			$this->m_greeting_id = $post['sup_greeting'];
+		}
 		$this->isactive = $post['isactive'];
 		$where = array('m_bpartner_id' => $id);
 		return $this->db->where($where)
