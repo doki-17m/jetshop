@@ -1,6 +1,6 @@
-const formProp = document.getElementById('form-all').firstElementChild.id;
 // process save data form
 btnSave.click(function () {
+	const formProp = document.getElementById('form-all').firstElementChild.id;
 	const form = getForm(formProp);
 	const formID = form[0]; // initial id form when input
 	const formData = form[1]; // data form when input
@@ -27,6 +27,7 @@ btnSave.click(function () {
 });
 
 $(document).on('click', '#close_form, .close', function() {
+	const formProp = document.getElementById('form-all').firstElementChild.id;
 	if (formProp == 'form_product')
 		setAction = 'close',
 		deleteImage(imgSrc);
