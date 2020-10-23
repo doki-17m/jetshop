@@ -3,43 +3,38 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="pro_code">Code Product</label>
+					<label for="pro_code">Code Product <span class="required">*</span></label>
 					<input type="text" class="form-control" id="pro_code" name="pro_code" placeholder="Enter code product">
+					<small id="error_pro_code" class="form-text text-danger"></small>
 				</div>
 				<div class="form-group">
-					<label for="pro_name">Brand Product</label>
+					<label for="pro_name">Brand Product <span class="required">*</span></label>
 					<div class="input-group">
 						<input type="text" class="form-control" id="pro_name" name="pro_name" placeholder="Enter merk product">
 						<div class="input-group-append">
 							<span class="input-group-text"><i class="fas fa-tshirt"></i></span>
 						</div>
 					</div>
+					<small id="error_pro_name" class="form-text text-danger"></small>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
 					<label>Image Product</label>
 					<div id="form-upload-result">
-						<!-- <label class="form-result col-md-6">
-							<button type="button" class="close-img" id="btn_delimg" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<img class="img1"src="<?= base_url('assets/cust/images/download.jpg') ?>"/>
-						</label> -->
 						<label class="form-result col-md-6">
 							<button type="button" class="close-img" id="btn_delimg" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</label>
-
 					</div>
 					<div id="form-upload">
-						<label class="form-uploadfoto col-md-6">
+						<label class="form-upload-foto col-md-6">
 							<input type="file" id="pro_image" name="pro_image"></input>
-							<img class="img2" src="<?= base_url('assets/dist/img/cameraroll.png') ?>" />
+							<img class="img-upload" src="<?= base_url('assets/dist/img/cameraroll.png') ?>" />
 						</label>
 						<small class="form-upload-text text-muted">
-							Tipe file (JPG, PNG), Maksimal ukuran file adalah <strong> 1Mb</strong>
+							Tipe file (JPG, PNG), Maksimal ukuran file adalah <strong> 1 Mb</strong>
 						</small>
 					</div>
 				</div>
@@ -53,63 +48,60 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="pro_catg">Product Category</label>
-					<select class="form-control select2" style="width: 100%;" id="pro_catg" name="pro_catg">
-						<option selected="selected" value="1">Baju</option>
-						<option value="2">Lain-Lain</option>
-					</select>
+					<select class="form-control select2" id="pro_catg" name="pro_catg"></select>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="pro_weight">Weight (gram)</label>
+					<label for="pro_weight">Weight (gram) <span class="required">*</span></label>
 					<div class="input-group">
-						<input type="number" class="form-control" id="pro_weight" name="pro_weight">
+						<input type="text" class="form-control number" id="pro_weight" name="pro_weight">
 						<div class="input-group-append">
 							<span class="input-group-text"><i class="fas fa-weight-hanging"></i></span>
 						</div>
 					</div>
-					<small class="form-text text-muted">
+					<small id="msg_pro_weight" class="form-text text-muted">
 						Satuan <strong>gram</strong>, berat 1 kg: <strong>1000 gram</strong>
 					</small>
+					<small id="error_pro_weight" class="form-text text-danger"></small>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="pro_minorder">Minimum Order</label>
-					<input type="number" class="form-control" id="pro_minorder" name="pro_minorder" placeholder="Enter minimal order">
+					<input type="number" class="form-control" id="pro_minorder" name="pro_minorder" value="1" placeholder="Enter minimal order">
+					<small id="error_pro_minorder" class="form-text text-danger"></small>
 				</div>
 			</div>
 
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="pro_uom">UOM</label>
-					<select class="form-control select2" style="width: 100%;" id="pro_uom" name="pro_uom">
-						<option selected="selected" value="pcs">Pcs</option>
-						<option value="pk">Pack</option>
-						<option value="ea">Each</option>
-					</select>
+					<select class="form-control select2" id="pro_uom" name="pro_uom"></select>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="pro_purchidr">Purchase</label>
+					<label for="pro_purchidr">Purchase <span class="required">*</span></label>
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">IDR</span>
 						</div>
-						<input type="number" class="form-control" id="pro_purchidr" name="pro_purchidr">
+						<input type="text" class="form-control rupiah" id="pro_purchidr" name="pro_purchidr">
 					</div>
+					<small id="error_pro_purchidr" class="form-text text-danger"></small>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="pro_slsidr">Sales</label>
+					<label for="pro_slsidr">Sales <span class="required">*</span></label>
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">IDR</span>
 						</div>
-						<input type="number" class="form-control" id="pro_slsidr" name="pro_slsidr">
+						<input type="text" class="form-control rupiah" id="pro_slsidr" name="pro_slsidr">
 					</div>
+					<small id="error_pro_slsidr" class="form-text text-danger"></small>
 				</div>
 			</div>
 			<div class="col-md-6">
