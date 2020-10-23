@@ -17,8 +17,9 @@
 							<th>Code Product</th>
 							<th>Product</th>
 							<th>Product Category</th>
+							<th>Minimum Order</th>
 							<th>UOM</th>
-							<!-- <th>Qty</th> -->
+							<th>Qty</th>
 							<th>Purch-IDR</th>
 							<th>Sales-IDR</th>
 							<th>Active</th>
