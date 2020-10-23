@@ -81,8 +81,12 @@ class M_user extends CI_Model
 		$this->birthday = $post['usr_birthday'];
 		$this->description = $post['usr_desc'];
 		$this->issalesrep = $post['issalesrep'];
-		$this->m_greeting_id = $post['usr_greeting'];
-		$this->m_job_id = $post['usr_job'];
+		if ($post['usr_greeting'] !== 'undefined') {
+			$this->m_greeting_id = $post['usr_greeting'];
+		}
+		if ($post['usr_job'] !== 'undefined') {
+			$this->m_job_id = $post['usr_job'];
+		}
 		$this->isactive = $post['isactive'];
 		$where = array('sys_user_id' => $id);
 		return $this->db->where($where)
