@@ -31,7 +31,7 @@ $(document).on('click', '#close_form, .close', function() {
 		setAction = 'close',
 		deleteImage(imgSrc);
 	
-	closeModalForm(formID);
+	closeModalForm(formProp);
 });
 
 // delete data table
