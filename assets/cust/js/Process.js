@@ -1,4 +1,4 @@
-const formID = document.getElementById('form-all').firstElementChild.id;
+const formProp = document.getElementById('form-all').firstElementChild.id;
 // process save data form
 btnSave.click(function () {
 	const form = getForm(formProp);
@@ -27,7 +27,7 @@ btnSave.click(function () {
 });
 
 $(document).on('click', '#close_form, .close', function() {
-	if (formID == 'form_product')
+	if (formProp == 'form_product')
 		setAction = 'close',
 		deleteImage(imgSrc);
 	
