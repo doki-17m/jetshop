@@ -219,7 +219,8 @@ function clearPro() {
 	fillPSales.removeClass(isInvalid),
 	$('.img-result').remove(),
 	formResult.hide(),
-	formUpload.show();
+	formUpload.show(),
+	imgSrc = 0;
 }
 
 function chkdPro() { //checked
