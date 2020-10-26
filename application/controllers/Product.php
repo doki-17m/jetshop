@@ -3,10 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Product extends CI_Controller
 {
-	public $img_path = './assets/cust/images/';
-
-	public $tmp = './tmp/';
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -99,6 +95,7 @@ class Product extends CI_Controller
 	public function edit($id)
 	{
 		$status = $this->status;
+		$path = $this->path;
 		$product = $this->m_product;
 		$validation = $this->form_validation;
 		$post = $this->input->post(NULL, TRUE);
@@ -152,12 +149,12 @@ class Product extends CI_Controller
 				if (strcmp($img, $image) !== 0) { //do upload different image at database
 					$this->move_image($image);
 					if (!empty($img)) {
-						unlink($this->img_path . $img);
+						unlink($path->IMG_PATH . $img);
 					}
 				}
 			} else {
 				if (!empty($img)) {
-					unlink($this->img_path . $img);
+					unlink($path->IMG_PATH . $img);
 				}
 				$product->delete_image($id);
 			}
@@ -171,10 +168,11 @@ class Product extends CI_Controller
 
 	public function destroy($id)
 	{
+		$path = $this->path;
 		$product = $this->m_product;
 		$img = $product->detail($id)->row()->ad_image_id;
 		if (!empty($img)) {
-			unlink($this->img_path . $img);
+			unlink($path->TMP . $img);
 		}
 		$response = $product->delete($id);
 		echo json_encode($response);
@@ -191,7 +189,8 @@ class Product extends CI_Controller
 
 	public function upload_image()
 	{
-		$config['upload_path'] = $this->tmp;
+		$path = $this->path;
+		$config['upload_path'] = $path->TMP;
 		$config['allowed_types'] = 'jpg|png';
 		$config['max_size'] = 1024; //satuan KB
 		$config['encrypt_name'] = TRUE;
@@ -209,13 +208,14 @@ class Product extends CI_Controller
 
 	public function destroy_image()
 	{
+		$path = $this->path;
 		$product = $this->m_product;
 		$post = $this->input->post(NULL, TRUE);
 
 		$src = $post['src'];
 		$setSave = $post['set'];
 		$existImage = $product->checkExistImage($src);
-		$tmp_target = $this->tmp . $src;
+		$tmp_target = $path->TMP . $src;
 
 		if ($setSave == 'add' && !empty($src)) {
 			$response = unlink($tmp_target);
@@ -261,6 +261,7 @@ class Product extends CI_Controller
 
 	public function move_image($src)
 	{
-		return rename($this->tmp . $src, $this->img_path . $src); //move file from tmp to images
+		$path = $this->path;
+		return rename($path->TMP . $src, $path->IMG_PATH . $src); //move file from tmp to images
 	}
 }
