@@ -18,6 +18,7 @@ class M_product extends CI_Model
 
 	public function setDataList()
 	{
+		$status = $this->status;
 		$list = $this->getAll()->result();
 		$data = array();
 		$number = 0;
@@ -26,18 +27,20 @@ class M_product extends CI_Model
 			$number++;
 			$ID = $value->m_product_id;
 			$isActive = $value->isactive;
+			$image = $value->ad_image_id;
 			$row[] = $ID;
 			$row[] = $number;
+			$row[] = showImage($image);
 			$row[] = $value->value;
 			$row[] = $value->name;
 			$row[] = $value->category;
 			$row[] = $value->minorder;
-			$row[] = $value->unitmeasure;
 			$row[] = $value->value;
+			$row[] = $value->unitmeasure;
 			$row[] = formatRupiah($value->purchprice);
 			$row[] = formatRupiah($value->salesprice);
 			$row[] = isActive($isActive);
-			$row[] = listAction($ID);
+			$row[] = listAction($ID, $status->DELETE);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);
