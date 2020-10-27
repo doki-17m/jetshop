@@ -24,4 +24,12 @@ class Status {
 	public $VENDOR = 'Y';
 	//supplier / vendor
 	public $SALESREP = 'Y';
+
+	public $DELETE = 'D';
+	
+	public $CART = 'C';
+	
+	public $PRINT = 'P';
+
+	public $DELPRINT = 'DP'; //delete and print
 }
