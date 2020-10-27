@@ -14,12 +14,13 @@
 						<tr>
 							<th>ID</th>
 							<th>#</th>
+							<th>Image</th>
 							<th>Code Product</th>
 							<th>Product</th>
 							<th>Product Category</th>
 							<th>Minimum Order</th>
-							<th>UOM</th>
 							<th>Qty</th>
+							<th>UOM</th>
 							<th>Purch-IDR</th>
 							<th>Sales-IDR</th>
 							<th>Active</th>
