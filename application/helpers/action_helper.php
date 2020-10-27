@@ -18,12 +18,40 @@
 		}
 	}
 
-	function listAction($id)
+	function listAction($id, $string)
 	{
-		$list = '<center>
-					<a class="btn" onclick="Destroy(' . "'" . $id . "'" . ')" title="Delete"><i class="fas fa-trash-alt text-danger"></i></a>
-				</center>';
+		if ($string === 'D') {
+			$list = '<center>
+						<a class="btn" onclick="Destroy(' . "'" . $id . "'" . ')" title="Delete"><i class="fas fa-trash-alt text-danger"></i></a>
+					</center>';
+		} else if ($string === 'C') {
+			$list = '<center>
+						<a class="btn" onclick="Cart(' . "'" . $id . "'" . ')" title="Cart"><i class="fas fa-cart-plus text-danger"></i></a>
+					</center>';
+		} else if ($string === 'P') {
+			$list = '<center>
+						<a class="btn" onclick="Print(' . "'" . $id . "'" . ')" title="Cart"><i class="fas fa-print text-primary"></i></a>
+					</center>';
+		} else {
+			$list = '<center>
+						<a class="btn" onclick="Print(' . "'" . $id . "'" . ')" title="Cart"><i class="fas fa-print text-primary"></i></a>
+						<a class="btn" onclick="Destroy(' . "'" . $id . "'" . ')" title="Delete"><i class="fas fa-trash-alt text-danger"></i></a>
+					</center>';
+		}
 		return $list;
+	}
+
+	function showImage($img)
+	{
+		$CI = &get_instance();
+		$CI->load->library('path');
+		$path = $CI->path;
+		$image_path = $path->IMG_PATH . $img;
+		if (!empty($img)) {
+			return '<center><img src="'.base_url().$image_path.'" style="height:100px; width:100px;" /></center>';
+		} else {
+			return null;
+		}
 	}
 
 	function isLogin() {
