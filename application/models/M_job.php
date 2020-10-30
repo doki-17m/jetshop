@@ -30,7 +30,7 @@ class M_job extends CI_Model
 			$row[] = $value->name;
 			$row[] = $value->description;
 			$row[] = isActive($value->isactive);
-			$row[] = llistAction($ID, $status->DELETE);
+			$row[] = listAction($ID, $status->DELETE);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);
