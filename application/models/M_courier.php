@@ -16,6 +16,7 @@ class M_courier extends CI_Model
 
 	public function setDataList()
 	{
+		$status = $this->status;
 		$list = $this->getAll()->result();
 		$data = array();
 		$number = 0;
