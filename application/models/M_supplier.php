@@ -11,6 +11,7 @@ class M_supplier extends CI_Model
 
 	public function setDataList($supplier)
 	{
+		$status = $this->status;
 		$list = $this->getAll($supplier)->result();
 		$data = array();
 		$number = 0;
@@ -27,7 +28,7 @@ class M_supplier extends CI_Model
 			$row[] = $value->phone2;
 			$row[] = $value->email;
 			$row[] = isActive($value->isactive);
-			$row[] = listAction($ID);
+			$row[] = listAction($ID, $status->DELETE);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);

@@ -29,7 +29,7 @@ class M_courier extends CI_Model
 			$row[] = $value->name;
 			$row[] = $value->description;
 			$row[] = isActive($value->isactive);
-			$row[] = listAction($ID);
+			$row[] = listAction($ID, $status->DELETE);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);

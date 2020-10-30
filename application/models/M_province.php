@@ -11,6 +11,7 @@ class M_province extends CI_Model
 
 	public function setDataList()
 	{
+		$status = $this->status;
 		$list = $this->getAll()->result();
 		$data = array();
 		$number = 0;
@@ -23,7 +24,7 @@ class M_province extends CI_Model
 			$row[] = $value->name;
 			$row[] = $value->province;
 			$row[] = isActive($value->isactive);
-			$row[] = listAction($ID);
+			$row[] = listAction($ID, $status->DELETE);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);

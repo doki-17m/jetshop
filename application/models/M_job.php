@@ -16,6 +16,7 @@ class M_job extends CI_Model
 
 	public function setDataList()
 	{
+		$status = $this->status;
 		$list = $this->getAll()->result();
 		$data = array();
 		$number = 0;
@@ -29,7 +30,7 @@ class M_job extends CI_Model
 			$row[] = $value->name;
 			$row[] = $value->description;
 			$row[] = isActive($value->isactive);
-			$row[] = listAction($ID);
+			$row[] = llistAction($ID, $status->DELETE);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);

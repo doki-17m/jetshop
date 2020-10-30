@@ -18,6 +18,7 @@ class M_user extends CI_Model
 
 	public function setDataList()
 	{
+		$status = $this->status;
 		$list = $this->getAll()->result();
 		$data = array();
 		$number = 0;
@@ -36,7 +37,7 @@ class M_user extends CI_Model
 			$row[] = $value->address;
 			$row[] = isSales($isSalesrep);
 			$row[] = isActive($isActive);
-			$row[] = listAction($ID);
+			$row[] = listAction($ID, $status->DELETE);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);
