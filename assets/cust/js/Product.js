@@ -28,8 +28,7 @@ const IMAGE_PATH = '/assets/cust/images/';
 
 const TMP = '/tmp/';
 
-proCategory();
-proUom();
+// proUom(setSave);
 
 btnNewPro.click(function () {
 	openModalForm();
@@ -41,10 +40,12 @@ btnNewPro.click(function () {
 	const formID = proForm[0]['id'];
 	isActive(formID);
 	setSave = 'add';
+	proUom(setSave, 0);
+	proCategory(setSave, 0);
 });
 
 _tablePro.on('click', 'td:not(:last-child)', function (e) {
-	e.preventDefault()
+	e.preventDefault();	
 	const formID = proForm[0]['id'];
 	const row = _tablePro.row(this).data();
 	ID = row[0]; //index array ID
@@ -53,17 +54,20 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 	Scrollmodal();
 	Largemodal();
 	modalTitle.html(NAME);
+	
 	clearPro();
 	isActive(formID);
-	url = SITE_URL + SHOW + ID;
 	setSave = 'update';
+	url = SITE_URL + SHOW + ID;
 
 	$.getJSON(url, function (result) {
+		proCategory(setSave,result.m_product_category_id);
+		proUom(setSave, result.m_uom_id);
 		fillPCode.val(result.value);
 		fillPName.val(result.name);
 		fillPDesc.val(result.description);
-		fillPCatg.val(result.m_product_category_id).change();
-		fillPUom.val(result.m_uom_id).change();
+		// fillPCatg.val(result.m_product_category_id).change();
+		// fillPUom.val(result.m_uom_id).change();
 		fillPWeight.val(result.weight);
 		fillPMinOrder.val(result.minorder);
 		fillPPurch.val(formatRupiah(result.costprice));
@@ -247,28 +251,43 @@ function unchkdPro() { //unchecked
 	fillPUom.prop('disabled', false);
 }
 
-function proCategory() {
+function proCategory(set, id) {
 	url = CUST_URL + CATEGORY + '/showCategory';
 	
 	$.getJSON(url, function (response) {
+		fillPCatg.empty();
 		fillPCatg.append('<option selected="selected" value="">-- Choose One --</option>');
+
 		$.each(response, function(idx, elem) {
 			var category_id = elem.m_product_category_id;
 			var category_name = elem.name;
-			fillPCatg.append('<option value="'+category_id+'">'+category_name+'</option>');
+			if (id == category_id)
+				fillPCatg.append('<option value="'+category_id+'" selected="selected">'+category_name+'</option>');
+			else
+				fillPCatg.append('<option value="'+category_id+'">'+category_name+'</option>');
 		});
 	});
 }
 
-function proUom() {
+function proUom(set, id) {
 	url = CUST_URL + UOM + '/showUom';
 
 	$.getJSON(url, function (response) {
+		fillPUom.empty();
 		fillPUom.append('<option selected="selected" value="">-- Choose One --</option>');
 		$.each(response, function(idx, elem) {
 			var uom_id = elem.m_uom_id;
 			var uom_name = elem.name;
-			fillPUom.append('<option value="'+uom_id+'">'+uom_name+'</option>');
+			if (set == 'add') 
+				if (uom_id == 1 || uom_name === 'PCS')
+					fillPUom.append('<option value="'+uom_id+'" selected="selected">'+uom_name+'</option>');
+				else					
+					fillPUom.append('<option value="'+uom_id+'">'+uom_name+'</option>');
+			else if (set == 'update' && id == uom_id)
+				fillPUom.append('<option value="'+uom_id+'" selected="selected">'+uom_name+'</option>');
+			else
+				fillPUom.append('<option value="'+uom_id+'">'+uom_name+'</option>');
 		});
+		
 	});
 }
