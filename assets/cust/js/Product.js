@@ -277,9 +277,10 @@ function proUom(set, id) {
 		fillPUom.append('<option selected="selected" value="">-- Choose One --</option>');
 		$.each(response, function(idx, elem) {
 			var uom_id = elem.m_uom_id;
+			var uom_code = elem.value;
 			var uom_name = elem.name;
 			if (set == 'add') 
-				if (uom_id == 1 || uom_name === 'PCS')
+				if (uom_id == 1 || uom_code === 'PCS')
 					fillPUom.append('<option value="'+uom_id+'" selected="selected">'+uom_name+'</option>');
 				else					
 					fillPUom.append('<option value="'+uom_id+'">'+uom_name+'</option>');
