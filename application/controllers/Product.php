@@ -3,6 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Product extends CI_Controller
 {
+	private $ID = 0;
+
+	private $CODE = 0;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -88,7 +92,11 @@ class Product extends CI_Controller
 	public function show($id)
 	{
 		$product = $this->m_product;
-		$response = $product->detail($id)->row();
+		$status = $this->status;
+
+		$this->ID = $id;
+		$this->CODE = $status->ZERO;
+		$response = $product->detail($this->ID, $this->CODE)->row();
 		echo json_encode($response);
 	}
 
@@ -100,8 +108,11 @@ class Product extends CI_Controller
 		$validation = $this->form_validation;
 		$post = $this->input->post(NULL, TRUE);
 		$image = $post['pro_img'];
-		$img = $product->detail($id)->row()->ad_image_id;
-		
+
+		$this->ID = $id;
+		$this->CODE = $status->ZERO;
+		$img = $product->detail($this->ID, $this->CODE)->row()->ad_image_id;
+
 		$validation->set_rules([
 			[
 				'field'		=>	'pro_code',
@@ -169,8 +180,12 @@ class Product extends CI_Controller
 	public function destroy($id)
 	{
 		$path = $this->path;
+		$status = $this->status;
 		$product = $this->m_product;
-		$img = $product->detail($id)->row()->ad_image_id;
+
+		$this->ID = $id;
+		$this->CODE = $status->ZERO;
+		$img = $product->detail($this->ID, $this->CODE)->row()->ad_image_id;
 		if (!empty($img)) {
 			unlink($path->TMP . $img);
 		}
@@ -180,10 +195,8 @@ class Product extends CI_Controller
 
 	public function showProduct()
 	{
-		$status = $this->status;
 		$product = $this->m_product;
-		$isActive = $status->ACTIVE;
-		$response = $product->listProduct($isActive)->result();
+		$response = $product->getProduct($_GET['term']);
 		echo json_encode($response);
 	}
 
