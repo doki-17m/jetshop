@@ -34,5 +34,7 @@ class Views {
 
 	public $VIEW_USER = 'user/v_user'; //view user
 
+	public $VIEW_POS = 'sales/v_pos'; //view user
+
 	public $VIEW_SETTING = 'setting/v_setting'; //view setting
 }
