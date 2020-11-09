@@ -18,7 +18,7 @@
 				<form id="form_login">
 					<div class="form-group">
 						<div class="input-group">
-							<input type="text" class="form-control" id="lgn_username" name="lgn_username" placeholder="Username">
+							<input type="text" class="form-control" id="lgn_username" name="lgn_username" placeholder="Username" autocomplete="off" autofocus>
 							<div class="input-group-append">
 								<div class="input-group-text">
 									<span class="fas fa-user"></span>
