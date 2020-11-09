@@ -69,7 +69,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="pro_minorder">Minimum Order</label>
-					<input type="number" class="form-control" id="pro_minorder" name="pro_minorder" value="1" placeholder="Enter minimal order">
+					<input type="number" class="form-control number" id="pro_minorder" name="pro_minorder" value="1" placeholder="Enter minimal order">
 					<small id="error_pro_minorder" class="form-text text-danger"></small>
 				</div>
 			</div>
