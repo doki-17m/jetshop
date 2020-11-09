@@ -32,4 +32,6 @@ class Status {
 	public $PRINT = 'P';
 
 	public $DELPRINT = 'DP'; //delete and print
+
+	public $DELCART = 'DC'; //delete cart
 }
