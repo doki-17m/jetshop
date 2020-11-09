@@ -59,6 +59,7 @@ class Auth extends CI_Controller
 		$session = $this->session;
 		$arrLogin = ['user_id', 'role_id'];
 		$session->unset_userdata($arrLogin);
+		$this->cart->destroy();
 		redirect('auth');
 	}
 }
