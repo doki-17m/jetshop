@@ -99,25 +99,29 @@ class M_user extends CI_Model
 		return $this->db->delete($this->_table, array('sys_user_id' => $id));
 	}
 
-	public function updatePass($id, $post)
+	public function updatePassword($post)
 	{
-		$this->password = password_hash($post['usr_password'], PASSWORD_BCRYPT);
+		$this->password = password_hash($post['chg_newpass'], PASSWORD_BCRYPT);
 		$this->updated_at = date('Y-m-d H:i:s');
-		// $this->updatedby = $post['id_user'];
+		$this->updatedby = $this->session->userdata('user_id');
 		$this->datepasswordchanged = date('Y-m-d H:i:s');
-		$where = array('sys_user_id' => $id);
+		$where = array('sys_user_id' => $post['id']);
 		return $this->db->where($where)
 			->update($this->_table, $this);
-	}
-
-	public function listUser($params)
-	{
-		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $params));
 	}
 
 	public function listSales($params)
 	{
 		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('issalesrep' => $params));
+	}
+
+	public function listCashier($active, $string)
+	{
+		$this->db->from($this->v_sysuser_detail);
+		$this->db->where('isactive', $active);
+		$this->db->like('skey_job', $string, 'after')
+			->or_like('job', $string, 'after');
+		return $this->db->order_by('job', 'ASC')->get();
 	}
 
 	public function callbackUsername($post)
@@ -147,6 +151,14 @@ class M_user extends CI_Model
 		return $this->db->get();
 	}
 
+	public function callbackPassword($post)
+	{
+		$user_id = $post['id'];
+		$oldpass = $post['chg_oldpass'];
+		$row = $this->detail($user_id)->row();
+		return password_verify($oldpass, $row->password);
+	}
+
 	public function checkLogin($username, $isactive)
     {
         return $this->db->get_where($this->_table, array(
@@ -160,7 +172,7 @@ class M_user extends CI_Model
     {
         $sql = "UPDATE {$this->_table} SET datelastlogin = now() WHERE sys_user_id = {$id}";
         return $this->db->query($sql);
-    }
+	}
 
 	public function form_error()
 	{
