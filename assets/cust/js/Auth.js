@@ -1,8 +1,16 @@
 const fillLUsername = $('[name = lgn_username]'),
 	fillLPass = $('[name = lgn_pass]');
 
+const fillCGOldPass = $('[name= chg_oldpass]'),
+	fillCGNewPass = $('[name = chg_newpass]'),
+	fillCGConfPass = $('[name= chg_confpass]');
+
 const errLUsername = $('#error_lgn_username'),
 	errLPass = $('#error_lgn_pass');
+
+const errCGOldPass = $('#error_chg_oldpass'),
+	errCGNewPass = $('#error_chg_newpass'),
+	errCGConfPass = $('#error_chg_confpass');
 
 fillLUsername.on('keyup', function (e) {
 	let value = $(this).val();
@@ -35,10 +43,10 @@ lgnForm.on('submit', function (e) {
 		success: function(result) {
 			if (result.success)
 				lgnForm[0].reset(),
-				clearLgn(),
+				clearLogin(),
 				window.location = CUST_URL;
 			else
-				clearLgn(),
+				clearLogin(),
 				Swal.fire({
 					type: 'error',
 					title: 'Login failed',
@@ -67,34 +75,84 @@ lgnForm.on('submit', function (e) {
 					timer: 1000
 				});
 			} else {
-				clearLgn();
+				clearLogin();
 			}
 		}
 	});
 });
 
-// $(function(){
-	// $("#login").on("submit",function(e){
-		// e.preventDefault();
-		// var btn = $(".btn-success").html();
-		// console.log('test')
-		// $(".btn-success").html("<i class='la la-spin la-spinner'></i> Tunggu Sebentar...");
-		// $.post("https://panel.bikin.online/ngadimin/auth",$(this).serialize(),function(msg){
-		// 	var dt = eval("("+msg+")");
-		// 	$(".btn-success").html(btn);
-		// 	if(dt.success == true){
-		// 		swal.fire("Berhasil!","selamat datang kembali "+dt.name,"success").then(function(){
-		// 			window.location.href = "https://panel.bikin.online/ngadimin";
-		// 		});
-		// 	}else{
-		// 		swal.fire("Gagal!","gagal masuk, cek kembali username & password anda","warning");
-		// 	}
-		// });
-	// });
-// });
+btnSList.click(function (e) {
+	e.preventDefault();
+	const formData = chgForm.serialize();
+	url = CUST_URL + USER + '/editPassword';
 
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: formData + '&id=' + ID,
+		dataType: 'JSON',
+		success: function(result) {
 
-function clearLgn() {
+			if (result.success)
+				Toast.fire({
+					type: 'success',
+					title: result.message
+				}),
+				clearChgPass(),
+				modalList.modal('hide');
+				
+			if (result.error)
+				errFormChg(result)
+		}
+	});
+});
+
+function changePass(id) {
+	ID = id;
+
+	url = CUST_URL + USER + '/show/' + ID;
+	$.getJSON(url, function (response) {
+		var NAME = response.value;
+		modalTitle.html(NAME);
+		openModalList();
+		clearChgPass();
+	});
+}
+
+function errFormChg(data) {
+	if (data.error_chg_oldpass != '')
+		errCGOldPass.html(data.error_chg_oldpass),		
+		fillCGOldPass.addClass(isInvalid);
+	else
+		errCGOldPass.html(''),
+		fillCGOldPass.removeClass(isInvalid);
+
+	if (data.error_chg_newpass != '')
+		errCGNewPass.html(data.error_chg_newpass),
+		fillCGNewPass.addClass(isInvalid);
+	else
+		errCGNewPass.html(''),
+		fillCGNewPass.removeClass(isInvalid);
+
+	if (data.error_chg_confpass != '')
+		errCGConfPass.html(data.error_chg_confpass),
+		fillCGConfPass.addClass(isInvalid);
+	else
+		errCGConfPass.html(''),
+		fillCGConfPass.removeClass(isInvalid);
+}
+
+function clearChgPass() {
+	chgForm[0].reset(),
+	errCGOldPass.html(''),
+	errCGNewPass.html(''),
+	errCGConfPass.html(''),
+	fillCGOldPass.removeClass(isInvalid),
+	fillCGNewPass.removeClass(isInvalid),
+	fillCGConfPass.removeClass(isInvalid);
+}
+
+function clearLogin() {
 	errLPass.html(''),
 	errLUsername.html(''),
 	fillLPass.removeClass(isInvalid),
