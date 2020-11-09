@@ -131,21 +131,64 @@ class User extends CI_Controller
 		echo json_encode($response);
 	}
 
-	public function showUser()
-	{
-		$status = $this->status;
-		$user = $this->m_user;
-		$isActive = $status->ACTIVE;
-		$response = $user->listUser($isActive)->result();
-		echo json_encode($response);
-	}
-
 	public function showSales()
 	{
 		$status = $this->status;
 		$user = $this->m_user;
 		$isSales = $status->SALESREP;
 		$response = $user->listSales($isSales)->result();
+		echo json_encode($response);
+	}
+
+	public function showCashier()
+	{
+		$status = $this->status;
+		$user = $this->m_user;
+		$isActive = $status->ACTIVE;
+		$cashier = "Kasir";
+		$response = $user->listCashier($isActive, $cashier)->result();
+		echo json_encode($response);
+	}
+
+	public function editPassword()
+	{
+		$status = $this->status;
+		$user = $this->m_user;
+		$validation = $this->form_validation;
+		$post = $this->input->post(NULL, TRUE);
+
+		$validation->set_rules([
+			[
+				'field'		=>	'chg_oldpass',
+				'label'		=>	'Old Password',
+				'rules'		=>	'callback_check_password',
+				'errors'	=> 	[
+					'check_password'	=> 'The %s does not match.'
+				]
+			],
+			[
+				'field'		=>	'chg_newpass',
+				'label'		=>	'New Password',
+				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'chg_confpass',
+				'label'		=>	'Confirmation Password',
+				'rules'		=>	'required|matches[chg_newpass]'
+			]
+		]);
+
+		if ($validation->run()) {
+			$user->updatePassword($post);
+			$response = $status->SUCCESS_UPDATE;
+		} else {	
+			$response = array(
+                'error'					=> true,
+                'error_chg_oldpass'		=> form_error('chg_oldpass'),
+                'error_chg_newpass'		=> form_error('chg_newpass'),
+                'error_chg_confpass'	=> form_error('chg_confpass')
+            );
+		}
 		echo json_encode($response);
 	}
 
@@ -167,5 +210,14 @@ class User extends CI_Controller
 		$post = $this->input->post(NULL, TRUE);
 		$rows = $user->callbackEmail($post)->num_rows();
 		return $rows > $zero ? false : true;
-	}	
+	}
+
+	public function check_password()
+	{
+		$status = $this->status;
+		$user = $this->m_user;
+		$post = $this->input->post(NULL, TRUE);
+		$rows = $user->callbackPassword($post);
+		return !$rows ? false : true;
+	}
 }
