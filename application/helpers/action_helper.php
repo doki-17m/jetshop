@@ -26,7 +26,11 @@
 					</center>';
 		} else if ($string === 'C') {
 			$list = '<center>
-						<a class="btn" onclick="Cart(' . "'" . $id . "'" . ')" title="Cart"><i class="fas fa-cart-plus text-danger"></i></a>
+						<a class="btn cart" id="'.$id.'" title="Cart"><i class="fas fa-cart-plus text-danger"></i></a>
+					</center>';
+		} else if ($string === 'DC') {
+			$list = '<center>
+						<a class="btn" onclick="destroyCart(' . "'" . $id . "'" . ')" title="Delete Cart"><i class="fas fa-trash-alt text-danger"></i></a>
 					</center>';
 		} else if ($string === 'P') {
 			$list = '<center>
@@ -48,10 +52,15 @@
 		$path = $CI->path;
 		$image_path = $path->IMG_PATH . $img;
 		if (!empty($img)) {
-			return '<center><img src="'.base_url().$image_path.'" style="height:100px; width:100px;" /></center>';
+			return '<center><img src="'.base_url().$image_path.'" style="height: 100px; width: 100px;" /></center>';
 		} else {
 			return null;
 		}
+	}
+	
+	function inputQty()
+	{
+		return '<input type="number" style="width: 50px">';
 	}
 
 	function isLogin() {
