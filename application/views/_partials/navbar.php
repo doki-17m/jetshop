@@ -13,10 +13,10 @@
 				<i class="fas fa-cogs"></i>
 			</a>
 			<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-				<a href="#" class="dropdown-item">
+				<!-- <a href="#" class="dropdown-item">
 					<i class="fas fa-user"></i> Profile
-				</a>
-				<a href="#" class="dropdown-item">
+				</a> -->
+				<a href="javascript:void(0)" onclick="changePass(<?= $this->session->userdata('user_id') ?>)" class="dropdown-item">
 					<i class="fas fa-cog"></i> Change Password
 				</a>
 				<a href="<?php echo site_url('auth/logout') ?>" class="dropdown-item">
