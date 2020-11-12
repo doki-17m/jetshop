@@ -16,7 +16,7 @@ fillLUsername.on('keyup', function (e) {
 	let value = $(this).val();
 	url = CUST_URL + AUTH + '/check_username/' + value;
 	if (value)
-		$.getJSON(url, function(result) {
+		$.getJSON(url, function (result) {
 			if (result)
 				errLUsername.empty(),
 				fillLUsername.removeClass(isInvalid),
@@ -40,7 +40,7 @@ lgnForm.on('submit', function (e) {
 		type: 'POST',
 		data: formData,
 		dataType: 'JSON',
-		success: function(result) {
+		success: function (result) {
 			if (result.success)
 				lgnForm[0].reset(),
 				clearLogin(),
@@ -91,7 +91,7 @@ btnSList.click(function (e) {
 		type: 'POST',
 		data: formData + '&id=' + ID,
 		dataType: 'JSON',
-		success: function(result) {
+		success: function (result) {
 
 			if (result.success)
 				Toast.fire({
@@ -100,7 +100,7 @@ btnSList.click(function (e) {
 				}),
 				clearChgPass(),
 				modalList.modal('hide');
-				
+
 			if (result.error)
 				errFormChg(result)
 		}
@@ -114,6 +114,7 @@ function changePass(id) {
 	$.getJSON(url, function (response) {
 		var NAME = response.value;
 		modalTitle.html(NAME);
+		Removemodal();
 		openModalList();
 		clearChgPass();
 	});
@@ -121,7 +122,7 @@ function changePass(id) {
 
 function errFormChg(data) {
 	if (data.error_chg_oldpass != '')
-		errCGOldPass.html(data.error_chg_oldpass),		
+		errCGOldPass.html(data.error_chg_oldpass),
 		fillCGOldPass.addClass(isInvalid);
 	else
 		errCGOldPass.html(''),
@@ -144,18 +145,18 @@ function errFormChg(data) {
 
 function clearChgPass() {
 	chgForm[0].reset(),
-	errCGOldPass.html(''),
-	errCGNewPass.html(''),
-	errCGConfPass.html(''),
-	fillCGOldPass.removeClass(isInvalid),
-	fillCGNewPass.removeClass(isInvalid),
-	fillCGConfPass.removeClass(isInvalid);
+		errCGOldPass.html(''),
+		errCGNewPass.html(''),
+		errCGConfPass.html(''),
+		fillCGOldPass.removeClass(isInvalid),
+		fillCGNewPass.removeClass(isInvalid),
+		fillCGConfPass.removeClass(isInvalid);
 }
 
 function clearLogin() {
 	errLPass.html(''),
-	errLUsername.html(''),
-	fillLPass.removeClass(isInvalid),
-	fillLUsername.removeClass(isInvalid),
-	fillLUsername.removeClass(isValid);
+		errLUsername.html(''),
+		fillLPass.removeClass(isInvalid),
+		fillLUsername.removeClass(isInvalid),
+		fillLUsername.removeClass(isValid);
 }
