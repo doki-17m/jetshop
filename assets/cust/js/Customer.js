@@ -36,7 +36,7 @@ btnNewCus.click(function () {
 	modalTitle.text('New Customer');
 	clearCus();
 	cusActive.prop('checked', true);
-	formID = cusForm[0]['id'];	
+	formID = cusForm[0]['id'];
 	isActive(formID);
 	fSaleShowHide();
 	setSave = 'add';
@@ -47,14 +47,14 @@ _tableCus.on('click', 'td:not(:last-child)', function (e) {
 	const formID = cusForm[0]['id'];
 	const row = _tableCus.row(this).data();
 	ID = row[0]; //index array ID
-	let NAME = row[3];	
+	let NAME = row[3];
 	openModalForm();
 	Largemodal();
 	Scrollmodal();
-	modalTitle.html('Customer : ' + NAME);	
-	isActive(formID);	
+	modalTitle.html('Customer : ' + NAME);
+	isActive(formID);
 	fSaleShowHide();
-	clearCus();	
+	clearCus();
 	url = SITE_URL + SHOW + ID;
 	setSave = 'update';
 
@@ -64,18 +64,18 @@ _tableCus.on('click', 'td:not(:last-child)', function (e) {
 		dataType: 'JSON',
 		success: function (result) {
 			hideCRCity.val(result.city_id),
-			fillCRCc.val(result.value),
-			fillCRGre.val(result.m_greeting_id).change(),
-			fillCRName.val(result.name),
-			fillCREmail.val(result.email),
-			fillCRAddress.val(result.address),
-			fillCRPhone.val(result.phone),
-			fillCRPhone2.val(result.phone2),
-			fillCRProv.val(result.province_id).change(),
-			fillCRCity.val(result.city_id).change(), 
-			fillCRSales.val(result.salesrep_id).change(),
-			fillCRFSale.val(result.firstsale),
-			fillCRDesc.val(result.description);
+				fillCRCc.val(result.value),
+				fillCRGre.val(result.m_greeting_id).change(),
+				fillCRName.val(result.name),
+				fillCREmail.val(result.email),
+				fillCRAddress.val(result.address),
+				fillCRPhone.val(result.phone),
+				fillCRPhone2.val(result.phone2),
+				fillCRProv.val(result.province_id).change(),
+				fillCRCity.val(result.city_id).change(),
+				fillCRSales.val(result.salesrep_id).change(),
+				fillCRFSale.val(result.firstsale),
+				fillCRDesc.val(result.description);
 
 			if (result.isactive == active)
 				cusActive.prop('checked', true),
@@ -85,7 +85,7 @@ _tableCus.on('click', 'td:not(:last-child)', function (e) {
 				readonly(formID, true);
 		}
 	});
-	
+
 });
 
 function errFormCus(data) {
@@ -137,49 +137,49 @@ function errFormCus(data) {
 
 function clearCus() {
 	cusForm[0].reset(),
-	fillCRGre.val(null).change(),
-	fillCRSales.val(null).change(),	
-	errCRCc.html(''),
-	errCRName.html(''),
-	errCREmail.html(''),
-	errCRAddress.html(''),
-	errCRPhone.html(''),
-	fillCRProv.val(null).change(),
-	fillCRCity.val(null).change(),
-	fillCRCity.empty(),
-	fillCRCc.removeClass(isInvalid),
-	fillCRName.removeClass(isInvalid),
-	fillCREmail.removeClass(isInvalid),
-	fillCRAddress.removeClass(isInvalid),
-	fillCRPhone.removeClass(isInvalid);
+		fillCRGre.val(null).change(),
+		fillCRSales.val(null).change(),
+		errCRCc.html(''),
+		errCRName.html(''),
+		errCREmail.html(''),
+		errCRAddress.html(''),
+		errCRPhone.html(''),
+		fillCRProv.val(null).change(),
+		fillCRCity.val(null).change(),
+		fillCRCity.empty(),
+		fillCRCc.removeClass(isInvalid),
+		fillCRName.removeClass(isInvalid),
+		fillCREmail.removeClass(isInvalid),
+		fillCRAddress.removeClass(isInvalid),
+		fillCRPhone.removeClass(isInvalid);
 }
 
 function chkdCus() { //checked
 	fillCRCc.prop('readonly', true),
-	fillCRGre.prop('disabled', true),
-	fillCRName.prop('readonly', true),
-	fillCREmail.prop('readonly', true),
-	fillCRProv.prop('disabled', true),
-	fillCRCity.prop('disabled', true),
-	fillCRAddress.prop('readonly', true),
-	fillCRPhone.prop('readonly', true),
-	fillCRPhone2.prop('readonly', true),
-	fillCRSales.prop('disabled', true),
-	fillCRDesc.prop('readonly', true);
+		fillCRGre.prop('disabled', true),
+		fillCRName.prop('readonly', true),
+		fillCREmail.prop('readonly', true),
+		fillCRProv.prop('disabled', true),
+		fillCRCity.prop('disabled', true),
+		fillCRAddress.prop('readonly', true),
+		fillCRPhone.prop('readonly', true),
+		fillCRPhone2.prop('readonly', true),
+		fillCRSales.prop('disabled', true),
+		fillCRDesc.prop('readonly', true);
 }
 
 function unchkdCus() { //unchecked
 	fillCRCc.prop('readonly', false),
-	fillCRGre.prop('disabled', false),
-	fillCRName.prop('readonly', false),
-	fillCREmail.prop('readonly', false),
-	fillCRProv.prop('disabled', false),
-	fillCRCity.prop('disabled', false),
-	fillCRAddress.prop('readonly', false),
-	fillCRPhone.prop('readonly', false),
-	fillCRPhone2.prop('readonly', false),
-	fillCRSales.prop('disabled', false),
-	fillCRDesc.prop('readonly', false);
+		fillCRGre.prop('disabled', false),
+		fillCRName.prop('readonly', false),
+		fillCREmail.prop('readonly', false),
+		fillCRProv.prop('disabled', false),
+		fillCRCity.prop('disabled', false),
+		fillCRAddress.prop('readonly', false),
+		fillCRPhone.prop('readonly', false),
+		fillCRPhone2.prop('readonly', false),
+		fillCRSales.prop('disabled', false),
+		fillCRDesc.prop('readonly', false);
 }
 
 function fSaleShowHide() {
@@ -196,10 +196,10 @@ function cusGreeting() {
 
 	$.getJSON(url, function (response) {
 		fillCRGre.append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
+		$.each(response, function (idx, elem) {
 			var greeting_id = elem.m_greeting_id;
 			var greeting_name = elem.name;
-			fillCRGre.append('<option value="'+greeting_id+'">'+greeting_name+'</option>');
+			fillCRGre.append('<option value="' + greeting_id + '">' + greeting_name + '</option>');
 		});
 	});
 }
@@ -209,10 +209,10 @@ function cusSales() {
 
 	$.getJSON(url, function (response) {
 		fillCRSales.append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
+		$.each(response, function (idx, elem) {
 			var sales_id = elem.sys_user_id;
 			var sales_username = elem.value;
-			fillCRSales.append('<option value="'+sales_id+'">'+sales_username+'</option>');
+			fillCRSales.append('<option value="' + sales_id + '">' + sales_username + '</option>');
 		});
 	});
 }
@@ -222,16 +222,16 @@ function cusProv() {
 
 	$.getJSON(url, function (response) {
 		fillCRProv.append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
+		$.each(response, function (idx, elem) {
 			var province_id = elem.m_province_id;
 			var province_name = elem.name;
-			fillCRProv.append('<option value="'+province_id+'">'+province_name+'</option>');
+			fillCRProv.append('<option value="' + province_id + '">' + province_name + '</option>');
 		});
 	});
 }
 
 function getCity() {
-		fillCRProv.change(function (e) {
+	fillCRProv.change(function (e) {
 		e.preventDefault();
 		let province_id = $(this).val();
 		let setCity_id = hideCRCity.val();
@@ -241,12 +241,14 @@ function getCity() {
 		$.ajax({
 			url: url,
 			type: 'POST',
-			data: {id: province_id},
+			data: {
+				id: province_id
+			},
 			dataType: 'JSON',
-			success: function(result) {
+			success: function (result) {
 				fillCRCity.empty();
 				fillCRCity.append('<option selected="selected" value="">-- Choose One --</option>');
-				$.each(result, function(idx, elem) {
+				$.each(result, function (idx, elem) {
 					var city_id = elem.m_city_id;
 					var city_name = elem.name;
 

@@ -67,16 +67,21 @@ class M_courier extends CI_Model
 		return $this->db->delete($this->_table, array('m_courier_id' => $id));
 	}
 
+	public function listCourier($active)
+	{
+		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $active));
+	}
+
 	public function callbackCode($post)
 	{
 		$this->db->select('value');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'value'						=> $post['cou_code'],
-					'm_courier_id !='	=> $post['id']
-					)
-				);
+			array(
+				'value'						=> $post['cou_code'],
+				'm_courier_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 
@@ -85,11 +90,11 @@ class M_courier extends CI_Model
 		$this->db->select('name');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'name'						=> $post['cou_name'],
-					'm_courier_id !='	=> $post['id']
-					)
-				);
+			array(
+				'name'						=> $post['cou_name'],
+				'm_courier_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 

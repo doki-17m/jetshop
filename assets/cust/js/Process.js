@@ -26,7 +26,7 @@ btnSave.click(function () {
 	});
 });
 
-$(document).on('click', '#close_form, .close', function() {
+$(document).on('click', '#close_form, #close_form1', function() {
 	const formProp = document.getElementById('form-all').firstElementChild.id;
 	if (formProp == 'form_product')
 		setAction = 'close',
@@ -87,6 +87,14 @@ function openModalForm() {
 	});
 }
 
+// do open the modal list
+function openModalList() {
+	return modalList.modal({
+		backdrop: 'static',
+		keyboard: false
+	});
+}
+
 // add class scrollable in modal
 function Scrollmodal() {
 	return modalDialog.addClass('modal-dialog-scrollable');
@@ -100,6 +108,12 @@ function Largemodal() {
 // add class size modal small
 function Smallmodal() {
 	return modalDialog.addClass('modal-sm');
+}
+
+function Removemodal() {
+	modalDialog.removeClass('modal-dialog-scrollable');
+	modalDialog.removeClass('modal-lg');
+	modalDialog.removeClass('modal-sm');
 }
 
 // check field data form
@@ -343,6 +357,10 @@ function closeModalForm(form) {
 		else if (form == 'form_user')
 			unchkdUsr();
 	});	
+}
+
+function closeModalList() {
+	modalList.modal('hide');
 }
 
 //action active checked unchecked do readonly or disable field

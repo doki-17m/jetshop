@@ -101,7 +101,7 @@ class Customer extends CI_Controller
 		$customer = $this->m_customer;
 		$validation = $this->form_validation;
 		$post = $this->input->post(NULL, TRUE);
-		
+
 		$validation->set_rules([
 			[
 				'field'		=>	'cus_code',
@@ -165,6 +165,16 @@ class Customer extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function showCustomer()
+	{
+		$status = $this->status;
+		$customer = $this->m_customer;
+		$isCustomer = $status->CUSTOMER;
+		$isActive = $status->ACTIVE;
+		$response = $customer->listCustomer($isActive, $isCustomer)->result();
+		echo json_encode($response);
+	}
+
 	public function check_cuscode()
 	{
 		$status = $this->status;
@@ -174,7 +184,7 @@ class Customer extends CI_Controller
 		$post = $this->input->post(NULL, TRUE);
 		$rows = $customer->callbackCusCode($post, $isCustomer)->num_rows();
 		return $rows > $zero ? false : true;
-	}	
+	}
 
 	public function check_cusname()
 	{
@@ -196,5 +206,5 @@ class Customer extends CI_Controller
 		$post = $this->input->post(NULL, TRUE);
 		$rows = $customer->callbackCusEmail($post, $isCustomer)->num_rows();
 		return $rows > $zero ? false : true;
-	}	
+	}
 }

@@ -230,6 +230,49 @@ _tableUsr = $('#tb_user').DataTable({
 	'autoWidth': true
 });
 
+_tablePOS = $('#tb_sales_pos').DataTable({
+	'columnDefs': [{
+			'targets': -1,
+			'orderable': false //nonaktif sort by
+		},
+		{
+			'targets': [0, 1],
+			'visible': false //hide column
+		}
+	],
+	'ordering': false,
+	'autoWidth': true,
+	'lengthChange': false,
+	'searching': false,
+	'paging': false,
+	'scrollY': 300,
+	'scrollCollapse': true
+	// 'info': false
+});
+
+_tableProList = $('#tb_product_list').DataTable({
+	'processing': true,
+	'language': {
+		'processing': '<i class="fas fa-spinner fa-spin fa-1x fa-fw"></i><span> Processing...</span>'
+	},
+	'columnDefs': [{
+			'targets': -1,
+			'orderable': false //nonaktif sort by
+		},
+		{
+			'targets': 0,
+			'visible': false //hide column
+		},
+		{
+			'targets': -1,
+			'className': 'custom-pointer'
+		}
+	],
+	'autoWidth': true,
+	'searching': false,
+	'lengthChange': false
+});
+
 function reloadTable(last_url) {
 	if (last_url == 'product')
 		_tablePro.ajax.reload(null, false);

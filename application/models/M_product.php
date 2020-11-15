@@ -35,7 +35,7 @@ class M_product extends CI_Model
 			$row[] = $value->name;
 			$row[] = $value->category;
 			$row[] = $value->minorder;
-			$row[] = $value->value;
+			$row[] = $value->qty;
 			$row[] = $value->unitmeasure;
 			$row[] = formatRupiah($value->purchprice);
 			$row[] = formatRupiah($value->salesprice);
@@ -65,9 +65,15 @@ class M_product extends CI_Model
 		return $this->db->insert($this->_table, $this);
 	}
 
-	public function detail($id)
+	public function detail($id, $value)
 	{
-		return $this->db->get_where($this->_table, array('m_product_id' => $id));
+		if (!empty($id)) {
+			$this->db->where('m_product_id', $id);
+		}
+		if (!empty($value)) {
+			$this->db->like('value', $value, 'after');
+		}
+		return $this->db->get($this->_table);
 	}
 
 	public function update($id, $post)
@@ -107,9 +113,62 @@ class M_product extends CI_Model
 		return $this->db->delete($this->_table, array('m_product_id' => $id));
 	}
 
-	public function listProduct($params)
+	public function listProduct($active, $string)
 	{
-		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $params));
+		$this->db->where('isactive', $active);
+		if (!empty($string)) {
+			$this->db->like('value', $string, 'both');
+		}
+		return $this->db->get($this->v_product_detail);
+	}
+
+	public function getProduct($term)
+	{
+		$path = $this->path;
+		$status = $this->status;
+		$isActive = $status->ACTIVE;
+		$data = array();
+
+		if (isset($term)) {
+			$result = $this->listProduct($isActive, $term)->result();
+			if (count($result) > 0) {
+				foreach ($result as $value) {
+					$row = array();
+					$slash = ' /';
+					$image = $value->ad_image_id;
+					$codeBarcode = $value->value;
+					$productName = $value->name;
+					$priceUom = formatRupiah($value->salesprice) . $slash . $value->unitmeasure;
+					$pathImg = $path->IMG_PATH . $image;
+
+					$row['value'] = $codeBarcode;
+					if ($image !== '') {
+						$row['label'] = '<img src="' . $pathImg . '" />' .
+							'<h3>' . $codeBarcode . '</h3>' .
+							'<p>' . $productName . '</p>' .
+							'<p>' . $priceUom . '</p>';
+					} else {
+						$row['label'] = '<h3>' . $codeBarcode . '</h3>' .
+							'<p>' . $productName . '</p>' .
+							'<p>' . $priceUom . '</p>';
+					}
+					$data[] = $row;
+				}
+			} else {
+				$data[] = array(
+					'value'	=> '',
+					'label'	=> 'No Record Found'
+				);
+			}
+			return $data;
+		}
+		return false;
+	}
+
+	public function getProductArrBy($arrList)
+	{
+		$this->db->where_in('m_product_id', $arrList);
+		return $this->db->get($this->v_product_detail);
 	}
 
 	public function callbackCode($post)
@@ -117,11 +176,11 @@ class M_product extends CI_Model
 		$this->db->select('value');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'value'			 	=> $post['pro_code'],
-					'm_product_id !='	=> $post['id']
-					)
-				);
+			array(
+				'value'			 	=> $post['pro_code'],
+				'm_product_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 
@@ -130,11 +189,11 @@ class M_product extends CI_Model
 		$this->db->select('name');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'name'			 	=> $post['pro_name'],
-					'm_product_id !='	=> $post['id']
-					)
-				);
+			array(
+				'name'			 	=> $post['pro_name'],
+				'm_product_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 

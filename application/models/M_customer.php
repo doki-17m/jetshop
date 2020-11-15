@@ -3,7 +3,7 @@
 class M_customer extends CI_Model
 {
 	private $_table = 'm_bpartner';
-	
+
 	public function getAll($string)
 	{
 		return $this->db->get_where($this->_table, array('iscustomer' => $string));
@@ -36,7 +36,7 @@ class M_customer extends CI_Model
 	}
 
 	public function insert($post, $isCustomer)
-	{	
+	{
 		$this->value = $post['cus_code'];
 		$this->name = $post['cus_name'];
 		$this->description = $post['cus_desc'];
@@ -88,6 +88,11 @@ class M_customer extends CI_Model
 	public function delete($id)
 	{
 		return $this->db->delete($this->_table, array('m_bpartner_id' => $id));
+	}
+
+	public function listCustomer($active, $iscustomer)
+	{
+		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $active, 'iscustomer' => $iscustomer));
 	}
 
 	public function callbackCusCode($post, $customer)

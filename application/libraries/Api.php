@@ -1,6 +1,7 @@
 <?php
 
-class Api {
+class Api
+{
 
 	private $APIKEY = "d3d8d3e10f98e869dec3e5242cf9b597";
 
@@ -13,8 +14,9 @@ class Api {
 	private $url_city = "https://api.rajaongkir.com/starter/city";
 
 	private $url_cost = "https://api.rajaongkir.com/starter/cost";
-	
-	public function check_cost() {
+
+	public function check_cost($origin, $destination, $weight, $courier)
+	{
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
@@ -25,7 +27,8 @@ class Api {
 			CURLOPT_TIMEOUT => 30,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => $this->POST,
-			CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
+			// CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
+			CURLOPT_POSTFIELDS => "origin=$origin&destination=$destination&weight=$weight&courier=$courier",
 			CURLOPT_HTTPHEADER => array(
 				"content-type: application/x-www-form-urlencoded",
 				"key: $this->APIKEY"
@@ -44,10 +47,11 @@ class Api {
 		}
 	}
 
-	public function check_city($province) {
+	public function check_city($province)
+	{
 		$curl = curl_init();
 		if (!empty($province)) {
-			$url = $this->url_city.'?province='.$province;
+			$url = $this->url_city . '?province=' . $province;
 		} else {
 			$url = $this->url_city;
 		}
@@ -76,7 +80,8 @@ class Api {
 		}
 	}
 
-	public function check_province() {
+	public function check_province()
+	{
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(

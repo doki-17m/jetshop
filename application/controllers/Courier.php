@@ -106,6 +106,15 @@ class Courier extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function showCourier()
+	{
+		$status = $this->status;
+		$courier = $this->m_courier;
+		$isActive = $status->ACTIVE;
+		$response = $courier->listCourier($isActive)->result();
+		echo json_encode($response);
+	}
+
 	public function check_coucode()
 	{
 		$status = $this->status;

@@ -11,7 +11,8 @@ var imgSrc = 0;
 const classActive = $('.active'), //checkbox class active
 	classSalesrep = $('.salesrep'); //checkbox class active
 
-const classNumber = $('.number');
+const classNumber = $('.number'),
+	classBarcode = $('.barcode');
 
 const active = 'Y', //value active
 	nonactive = 'N'; //value nonactive
@@ -24,11 +25,12 @@ const SHOWALL = '/showAll',
 	DELETE = '/destroy/';
 
 var modalDialog = $('.modal-dialog');
-const modalTitle = $('.modal-title');
+const modalTitle = $('.modal-title'),
+	modalBody = $('.modal-body');
 
 // Modals
 const modalForm = $('#modal_form'), //Modal form
-	modalUpload = $('#modal_upload'); //Modal form
+	modalList = $('#modal_list'); //Modal form
 
 // Tables
 var _tablePro, //Table master data product
@@ -44,7 +46,9 @@ var _tablePro, //Table master data product
 	_tableAcc, //Table transaction account
 	_tableUsr, //Table transaction user
 	_tablePo, //Table transaction po
-	_tableSo; //Table transaction so
+	_tableSo, //Table transaction so
+	_tablePOS, //Table transaction pos
+	_tableProList; //Table transaction product list
 
 //Forms
 const soForm = $('#form_so'),
@@ -60,7 +64,8 @@ const soForm = $('#form_so'),
 	accForm = $('#form_account'),
 	usrForm = $('#form_user'),
 	jobForm = $('#form_job'),
-	lgnForm = $('#form_login');
+	lgnForm = $('#form_login'),
+	chgForm = $('#form_chgpass');
 
 //Checkbox
 const proActive = $('#pro_isactive'), //product
@@ -93,12 +98,13 @@ const btnNewSo = $('#new_so'), //button sales order
 	btnNewJob = $('#new_job'); //button job
 
 const btnSave = $('#save_form'),
-	btnUpload = $('#save_upload'),
+	btnSList = $('#save_list'),
 	btnNewDetails = $('#new_details'),
 	btnLogin = $('#do_login');
 
 const btnClose = $('#close_form'),
-	btnCloseX = $('.close');
+	// btnCList = $('#close_list'),
+	btnCloseX = $('#close_form1');
 
 // css class property
 const isInvalid = ('is-invalid'),
@@ -112,4 +118,7 @@ const CITY = '/city',
 	USER = '/user',
 	JOB = '/job',
 	AUTH = '/auth',
-	PRODUCT = '/product';
+	PRODUCT = '/product',
+	SALES = '/sales',
+	COURIER = '/courier',
+	CUSTOMER = '/customer';
