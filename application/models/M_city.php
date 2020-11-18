@@ -53,7 +53,7 @@ class M_city extends CI_Model
 		$response = array();
 		foreach ($list as $row) :
 			$city_id = $row->city_id;
-			$city = $row->city_name;	
+			$city = $row->city_name;
 			$postal = $row->postal_code;
 			$type = $row->type;
 			$province = $row->province;
@@ -81,7 +81,7 @@ class M_city extends CI_Model
 		if (count($arrListID) == 0) {
 			$response[] = 'NR'; //new records
 		}
-		
+
 		return $response;
 	}
 
@@ -107,13 +107,23 @@ class M_city extends CI_Model
 	{
 		$province = $this->m_province;
 		$id = $post['id'];
-		$province_id = $province->detail($id)->row()->related_province_id;
-		
-		return $this->db->order_by('name', 'ASC')->get_where($this->_table, 
-					array(
-						'isactive' 			=>	$active,
-						'ref_province_id'	=>	$province_id
-						)
-					);
+
+		if (!empty($id)) {
+			$province_id = $province->detail($id)->row()->related_province_id;
+			return $this->db->order_by('name', 'ASC')->get_where(
+				$this->_table,
+				array(
+					'isactive' 			=>	$active,
+					'ref_province_id'	=>	$province_id
+				)
+			);
+		} else {
+			return $this->db->order_by('name', 'ASC')->get_where(
+				$this->_table,
+				array(
+					'isactive' 			=>	$active
+				)
+			);
+		}
 	}
 }
