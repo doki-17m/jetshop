@@ -1,13 +1,18 @@
 <?php
 
-class Status {
+class Status
+{
 
 	//status success insert
-	public $SUCCESS_INSERT = ['success' => true,
-							'message' => '<h5> Success!</h5> Your data has been inserted successfully!'];
+	public $SUCCESS_INSERT = [
+		'success' => true,
+		'message' => '<h5> Success!</h5> Your data has been inserted successfully!'
+	];
 	//status success update
-	public $SUCCESS_UPDATE = ['success' => true,
-							'message' => '<h5> Success!</h5> Your data has been updated successfully!'];
+	public $SUCCESS_UPDATE = [
+		'success' => true,
+		'message' => '<h5> Success!</h5> Your data has been updated successfully!'
+	];
 	//status success login
 	public $SUCCESS_LOGIN = ['success' => '<h4><i class="icon fas fa-check"></i> Success!</h4> successfully!'];
 
@@ -26,12 +31,18 @@ class Status {
 	public $SALESREP = 'Y';
 
 	public $DELETE = 'D';
-	
+
 	public $CART = 'C';
-	
+
 	public $PRINT = 'P';
 
 	public $DELPRINT = 'DP'; //delete and print
 
 	public $DELCART = 'DC'; //delete cart
+
+	//status success insert
+	public $SUCCESS_INSERT_CART = [
+		'success' => true,
+		'message' => '<h5> Success!</h5> Your cart has been submit successfully!'
+	];
 }
