@@ -250,7 +250,8 @@ function getCity() {
 				fillCRCity.append('<option selected="selected" value="">-- Choose One --</option>');
 				$.each(result, function (idx, elem) {
 					var city_id = elem.m_city_id;
-					var city_name = elem.name;
+					var city_type = elem.type;
+					var city_name = city_type + ' ' + elem.name;
 
 					if (setCity_id == elem.m_city_id)
 						fillCRCity.append('<option selected="selected" value="' + city_id + '">' + city_name + '</option>').change();
