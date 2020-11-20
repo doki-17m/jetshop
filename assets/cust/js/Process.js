@@ -9,7 +9,7 @@ btnSave.click(function () {
 		url = SITE_URL + CREATE;
 	else
 		url = SITE_URL + EDIT + ID;
-		
+
 	$.ajax({
 		url: url,
 		type: 'POST',
@@ -26,12 +26,12 @@ btnSave.click(function () {
 	});
 });
 
-$(document).on('click', '#close_form, #close_form1', function() {
+$(document).on('click', '#close_form, #close_form1', function () {
 	const formProp = document.getElementById('form-all').firstElementChild.id;
 	if (formProp == 'form_product')
 		setAction = 'close',
 		deleteImage(imgSrc);
-	
+
 	closeModalForm(formProp);
 });
 
@@ -126,8 +126,8 @@ function getForm(form) {
 			proForm.serialize() +
 			'&isactive=' + ActiveValue() +
 			'&pro_catg=' + $('#pro_catg option:selected').val() +
-			'&pro_uom='	+ $('#pro_uom option:selected').val() +
-			'&pro_img='	+ imgSrc
+			'&pro_uom=' + $('#pro_uom option:selected').val() +
+			'&pro_img=' + imgSrc
 		];
 	else if (form == 'form_so')
 		arrForm = [
@@ -208,7 +208,7 @@ function getForm(form) {
 			'&usr_greeting=' + $('#usr_greeting option:selected').val() +
 			'&usr_job=' + $('#usr_job option:selected').val()
 		];
-	else 
+	else
 		arrForm = 'Form Not Found';
 
 	return arrForm;
@@ -231,25 +231,25 @@ function resultForm(form, result) {
 		if (form == 'form_product')
 			errFormPro(result);
 		else if (form == 'form_so')
-			errFormSo(result);
-		else if (form == 'form_category')
-			errFormCat(result);
-		else if (form == 'form_job')
-			errFormJob(result);
-		else if (form == 'form_greeting')
-			errFormGre(result);
-		else if (form == 'form_uom')
-			errFormUom(result);
-		else if (form == 'form_customer')
-			errFormCus(result);
-		else if (form == 'form_supplier')
-			errFormSup(result);
-		else if (form == 'form_courier')
-			errFormCou(result);
-		else if (form == 'form_account')
-			errFormAcc(result);
-		else if (form == 'form_user')
-			errFormUsr(result);
+		errFormSo(result);
+	else if (form == 'form_category')
+		errFormCat(result);
+	else if (form == 'form_job')
+		errFormJob(result);
+	else if (form == 'form_greeting')
+		errFormGre(result);
+	else if (form == 'form_uom')
+		errFormUom(result);
+	else if (form == 'form_customer')
+		errFormCus(result);
+	else if (form == 'form_supplier')
+		errFormSup(result);
+	else if (form == 'form_courier')
+		errFormCou(result);
+	else if (form == 'form_account')
+		errFormAcc(result);
+	else if (form == 'form_user')
+		errFormUsr(result);
 }
 
 //clear error field
@@ -284,54 +284,54 @@ function readonly(form, value) {
 		if (form == 'form_product')
 			chkdPro();
 		else if (form == 'form_so')
-			fillCDesc.prop('readonly', false);
-		else if (form == 'form_category')
-			chkdCat();
-		else if (form == 'form_job')
-			chkdJob();
-		else if (form == 'form_greeting')
-			chkdGre();
-		else if (form == 'form_uom')
-			chkdUom();
-		else if (form == 'form_customer')
-			chkdCus();
-		else if (form == 'form_supplier')
-			chkdSup();
-		else if (form == 'form_courier')
-			chkdCou();
-		else if (form == 'form_account')
-			chkdAcc();
-		else if (form == 'form_user')
-			chkdUsr();
+		fillCDesc.prop('readonly', false);
+	else if (form == 'form_category')
+		chkdCat();
+	else if (form == 'form_job')
+		chkdJob();
+	else if (form == 'form_greeting')
+		chkdGre();
+	else if (form == 'form_uom')
+		chkdUom();
+	else if (form == 'form_customer')
+		chkdCus();
+	else if (form == 'form_supplier')
+		chkdSup();
+	else if (form == 'form_courier')
+		chkdCou();
+	else if (form == 'form_account')
+		chkdAcc();
+	else if (form == 'form_user')
+		chkdUsr();
 	else
-		if (form == 'form_product')
-			unchkdPro();
-		else if (form == 'form_so')
-			fillCDesc.prop('readonly', false);
-		else if (form == 'form_category')
-			unchkdCat();
-		else if (form == 'form_job')
-			unchkdJob();
-		else if (form == 'form_greeting')
-			unchkdGre();
-		else if (form == 'form_uom')
-			unchkdUom();
-		else if (form == 'form_customer')
-			unchkdCus();
-		else if (form == 'form_supplier')
-			unchkdSup();
-		else if (form == 'form_courier')
-			unchkdCou();
-		else if (form == 'form_account')
-			unchkdAcc();
-		else if (form == 'form_user')
-			unchkdUsr();
+	if (form == 'form_product')
+		unchkdPro();
+	else if (form == 'form_so')
+		fillCDesc.prop('readonly', false);
+	else if (form == 'form_category')
+		unchkdCat();
+	else if (form == 'form_job')
+		unchkdJob();
+	else if (form == 'form_greeting')
+		unchkdGre();
+	else if (form == 'form_uom')
+		unchkdUom();
+	else if (form == 'form_customer')
+		unchkdCus();
+	else if (form == 'form_supplier')
+		unchkdSup();
+	else if (form == 'form_courier')
+		unchkdCou();
+	else if (form == 'form_account')
+		unchkdAcc();
+	else if (form == 'form_user')
+		unchkdUsr();
 }
 
 // do close the modal form
 function closeModalForm(form) {
 	modalForm.modal('hide');
-	modalForm.on('hidden.bs.modal', function() {
+	modalForm.on('hidden.bs.modal', function () {
 		errorClear(form);
 
 		if (form == 'form_product')
@@ -356,7 +356,7 @@ function closeModalForm(form) {
 			unchkdAcc();
 		else if (form == 'form_user')
 			unchkdUsr();
-	});	
+	});
 }
 
 function closeModalList() {
@@ -368,91 +368,91 @@ function isActive(form) {
 	classActive.change(function (e) {
 		e.preventDefault();
 		if (classActive.is(':checked'))
-			switch(form) {
+			switch (form) {
 				case 'form_product':
 					unchkdPro();
-				break;
+					break;
 				case 'form_so':
 					// unchkdCat();
-				break;
+					break;
 				case 'form_category':
 					unchkdCat();
-				break;
+					break;
 				case 'form_job':
 					unchkdJob();
-				break;
+					break;
 				case 'form_greeting':
 					unchkdGre();
-				break;
+					break;
 				case 'form_uom':
 					unchkdUom();
-				break;
+					break;
 				case 'form_customer':
 					unchkdCus();
-				break;
+					break;
 				case 'form_supplier':
 					unchkdCus();
-				break;
+					break;
 				case 'form_province':
 					chkdProv();
-				break;
+					break;
 				case 'form_city':
 					chkdCity();
-				break;
+					break;
 				case 'form_courier':
 					unchkdCou();
-				break;
+					break;
 				case 'form_account':
 					unchkdAcc();
-				break;
+					break;
 				case 'form_user':
 					unchkdUsr();
-				break;
+					break;
 				default:
 					console.info('Form Not Found');
 			}
 		else
-			switch(form) {
+			switch (form) {
 				case 'form_product':
 					chkdPro();
-				break;
+					break;
 				case 'form_so':
 					// chkdCat();
-				break;
+					break;
 				case 'form_category':
 					chkdCat();
-				break;
+					break;
 				case 'form_job':
 					chkdJob();
-				break;
+					break;
 				case 'form_greeting':
 					chkdGre();
-				break;
+					break;
 				case 'form_uom':
 					chkdUom();
-				break;
+					break;
 				case 'form_customer':
 					chkdCus();
-				break;
+					break;
 				case 'form_supplier':
 					chkdCus();
-				break;
+					break;
 				case 'form_province':
 					chkdProv();
-				break;
+					break;
 				case 'form_courier':
 					chkdCou();
-				break;
+					break;
 				case 'form_account':
 					chkdCou();
-				break;
+					break;
 				case 'form_user':
 					chkdUsr();
-				break;
+					break;
 				default:
 					console.log('Form Not Found');
 			}
-				
+
 	});
 }
 
@@ -474,6 +474,10 @@ function formatRupiah(numeric) {
 
 function replaceChar(string) {
 	return string.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "").replace(/""/img, "");
+}
+
+function replaceRupiah(numeric) {
+	return numeric.replace(/\./g, "");
 }
 
 $(document).ready(function () {
@@ -499,11 +503,11 @@ $(document).ready(function () {
 		timer: 4000
 	});
 
-	classNumber.on('keypress keyup blur', function (evt) {    
+	classNumber.on('keypress keyup blur', function (evt) {
 		$(this).val($(this).val().replace(/[^\d].+/, ""));
-		 if ((evt.which < 48 || evt.which > 57)) {
+		if ((evt.which < 48 || evt.which > 57)) {
 			evt.preventDefault();
-		 }
+		}
 	});
 
 	$('.rupiah').autoNumeric('init', {
