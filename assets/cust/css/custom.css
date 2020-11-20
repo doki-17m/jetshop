@@ -175,7 +175,7 @@ input::-webkit-inner-spin-button {
 	border: 1px solid lightgray;
 	border-radius: 0.25rem;
 	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
-	max-height: 200px;
+	max-height: 300px;
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     overflow-y: auto;
 	overflow-x: hidden;
@@ -230,24 +230,12 @@ input::-webkit-inner-spin-button {
 	line-height: 0.75;
 	color: #ff0000;
 }
-.list-group-cart {
-	position: relative;
-	display: block;
-	margin-bottom: -1px;
-	background-color: #ffffff;
-	list-style-position: outside;
+
+/* button list */
+.flex-parent {
+	display: flex;
 }
-.detail-cart {
-	width: 100%;
-}
-.detail-cart span.sku {
-	width: 10px;
-	border: 1px solid;
-	word-wrap: break-word;
-}
-span.qty {
-	width: 10px;
-}
-span.subtotal {
-	width: 10px;
+
+button.margin-right {
+	margin-right: 20px;
 }
