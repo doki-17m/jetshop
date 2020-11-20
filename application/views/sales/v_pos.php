@@ -4,28 +4,20 @@
 			<div class="card card-primary card-outline">
 				<div class="card-body">
 					<div class="form-group row">
-						<label for="pos_date" class="col-sm-2 col-form-label">Date</label>
-						<div class="col-sm-5">
-							<input type="date" class="form-control" id="pos_date" name="pos_date" value="<?= date('Y-m-d') ?>" readonly>
-						</div>
-						<div class="col-sm-4">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="pos_iswic" checked>
-								<label for="pos_iswic" class="custom-control-label">Walk In Customer</label>
-							</div>
-						</div>
-					</div>
-					<div class="form-group row">
 						<label for="pos_cashier" class="col-sm-2 col-form-label">Cashier</label>
-						<div class="col-sm-5">
+						<div class="col-sm-4">
 							<select class="form-control select2" id="pos_cashier" name="pos_cashier" disabled></select>
+						</div>
+						<label for="pos_date" class="col-sm-2 col-form-label">Date</label>
+						<div class="col-sm-4">
+							<input type="date" class="form-control" id="pos_date" name="pos_date" value="<?= date('Y-m-d') ?>" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="pos_barcode" class="col-sm-2 col-form-label">Barcode</label>
-						<div class="col-sm-8">
+						<div class="col-sm-10">
 							<div class="input-group">
-								<input type="text" class="form-control barcode" id="pos_barcode" name="pos_barcode" placeholder="Input code product" autofocus>
+								<input type="text" class="form-control barcode" id="pos_barcode" name="pos_barcode" placeholder="Input Code Product / Scan Barcode" autofocus>
 								<div class="input-group-append">
 									<button type="button" class="btn btn-primary">
 										<span class="fas fa-search"></span>
@@ -49,9 +41,6 @@
 								<th>Action</th>
 							</tr>
 						</thead>
-						<!-- <tbody id="show_data">
-
-						</tbody> -->
 					</table>
 				</div>
 			</div>
@@ -64,9 +53,9 @@
 					<h3 class="grandtotal">Rp. <strong id="grandtotal"></strong></h3>
 					<hr class="solid">
 					<div class="row no-print">
-						<div class="col-8">
-							<button type="button" class="btn btn-outline-primary" id="btn_refresh"><i class="fas fa-sync-alt"></i> Reset</button>
-							<button type="button" class="btn btn-success float-right" id="btn_checkout"><i class="far fa-credit-card"></i> Submit</button>
+						<div class="flex-parent float-right">
+							<button type="button" class="btn btn-outline-primary margin-right" id="btn_refresh"><i class="fas fa-sync-alt"></i> Reset</button>
+							<button type="button" class="btn btn-success" id="btn_checkout"><i class="far fa-credit-card"></i> Submit</button>
 						</div>
 					</div>
 				</div>
