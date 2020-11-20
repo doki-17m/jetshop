@@ -4,10 +4,16 @@ class M_order extends CI_Model
 {
 	private $_table = 'trx_order';
 
+	private $_tableline = 'trx_orderline';
+
+	private $Docstatus_CO = 'CO';
+	private $Docstatus_VO = 'VO';
+
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('m_product');
+		$this->load->model('m_courier');
 	}
 
 	public function show_invoiceno()
@@ -75,47 +81,6 @@ class M_order extends CI_Model
 		$result = array('data' => $data);
 		return $result;
 	}
-
-	public function insert($post)
-	{
-		$this->value = $post['pro_code'];
-		$this->name = $post['pro_name'];
-		$this->description = $post['pro_desc'];
-		$this->m_product_category_id = $post['pro_catg'];
-		$this->unitmeasure = $post['pro_uom'];
-		$this->sellprice = $post['pro_slsidr'];
-		$this->costprice = $post['pro_purchidr'];
-		$this->qtyonhand = $post['pro_qty'];
-		$this->isactive = $post['isactive'];
-		$result = $this->db->insert($this->_table, $this);
-		return $result;
-	}
-
-	// public function insert_cart($post)
-	// {
-	// 	$product = $this->m_product;
-	// 	$code = $post['product_code'];
-
-	// 	// return $product->detail(0, $code)->row();
-	// 	// return $product->detail(0, $code);
-	// 	$product_row = $product->detail(0, $code)->row();
-	// 	$id = $product_row->m_product_id;
-	// 	$qty = $post['product_qty'];
-	// 	$sellprice = $product_row->sellprice;
-	// 	$name = $product_row->name;
-
-	// 	$arrData = array(
-	// 		'id'	=> $id,
-	// 		'qty'	=> $qty,
-	// 		'price'	=> replaceFormat($sellprice),
-	// 		'name'	=> $name,
-	// 	);
-	// 	$this->cart->insert($arrData);
-	// 	return array(
-	// 		'content' => $this->cart->contents(),
-	// 		'total' => $this->cart->total()
-	// 	);
-	// }
 
 	public function show_cart($arrData)
 	{
@@ -212,23 +177,6 @@ class M_order extends CI_Model
 		return $this->show_cart($arrCart);
 	}
 
-	public function detail_cart($arrData)
-	{
-		$product = $this->m_product;
-		$list = $arrData['data'];
-		$total = array();
-
-		foreach ($list as $value) {
-			$ID = $value[0];
-			$qty = $value[1];
-			$name = $value[3];
-			$price = $value[5];
-			$subtotal = $value[6];
-			return $product->getProductArrBy($ID)->result();
-		}
-		// return array_sum($total);
-	}
-
 	public function calculate_weight($arrData)
 	{
 		$product = $this->m_product;
@@ -255,46 +203,143 @@ class M_order extends CI_Model
 		$weight = $post['weight'];
 		$courier = $post['courier'];
 		$apiData = $api->check_cost($origin, $destination, $weight, $courier);
-		return $apiData->rajaongkir->results[0]->costs;
-	}
-
-	public function detail($id, $value)
-	{
-		if (count($id) > 1) {
-			return 'array';
+		$status = $apiData->rajaongkir->status;
+		if ($status->description === 'OK') {
+			return $apiData->rajaongkir->results[0]->costs;
+		} else {
+			return $status;
 		}
-		// $result = $this->db->get_where($this->_table, array('m_product_id' => $id));
-		// return $result;
+	}
+
+	public function insert($post)
+	{
+		$courier = $this->m_courier;
+		$delivery_service = $post['pos_delivery'];
+		$length = strpos($post['pos_delivery'], "/");
+
+		if ($post['ismember'] === 'Y') {
+			$this->m_bpartner_id = $post['pos_cust_id'];
+		} else {
+			$this->customer = $post['pos_cust_name'];
+		}
+
+		$this->cashier_id = $post['pos_cashier'];
+		$this->documentno = $post['pos_invoiceno'];
+		$this->docstatus = $this->Docstatus_CO;
+		$this->dateordered = $post['pos_date'];
+		$this->phone = $post['pos_phone'];
+		$this->address = $post['pos_address'];
+		$this->m_city_id = $post['pos_city'];
+		$this->order_note = $post['pos_note'];
+		$this->orderreference = $post['pos_job_market'];
+		$this->totalweight = $post['pos_total_weight'];
+		$this->ismember = $post['ismember'];
+
+		$row = $courier->getByValue($post['pos_courier'])->row();
+		$service = substr($delivery_service, 0, $length);
+
+		$this->m_courier_id = $row->m_courier_id;
+		$this->service = $service;
+
+		$this->db->insert($this->_table, $this);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
+
+	public function insert_line($post)
+	{
+		$product = $this->m_product;
+		$last_id = $post['id'];
+		$data = $post['data'];
+
+		$num_rows = $this->update_byline($data, $last_id);
+
+		if ($num_rows > 0) {
+			foreach ($data as $row) {
+				$product_id = $row['product_id'];
+				$qty = $row['qty'];
+				$amount = $row['amount'];
+
+				$list = $product->getProductArrBy($product_id)->result();
+				foreach ($list as $value) {
+					$pricelist = $value->salesprice;
+					$purchprice = $value->purchprice;
+					$isobral = $value->isobral;
+
+					$unitprice = ($amount / $qty);
+					$listOrderLine = array(
+						'trx_order_id'		=> $last_id,
+						'm_product_id' 		=> $product_id,
+						'qtyordered'		=> $qty,
+						'unitprice'			=> $unitprice,
+						'pricelist'			=> $pricelist, //harga jual
+						'lineamount'		=> $amount,
+						'costprice'			=> $purchprice, //harga beli
+						'isobral'			=> $isobral,
+					);
+					$result = $this->db->insert($this->_tableline, $listOrderLine);
+				}
+			}
+			return $result;
+		}
 		return false;
-		// if (!empty($id)) {
-		// 	$this->db->where('m_product_id', $id);
-		// }
-		// if (!empty($value)) {
-		// 	$this->db->like('value', $value, 'after');
-		// }
-		// return $this->db->get($this->_table);
 	}
 
-	public function update($id, $post)
+	public function update_byline($data, $last_id)
 	{
-		$this->value = $post['pro_code'];
-		$this->name = $post['pro_name'];
-		$this->description = $post['pro_desc'];
-		$this->m_product_category_id = $post['pro_catg'];
-		$this->unitmeasure = $post['pro_uom'];
-		$this->sellprice = $post['pro_slsidr'];
-		$this->costprice = $post['pro_purchidr'];
-		$this->qtyonhand = $post['pro_qty'];
-		$this->isactive = $post['isactive'];
-		$where = array('m_product_id' => $id);
-		$result = $this->db->where($where)
-			->update($this->_table, $this);
-		return $result;
+		foreach ($data as $row) {
+			$ongkir = $row['ongkir'];
+			$grandtotal = $row['grandtotal'];
+
+			$listOrder = array(
+				'deliveryfee' 	=> $ongkir,
+				'grandtotal'	=> $grandtotal
+			);
+
+			$where_id = array('trx_order_id' => $last_id);
+			$this->db->where($where_id)
+				->update($this->_table, $listOrder);
+
+			$num_rows = $this->db->affected_rows();
+			return $num_rows;
+		}
 	}
 
-	public function delete($id)
+	public function check_qty($post)
 	{
-		$result = $this->db->delete($this->_table, array('m_product_id' => $id));
-		return $result;
+		$product = $this->m_product;
+		$data = $post['data'];
+
+		$listProduct = array();
+		foreach ($data as $row) {
+			$product_id = $row['product_id'];
+			$qtyordered = $row['qty'];
+			$list = $product->getProductArrBy($product_id)->result();
+			foreach ($list as $value) {
+				$product_name = $value->name;
+				$qty = $value->qty;
+
+				if ($qty == 0) {
+					$listProduct[] = array('zero' => $product_name . ' quantity belum diset: ' . $qty);
+				} else if ($qtyordered > $qty) {
+					$listProduct[] = array('more' => $product_name . 'qty melebihi: ' . $qty);
+				}
+			}
+		}
+		return $listProduct;
+	}
+
+	public function form_error()
+	{
+		return [
+			'error'					=> true,
+			'error_pos_cust_id'		=> form_error('pos_cust_id'),
+			'error_pos_cust_name'	=> form_error('pos_cust_name'),
+			'error_pos_phone'		=> form_error('pos_phone'),
+			'error_pos_courier'		=> form_error('pos_courier'),
+			'error_pos_city'		=> form_error('pos_city'),
+			'error_pos_faddress'	=> form_error('pos_address'),
+			'error_pos_delivery'	=> form_error('pos_delivery')
+		];
 	}
 }

@@ -15,22 +15,8 @@ class Sales extends CI_Controller
 		$order = $this->m_order;
 		$data['invoiceno'] = $order->show_invoiceno();
 		$this->template->load($view->OVERVIEW, $view->VIEW_POS, $data);
-		// $order = $this->m_order;
-		// $code = 'AA03';
-		// // $post = $this->input->post(NULL, TRUE);
-		// $response = $order->insert_cart($code);
-		// // $response = array('data' => $code);
-
-		// echo json_encode($response);
 	}
 
-	// public function create_cart()
-	// {
-	// 	$order = $this->m_order;
-	// 	$post = $this->input->post(NULL, TRUE);
-	// 	$response = $order->insert_cart($post);
-	// 	echo json_encode($response);
-	// }
 	public function create_cart()
 	{
 		$order = $this->m_order;
@@ -39,21 +25,6 @@ class Sales extends CI_Controller
 		$response = $order->insert_cart($product_code, $product_qty);
 		echo json_encode($response);
 	}
-
-	// public function update_cart()
-	// {
-	// 	$post = $this->input->post(NULL, TRUE);
-	// 	$data = array(
-	// 		'rowid' => $post['id'],
-	// 		'qty' => $post['qty'],
-	// 	);
-	// 	$this->cart->update($data);
-	// 	$response = array(
-	// 		'content' => $this->cart->contents(),
-	// 		'total' => $this->cart->total()
-	// 	);
-	// 	echo json_encode($response);
-	// }
 
 	public function edit_cart()
 	{
@@ -64,32 +35,10 @@ class Sales extends CI_Controller
 		echo json_encode($response);
 	}
 
-	// public function destroy_cart($id)
-	// {
-	// 	$data = array(
-	// 		'rowid' => $id,
-	// 		'qty' => 0,
-	// 	);
-	// 	$this->cart->update($data);
-	// 	$response = array(
-	// 		'content' => $this->cart->contents(),
-	// 		'total' => $this->cart->total()
-	// 	);
-	// 	echo json_encode($response);
-	// }
-
 	public function destroy_allcart()
 	{
 		$order = $this->m_order;
 		$response = $order->deleteall_cart();
-		echo json_encode($response);
-	}
-
-	public function listCart()
-	{
-		$order = $this->m_order;
-		$post = $this->input->post(NULL, TRUE);
-		$response = $order->detail_cart($post);
 		echo json_encode($response);
 	}
 
@@ -109,25 +58,86 @@ class Sales extends CI_Controller
 		echo json_encode($response);
 	}
 
-	public function check_cart()
+	public function create()
 	{
-		$response = array(
-			'content' => $this->cart->contents(),
-			'total' => $this->cart->total()
-		);
-		echo json_encode($response);
-	}
-
-	public function show($id)
-	{
-		$response = $this->modor->detail($id)->row();
-		echo json_encode($response);
-	}
-
-	public function edit($id)
-	{
+		$order = $this->m_order;
+		$validation = $this->form_validation;
 		$post = $this->input->post(NULL, TRUE);
-		$response = $this->modor->update($id, $post);
+
+		if ($post['ismember'] === 'Y') {
+			$validation->set_rules([
+				[
+					'field'		=>	'pos_cust_id',
+					'label'		=>	'Customer',
+					'rules'		=>	'required'
+				]
+			]);
+		} else {
+			$validation->set_rules([
+				[
+					'field'		=>	'pos_cust_name',
+					'label'		=>	'Customer',
+					'rules'		=>	'required'
+				]
+			]);
+		}
+
+		$validation->set_rules([
+			[
+				'field'		=>	'pos_phone',
+				'label'		=>	'Phone',
+				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'pos_courier',
+				'label'		=>	'Courier',
+				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'pos_city',
+				'label'		=>	'City',
+				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'pos_address',
+				'label'		=>	'Full Address',
+				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'pos_delivery',
+				'label'		=>	'Delivery',
+				'rules'		=>	'required'
+			]
+		]);
+
+		if ($validation->run()) {
+			$last_id = $order->insert($post);
+			$response = array('last_id' => $last_id);
+		} else {
+			$response = $order->form_error();
+		}
+		echo json_encode($response);
+	}
+
+	public function create_line()
+	{
+		$order = $this->m_order;
+		$status = $this->status;
+		$post = $this->input->post(NULL, TRUE);
+		$result = $order->insert_line($post);
+		if ($result) {
+			$response = $status->SUCCESS_INSERT_CART;
+		} else {
+			$response = $result;
+		}
+		echo json_encode($response);
+	}
+
+	public function checkQty()
+	{
+		$order = $this->m_order;
+		$post = $this->input->post(NULL, TRUE);
+		$response = $order->check_qty($post);
 		echo json_encode($response);
 	}
 }

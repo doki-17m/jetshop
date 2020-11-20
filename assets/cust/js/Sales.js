@@ -1,15 +1,16 @@
 //field pos
 const fillSDate = $('[name = pos_date]'),
 	fillSCashier = $('[name = pos_cashier]'),
-	fillSBarcode = $('[name = pos_barcode]');
-
-const cxbIsWalk = $('#pos_iswic'); // checkbox walk in customer
+	fillSBarcode = $('[name = pos_barcode]'),
+	fillSInvoiceNo = $('#documentno');
 
 const msgInvoiceNo = $('#documentno'),
 	msgGrandTotal = $('#grandtotal');
 
 const btnCheckout = $('#btn_checkout'),
 	btnPrint = $('#btn_print'),
+	btnPos = $('#btn_pos'),
+	btnClosePos = $('#btn_close_pos'),
 	btnRefresh = $('#btn_refresh');
 
 const showDataTable = $('#show_data');
@@ -25,7 +26,6 @@ const fillPosCustSelect = $('[name = pos_cust_id]'),
 	fillPosCourier = $('[name = pos_courier]'),
 	fillPosWeight = $('[name = pos_total_weight]'),
 	fillPosDelivery = $('[name = pos_delivery]'),
-	fillPosProvince = $('[name = pos_province]'),
 	fillPosCity = $('[name = pos_city]'),
 	fillPosAddress = $('[name = pos_address]'),
 	fillPosJMarket = $('[name = pos_job_market]'),
@@ -33,11 +33,20 @@ const fillPosCustSelect = $('[name = pos_cust_id]'),
 
 const groupPosCustSelect = $('#pos_cust_id'),
 	groupPosCustInput = $('#pos_cust_name'),
+	groupPosPhone = $('#pos_phone'),
+	groupPosCourier = $('#pos_courier'),
 	groupPosCustDelivery = $('#pos_delivery'),
-	groupPosCustProvince = $('#pos_province'),
 	groupPosCustCity = $('#pos_city'),
 	groupPosCustAddress = $('#pos_address'),
 	groupPosCustJMarket = $('#pos_job_market');
+
+const errPosCustSelect = $('#error_pos_cust_id'),
+	errPosCustInput = $('#error_pos_cust_name'),
+	errPosPhone = $('#error_pos_phone'),
+	errPosCourier = $('#error_pos_courier'),
+	errPosCity = $('#error_pos_city'),
+	errPosAddress = $('#error_pos_faddress'),
+	errPosDelivery = $('#error_pos_delivery');
 
 const cxbIsmember = $('#pos_ismember'); // checkbox walk in customer
 
@@ -49,7 +58,6 @@ let setQty = 0;
 var arrCart = [];
 
 $(document).ready(function () {
-	cxbIsWalk.prop('checked', true);
 	msgGrandTotal.html(formatRupiah(totalAmount));
 	clearFilPos();
 	posCashier(); // call function show data cashier
@@ -91,13 +99,9 @@ $(document).ready(function () {
 	btnCheckout.click(function (e) {
 		e.preventDefault();
 		const existDataTable = _tablePOS.data().any();
-		var chkVal = false;
 
-		if (cxbIsWalk.is(':checked'))
-			chkVal = true;
-
-		// if (existDataTable)
-		checkoutData(chkVal);
+		if (existDataTable)
+			checkoutData();
 	});
 
 	if (LAST_URL == 'sales')
@@ -191,91 +195,401 @@ function indecrementVal(id, e, field, action) {
 	updateCart(id, setQty);
 }
 
-function checkoutData(iswalkin) {
+function saveOrder(table) {
+
+	var dateTrx = fillSDate.val();
+	var cashier = fillSCashier.val();
+	var invoiceno = fillSInvoiceNo.html();
+	var ismember = MemberValue();
+	var courier = $('#pos_courier option:selected').val();
+
+	var form = $('#form_checkout').serialize() +
+		'&pos_courier=' + courier +
+		'&ismember=' + ismember +
+		'&pos_date=' + dateTrx +
+		'&pos_cashier=' + cashier +
+		'&pos_invoiceno=' + invoiceno;
+
+	var arrData = callbackTable(table)
+
+	$.ajax({
+		url: SITE_URL + '/checkQty',
+		type: 'POST',
+		data: {
+			data: arrData
+		},
+		dataType: 'JSON',
+		success: function (result) {
+			if (result.length > 0) {
+				$.each(result, function (idx, elem) {
+					var zero = elem.zero;
+					var more = elem.more;
+					if (zero)
+						Toast.fire({
+							type: 'error',
+							title: zero
+						});
+
+					if (more)
+						Toast.fire({
+							type: 'error',
+							title: more
+						});
+				});
+			} else {
+				url = SITE_URL + CREATE;
+				$.ajax({
+					url: url,
+					type: 'POST',
+					data: form,
+					dataType: 'JSON',
+					success: function (response) {
+						if (response.error) {
+							if (response.error_pos_cust_id != '')
+								errPosCustSelect.html(response.error_pos_cust_id),
+								fillPosCustSelect.addClass(isInvalid);
+							else
+								errPosCustSelect.html(''),
+								fillURPass.removeClass(isInvalid);
+
+							if (response.error_pos_cust_name != '')
+								errPosCustInput.html(response.error_pos_cust_name),
+								fillPosCustInput.addClass(isInvalid);
+							else
+								errPosCustInput.html(''),
+								fillPosCustInput.removeClass(isInvalid);
+
+							if (response.error_pos_phone != '')
+								errPosPhone.html(response.error_pos_phone),
+								fillPosPhone.addClass(isInvalid);
+							else
+								errPosPhone.html(''),
+								fillPosPhone.removeClass(isInvalid);
+
+							if (response.error_pos_courier != '')
+								errPosCourier.html(response.error_pos_courier),
+								fillPosCourier.addClass(isInvalid);
+							else
+								errPosCourier.html(''),
+								fillPosCourier.removeClass(isInvalid);
+
+							if (response.error_pos_city != '')
+								errPosCity.html(response.error_pos_city),
+								fillPosCity.addClass(isInvalid);
+							else
+								errPosCity.html(''),
+								fillPosCity.removeClass(isInvalid);
+
+							if (response.error_pos_faddress != '')
+								errPosAddress.html(response.error_pos_faddress),
+								fillPosAddress.addClass(isInvalid);
+							else
+								errPosAddress.html(''),
+								fillPosAddress.removeClass(isInvalid);
+
+							if (response.error_pos_delivery != '')
+								errPosDelivery.html(response.error_pos_delivery),
+								fillPosCustSelect.addClass(isInvalid);
+							else
+								errPosDelivery.html(''),
+								fillPosCustSelect.removeClass(isInvalid);
+						}
+
+						if (response.last_id) {
+							saveOrderLine(arrData, response.last_id)
+						}
+					}
+				});
+			}
+		}
+	});
+}
+
+function saveOrderLine(arrData, last_id) {
+	url = SITE_URL + '/create_line';
+
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: {
+			id: last_id,
+			data: arrData
+		},
+		dataType: 'JSON',
+		success: function (result) {
+			if (result.success) {
+				Toast.fire({
+					type: 'success',
+					title: result.message
+				});
+				clearErrPos();
+				chkdPos();
+				btnPos.hide();
+				btnClosePos.show();
+			}
+		}
+	});
+}
+
+function MemberValue() {
+	var isActive;
+	if (cxbIsmember.is(':checked'))
+		isActive = active;
+	else
+		isActive = nonactive;
+	return isActive;
+}
+
+function checkoutData() {
 	var lastArrCart = arrCart[arrCart.length - 1]; // last index array datatables
+	const table = document.getElementById('list_cart');
+	var invoiceno = fillSInvoiceNo.html();
 
 	$('#modal_checkout').modal({
 		backdrop: 'static',
 		keyboard: false
 	});
 	Scrollmodal();
-	getListCart(lastArrCart)
+	modalDialog.addClass('modal-xl');
+	modalTitle.html('BIll No: ' + invoiceno.bold());
 
-	if (iswalkin) {
-		boxCustomer.hide();
-		boxCart.addClass('col-md-12');
-		modalDialog.removeClass('modal-xl');
-	} else {
-		boxCustomer.show();
-		boxCart.removeClass('col-md-12');
-		modalDialog.addClass('modal-xl');
+	btnClosePos.hide();
+	fillPosPhone.prop('readonly', true);
+	fillPosCourier.prop('disabled', true);
+	fillPosDelivery.prop('disabled', true);
+	groupPosCustInput.hide();
+	groupPosCustDelivery.hide();
+	groupPosCustCity.hide();
+	groupPosCustAddress.hide();
+	groupPosCustJMarket.hide();
 
-		groupPosCustInput.hide();
-		groupPosCustDelivery.hide();
-		groupPosCustProvince.hide();
-		groupPosCustCity.hide();
-		groupPosCustAddress.hide();
-		groupPosCustJMarket.hide();
+	posCustomer(null, null);
+	posCourier(null, null);
+	posCity(null, null);
+	getDelivery(null, null);
+	getTotalWeight(lastArrCart);
+	getListCart(table, lastArrCart);
 
-		fillPosDelivery.prop('disabled', true);
-		posCustomer(null, null);
-		posCourier(null, null);
-		posProv(null, null);
-		getCity(null, null);
-		getDelivery(null, null);
-		getTotalWeight(lastArrCart);
+	// checkbox member
+	cxbIsmember.change(function (e) {
+		var chkVal = true;
+		if (!cxbIsmember.is(':checked')) {
+			chkVal = false;
+		}
 
-		cxbIsmember.change(function (e) {
-			var chkVal = true;
-			if (!cxbIsmember.is(':checked')) {
-				chkVal = false;
-			}
-
-			if (chkVal)
-				groupPosCustSelect.show(),
-				groupPosCustInput.hide();
-			else
-				groupPosCustSelect.hide(),
-				groupPosCustInput.show();
-		});
-
-		fillPosCourier.change(function (e) {
-			groupPosCustDelivery.show();
-			groupPosCustProvince.show();
+		if (chkVal) {
+			fillPosCourier.val(null).change();
+			fillPosPhone.val('');
+			groupPosCustSelect.show();
+			groupPosCustInput.hide();
+			groupPosCustCity.hide();
+			groupPosCustAddress.hide();
+			groupPosCustDelivery.hide();
+			fillPosPhone.prop('readonly', true);
+			fillPosCourier.prop('disabled', true);
+		} else {
+			fillPosCustSelect.val(null).change();
+			fillPosCourier.val(null).change();
+			fillPosPhone.val('');
+			fillPosCity.val(null).change();
+			fillPosAddress.val('');
+			groupPosCustSelect.hide();
+			groupPosCustInput.show();
 			groupPosCustCity.show();
 			groupPosCustAddress.show();
-		});
+			fillPosPhone.prop('readonly', false);
+			fillPosCourier.prop('disabled', false);
+		}
+	});
 
-		fillPosDelivery.change(function (e) {
-			groupPosCustJMarket.show();
+	// event change field customer select
+	fillPosCustSelect.change(function (e) {
+		var customer = $(this).val();
+		fillPosCourier.prop('disabled', false);
+
+		url = CUST_URL + CUSTOMER + SHOW + customer;
+
+		$.getJSON(url, function (result) {
+			var phone = result.phone;
+			var address = result.address;
+			var city = result.city_id;
+
+			posCity(null, city);
+			fillPosPhone.val(phone);
+			fillPosAddress.val(address);
 		});
-	}
+	});
+
+	// event change field courier
+	fillPosCourier.change(function (e) {
+		groupPosCustDelivery.show();
+		groupPosCustCity.show();
+		groupPosCustAddress.show();
+	});
+
+	// event change field delivery
+	fillPosDelivery.change(function (e) {
+		groupPosCustJMarket.show();
+	});
+
+	btnPos.click(function (e) {
+		saveOrder(table);
+	});
 }
 
-function getListCart(dataCart) {
+function getListCart(table, dataCart) {
+	const tableListCart = $('#list_cart');
+
 	var html = '';
-	var cost = 0;
 	var data = dataCart['data'];
 	var total = dataCart['total'];
+	var cost = 0;
 	var grandTotal = 0;
+
+	// header table list cart
+	html += '<tr id="list_header">' +
+		'<th>Product </th>' +
+		'<th>Qty </th>' +
+		'<th>Amount </th>' +
+		'</tr>';
+
 	$.each(data, function (idx, elem) {
+		var product_id = elem[0];
 		var qty = elem[1];
-		var sku = elem[3];
-		var amount = elem[6];
-		html += '<li class="list-group-item"><a class="sku"><b>' + sku + '</b> x  ' + qty + '</a> <a class ="float-right subtotal">' + amount + '</a></li> ';
-	})
-	html += '<li class="list-group-item"><p style="text-align: center">Subtotal: <a class="float-right" id="subtotal">' + formatRupiah(total) + '</a></p></li>';
-	html += '<li class="list-group-item"><p style="text-align: center">Ongkos Kirim: <a class="float-right" id="ongkir"></a></p></li>';
+		var product = elem[3];
+		var amount = replaceRupiah(elem[6]);
+		html += '<tr id="product_group">' +
+			'<th class="product" id="' + product_id + '" style="text-align: left; width: 200px">' + product + '</th>' +
+			'<td class="qty" id="' + qty + '">x' + qty + '</td>' +
+			'<td class="amount" style="text-align: right">' +
+			'<input type="text" class="form-control rupiah" style="text-align: right;" value="' + amount + '">' +
+			'</tr>';
+	});
+
+	//subtotal
+	html += '<tr id="subtotal">' +
+		'<th colspan="2" style="text-align: right">Subtotal: </th>' +
+		'<td class="subtotal" style="text-align: right">' + formatRupiah(total) + '</td>' +
+		'</tr>';
+
+	//ongkos kirim
+	html += '<tr id="ongkir">' +
+		'<th colspan="2" style="text-align: right">Shipping: </th>' +
+		'<td class="ongkir" style="text-align: right">' + cost + '</td>' +
+		'</tr>';
+
+	//grandtotal
+	html += '<tr id="grandTotal">' +
+		'<th colspan="2" style="text-align: right">Grand Total: </th>' +
+		'<td class="grandTotal" style="text-align: right; color: red">' + grandTotal + '</td>' +
+		'</tr>';
+
+	tableListCart.html(html);
+
+	// field summary
+	var cellSubtotal = $('.subtotal'),
+		cellOngkir = $('.ongkir'),
+		cellGrandTotal = $('.grandTotal');
+
+	//cek ongkos kirim
 	fillPosDelivery.change(function (e) {
 		cost = $(this).val().substring($(this).val().search('/') + 1);
-		$('#ongkir').html(formatRupiah(cost));
-		// grandTotal = total.add(cost);
-		// console.log(grandTotal)
-		// $('#grandTotal').html(formatRupiah(grandTotal));
+		total = replaceRupiah(cellSubtotal.html());
+		grandTotal = parseInt(total) + parseInt(cost);
+
+		cellOngkir.html(formatRupiah(cost));
+		cellGrandTotal.html(formatRupiah(grandTotal));
 	});
-	grandTotal = formatRupiah(total);
-	html += '<li class="list-group-item"><p style="text-align: center">Grand Total: <a class="float-right" id="grandTotal">' + grandTotal + '</a></p></li>';
-	$('#detail_cart_list').html(html);
+
+	$('.rupiah').autoNumeric('init', {
+		aSep: '.',
+		aDec: ',',
+		mDec: '0'
+	}).on('keypress keyup blur', function (evt) {
+		var valAmt = [];
+
+		for (let i in table.rows) {
+			let row_id = table.rows[i].id
+			let row = table.rows[i]
+
+			//table row product_group
+			if (row_id === 'product_group') {
+				for (let j in row.cells) {
+					let col = row.cells[j]
+					let col_class = row.cells[j].className
+
+					//table data class amount
+					if (col_class === 'amount') {
+						var amount = replaceRupiah(col.lastChild.value);
+						valAmt.push(amount);
+					}
+				}
+			}
+		}
+
+		var numberAmt = valAmt.toString().split(',').map(Number);
+
+		cost = replaceRupiah(cellOngkir.html());
+		total = replaceRupiah(cellSubtotal.html());
+		grandTotal = parseInt(total) + parseInt(cost);
+
+		var totalAmt = numberAmt.reduce(function (a, b) {
+			return a + b;
+		});
+
+		cellSubtotal.html(formatRupiah(totalAmt));
+		cellOngkir.html(formatRupiah(cost));
+		cellGrandTotal.html(formatRupiah(grandTotal));
+	});
+}
+
+function callbackTable(table) {
+	var listProduct = [];
+	var listQty = [];
+	var listAmt = [];
+	var ongkir = [];
+	var grandtotal = [];
+
+	for (let i in table.rows) {
+		let row = table.rows[i]
+
+		for (let j in row.cells) {
+			let col = row.cells[j]
+			let col_class = row.cells[j].className
+
+			if (col_class === 'product')
+				listProduct.push({
+					product_id: col.id
+				});
+
+			if (col_class === 'qty')
+				listQty.push({
+					qty: col.id
+				});
+
+			if (col_class === 'amount') {
+				var amount = parseInt(replaceRupiah(col.lastChild.value));
+				listAmt.push({
+					amount: amount
+				});
+			}
+
+			if (col_class === 'ongkir') {
+				var deliveryfee = parseInt(replaceRupiah(col.innerHTML));
+				ongkir.push({
+					ongkir: deliveryfee
+				});
+			}
+
+			if (col_class === 'grandTotal') {
+				var gt = parseInt(replaceRupiah(col.innerHTML));
+				grandtotal.push({
+					grandtotal: gt
+				});
+			}
+		}
+	}
+	return listProduct.map((item, i) => Object.assign({}, item, listQty[i], listAmt[i], ongkir[i], grandtotal[i]))
 }
 
 function getTotalWeight(dataCart) {
@@ -300,7 +614,7 @@ function posCashier() {
 
 		$.each(response, function (idx, elem) {
 			var job_id = elem.m_job_id;
-			var cashier_id = elem.m_user_id;
+			var cashier_id = elem.sys_user_id;
 			var cashier_name = elem.username;
 			if (job_id == 1)
 				fillSCashier.append('<option value="' + cashier_id + '" selected="selected">' + cashier_name + '</option>');
@@ -346,51 +660,30 @@ function posCourier(set, id) {
 	});
 }
 
-function posProv(set, id) {
-	url = CUST_URL + PROVINCE + '/showProvince';
+function posCity(set, id) {
+	url = CUST_URL + CITY + '/showCity';
 
-	$.getJSON(url, function (response) {
-		fillPosProvince.empty();
-		fillPosProvince.append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function (idx, elem) {
-			var province_id = elem.m_province_id;
-			var province_name = elem.name;
-			if (id == province_id)
-				fillPosProvince.append('<option value="' + province_id + '" selected="selected">' + province_name + '</option>');
-			else
-				fillPosProvince.append('<option value="' + province_id + '">' + province_name + '</option>');
-		});
-	});
-}
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: {
+			id: null
+		},
+		dataType: 'JSON',
+		success: function (result) {
+			fillPosCity.empty();
+			fillPosCity.append('<option selected="selected" value="">-- Choose One --</option>');
+			$.each(result, function (idx, elem) {
+				var city_id = elem.m_city_id;
+				var city_type = elem.type;
+				var city_name = city_type + ' ' + elem.name;
 
-function getCity(set, id) {
-	fillPosProvince.change(function (e) {
-		e.preventDefault();
-		let province_id = $(this).val();
-
-		url = CUST_URL + CITY + '/showCity';
-
-		$.ajax({
-			url: url,
-			type: 'POST',
-			data: {
-				id: province_id
-			},
-			dataType: 'JSON',
-			success: function (result) {
-				fillPosCity.empty();
-				fillPosCity.append('<option selected="selected" value="">-- Choose One --</option>');
-				$.each(result, function (idx, elem) {
-					var city_id = elem.m_city_id;
-					var city_name = elem.name;
-
-					if (id == city_id)
-						fillPosCity.append('<option selected="selected" value="' + city_id + '">' + city_name + '</option>');
-					else
-						fillPosCity.append('<option value="' + city_id + '">' + city_name + '</option>');
-				});
-			}
-		});
+				if (id == city_id)
+					fillPosCity.append('<option value="' + city_id + '" selected="selected">' + city_name + '</option>');
+				else
+					fillPosCity.append('<option value="' + city_id + '">' + city_name + '</option>');
+			});
+		}
 	});
 }
 
@@ -401,6 +694,7 @@ function getDelivery(set, id) {
 	var courier = null;
 
 	fillPosCourier.change(function (e) {
+		url = SITE_URL + '/cost';
 		destination = $('#pos_city option:selected').val();
 		totalWeight = fillPosWeight.val();
 		courier = $(this).val();
@@ -418,19 +712,30 @@ function getDelivery(set, id) {
 			},
 			dataType: 'JSON',
 			success: function (result) {
-				fillPosDelivery.prop('disabled', false);
-				fillPosDelivery.append('<option selected="selected" value="">-- Choose One --</option>');
-				$.each(result, function (idx, elem) {
-					var costs = elem.cost;
-					var desc = elem.description;
-					var service = elem.service;
-					$.each(costs, function (idx, obj) {
-						var etd = obj.etd; //estimated delivery
-						var cost = obj.value;
-						var delivery_name = service + ' - ' + '(Rp. ' + formatRupiah(cost) + ', Estimasi pengiriman : ' + etd + ' Hari)';
-						fillPosDelivery.append('<option value="' + etd + '">' + delivery_name + '</option>');
-					})
-				});
+				if (result.code === 400) {
+					Toast.fire({
+						type: 'error',
+						title: result.description
+					});
+				} else {
+					fillPosDelivery.prop('disabled', false);
+					fillPosDelivery.append('<option selected="selected" value="">-- Choose One --</option>');
+					$.each(result, function (idx, elem) {
+						var costs = elem.cost;
+						var desc = elem.description;
+						var service = elem.service;
+						$.each(costs, function (idx, obj) {
+							var etd = obj.etd; //estimated delivery
+							var cost = obj.value;
+							var delivery_name = service + ' - ' + '(Rp. ' + formatRupiah(cost) + ', Estimasi pengiriman : ' + etd + ' Hari)';
+							fillPosDelivery.append('<option value="' + service + '/' + cost + '">' + delivery_name + '</option>');
+						})
+					});
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				console.info(errorThrown)
+				alert(errorThrown)
 			}
 		});
 	});
@@ -454,19 +759,30 @@ function getDelivery(set, id) {
 			},
 			dataType: 'JSON',
 			success: function (result) {
-				fillPosDelivery.prop('disabled', false);
-				fillPosDelivery.append('<option selected="selected" value="">-- Choose One --</option>');
-				$.each(result, function (idx, elem) {
-					var costs = elem.cost;
-					var desc = elem.description;
-					var service = elem.service;
-					$.each(costs, function (idx, obj) {
-						var etd = obj.etd; //estimated delivery
-						var cost = obj.value;
-						var delivery_name = service + ' - ' + '(Rp. ' + formatRupiah(cost) + ', Estimasi pengiriman : ' + etd + ' Hari)';
-						fillPosDelivery.append('<option value="' + service + '/' + cost + '">' + delivery_name + '</option>');
-					})
-				});
+				if (result.code === 400) {
+					Toast.fire({
+						type: 'error',
+						title: result.description
+					});
+				} else {
+					fillPosDelivery.prop('disabled', false);
+					fillPosDelivery.append('<option selected="selected" value="">-- Choose One --</option>');
+					$.each(result, function (idx, elem) {
+						var costs = elem.cost;
+						var desc = elem.description;
+						var service = elem.service;
+						$.each(costs, function (idx, obj) {
+							var etd = obj.etd; //estimated delivery
+							var cost = obj.value;
+							var delivery_name = service + ' - ' + '(Rp. ' + formatRupiah(cost) + ', Estimasi pengiriman : ' + etd + ' Hari)';
+							fillPosDelivery.append('<option value="' + service + '/' + cost + '">' + delivery_name + '</option>');
+						})
+					});
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				console.info(errorThrown)
+				alert(errorThrown)
 			}
 		});
 	});
@@ -479,4 +795,30 @@ function autoFocus() {
 
 function clearFilPos() {
 	fillSBarcode.val('');
+}
+
+function clearErrPos() {
+	errPosCustSelect.html('');
+	errPosCustInput.html('');
+	errPosPhone.html('');
+	errPosCourier.html('');
+	errPosCity.html('');
+	errPosAddress.html('');
+	errPosDelivery.html('');
+	fillPosPhone.removeClass(isInvalid);
+	fillPosAddress.removeClass(isInvalid);
+}
+
+function chkdPos() { //checked
+	fillPosCustInput.prop('readonly', true);
+	fillPosPhone.prop('readonly', true);
+	fillPosAddress.prop('readonly', true);
+	fillPosJMarket.prop('readonly', true);
+	fillPosNote.prop('readonly', true);
+	fillPosWeight.prop('readonly', true);
+	fillPosCustSelect.prop('disabled', true);
+	fillPosCourier.prop('disabled', true);
+	fillPosCity.prop('disabled', true);
+	fillPosDelivery.prop('disabled', true);
+	cxbIsmember.prop('disabled', true);
 }
