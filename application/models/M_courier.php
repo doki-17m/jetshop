@@ -72,6 +72,12 @@ class M_courier extends CI_Model
 		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $active));
 	}
 
+	public function getByValue($value)
+	{
+		$this->db->like('value', $value, 'after');
+		return $this->db->get($this->_table);
+	}
+
 	public function callbackCode($post)
 	{
 		$this->db->select('value');
