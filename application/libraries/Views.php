@@ -40,4 +40,6 @@ class Views
 	public $VIEW_SETTING = 'setting/v_setting'; //view setting
 
 	public $VIEW_EXPENSE = 'expense/v_expense'; //view expense
+
+	public $VIEW_RETURN = 'return/v_return'; //view return
 }
