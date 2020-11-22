@@ -273,6 +273,24 @@ _tableProList = $('#tb_product_list').DataTable({
 	'lengthChange': false
 });
 
+_tableExp = $('#tb_expense').DataTable({
+	'ajax': SITE_URL + SHOWALL,
+	'processing': true,
+	'language': {
+		'processing': '<i class="fas fa-spinner fa-spin fa-1x fa-fw"></i><span> Processing...</span>'
+	},
+	'columnDefs': [{
+			'targets': -1,
+			'orderable': false //nonaktif sort by
+		},
+		{
+			'targets': 0,
+			'visible': false //hide column
+		}
+	],
+	'autoWidth': true
+});
+
 function reloadTable(last_url) {
 	if (last_url == 'product')
 		_tablePro.ajax.reload(null, false);
