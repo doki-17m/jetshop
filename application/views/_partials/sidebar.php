@@ -2,7 +2,8 @@
 	<!-- Sidebar user panel (optional) -->
 	<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 		<div class="image">
-			<!-- <img src="<?php //echo base_url('assets/dist/img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image"> -->
+			<!-- <img src="<?php //echo base_url('assets/dist/img/user2-160x160.jpg') 
+							?>" class="img-circle elevation-2" alt="User Image"> -->
 		</div>
 		<div class="info">
 
@@ -26,26 +27,32 @@
 					<p>Sales Order</p>
 				</a>
 			</li>
-			<!-- <li class="nav-item">
+			<li class="nav-item">
 				<a href="#" class="nav-link">
 					<i class="nav-icon fas fa-exchange-alt"></i>
 					<p>Transaction<i class="fas fa-angle-left right"></i></p>
 				</a>
 				<ul class="nav nav-treeview">
 					<li class="nav-item">
-						<a href="<?php echo site_url('po') ?>" class="nav-link">
+						<a href="<?php echo site_url('sales/views') ?>" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
-							<p>Purchase Order</p>
+							<p>Sales Order Detail</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="<?php echo site_url('so') ?>" class="nav-link">
+						<a href="<?php echo site_url('retur') ?>" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
-							<p>Sales Order</p>
+							<p>Return</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="<?php echo site_url('expense') ?>" class="nav-link">
+							<i class="far fa-circle nav-icon"></i>
+							<p>Expense</p>
 						</a>
 					</li>
 				</ul>
-			</li> -->
+			</li>
 			<li class="nav-item">
 				<a href="#" class="nav-link">
 					<i class="nav-icon fab fa-product-hunt"></i>
@@ -121,13 +128,13 @@
 							<i class="far fa-circle nav-icon"></i>
 							<p>Bank Account</p>
 						</a>
-					</li>					
+					</li>
 					<li class="nav-item">
 						<a href="<?php echo site_url('courier') ?>" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
 							<p>Courier</p>
 						</a>
-					</li>					
+					</li>
 					<li class="nav-item">
 						<a href="<?php echo site_url('job') ?>" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
@@ -139,7 +146,7 @@
 							<i class="far fa-circle nav-icon"></i>
 							<p>Greeting</p>
 						</a>
-					</li>					
+					</li>
 				</ul>
 			</li>
 			<!-- <li class="nav-item">
