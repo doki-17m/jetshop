@@ -4,6 +4,10 @@ class M_account extends CI_Model
 {
 	private $_table = 'm_account';
 
+	private $_tablebank = 'm_bank';
+
+	private $v_bank_account = 'v_bank_account';
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -11,7 +15,7 @@ class M_account extends CI_Model
 
 	public function getAll()
 	{
-		return $this->db->get($this->_table);
+		return $this->db->get($this->v_bank_account);
 	}
 
 	public function setDataList()
@@ -40,7 +44,7 @@ class M_account extends CI_Model
 
 	public function insert($post)
 	{
-		$this->bank = $post['acc_bank'];
+		$this->m_bank_id = $post['acc_bank'];
 		$this->accountno = $post['acc_accountno'];
 		$this->name = $post['acc_name'];
 		$this->description = $post['acc_desc'];
@@ -55,7 +59,7 @@ class M_account extends CI_Model
 
 	public function update($id, $post)
 	{
-		$this->bank = $post['acc_bank'];
+		$this->m_bank_id = $post['acc_bank'];
 		$this->accountno = $post['acc_accountno'];
 		$this->name = $post['acc_name'];
 		$this->description = $post['acc_desc'];
@@ -70,16 +74,26 @@ class M_account extends CI_Model
 		return $this->db->delete($this->_table, array('m_account_id' => $id));
 	}
 
+	public function listBank($active)
+	{
+		return $this->db->order_by('name', 'ASC')->get_where($this->_tablebank, array('isactive' => $active));
+	}
+
+	public function listAccount($active)
+	{
+		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $active));
+	}
+
 	public function callbackAccountNo($post)
 	{
 		$this->db->select('accountno');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'accountno'			=> $post['acc_accountno'],
-					'm_account_id !='	=> $post['id']
-					)
-				);
+			array(
+				'accountno'			=> $post['acc_accountno'],
+				'm_account_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 
