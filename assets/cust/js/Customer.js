@@ -125,7 +125,7 @@ function errFormCus(data) {
 		fillCRPhone.removeClass(isInvalid);
 
 	if (data.error_cus_province != '')
-		errCRProv.html(data.error_cus_phone);
+		errCRProv.html(data.error_cus_province);
 	else
 		errCRProv.html('');
 
@@ -136,50 +136,52 @@ function errFormCus(data) {
 }
 
 function clearCus() {
-	cusForm[0].reset(),
-		fillCRGre.val(null).change(),
-		fillCRSales.val(null).change(),
-		errCRCc.html(''),
-		errCRName.html(''),
-		errCREmail.html(''),
-		errCRAddress.html(''),
-		errCRPhone.html(''),
-		fillCRProv.val(null).change(),
-		fillCRCity.val(null).change(),
-		fillCRCity.empty(),
-		fillCRCc.removeClass(isInvalid),
-		fillCRName.removeClass(isInvalid),
-		fillCREmail.removeClass(isInvalid),
-		fillCRAddress.removeClass(isInvalid),
-		fillCRPhone.removeClass(isInvalid);
+	cusForm[0].reset();
+	fillCRGre.val(null).change();
+	fillCRSales.val(null).change();
+	errCRCc.html('');
+	errCRName.html('');
+	errCREmail.html('');
+	errCRAddress.html('');
+	errCRPhone.html('');
+	errCRProv.html('');
+	errCRCity.html('');
+	fillCRProv.val(null).change();
+	fillCRCity.val(null).change();
+	fillCRCity.empty();
+	fillCRCc.removeClass(isInvalid);
+	fillCRName.removeClass(isInvalid);
+	fillCREmail.removeClass(isInvalid);
+	fillCRAddress.removeClass(isInvalid);
+	fillCRPhone.removeClass(isInvalid);
 }
 
 function chkdCus() { //checked
-	fillCRCc.prop('readonly', true),
-		fillCRGre.prop('disabled', true),
-		fillCRName.prop('readonly', true),
-		fillCREmail.prop('readonly', true),
-		fillCRProv.prop('disabled', true),
-		fillCRCity.prop('disabled', true),
-		fillCRAddress.prop('readonly', true),
-		fillCRPhone.prop('readonly', true),
-		fillCRPhone2.prop('readonly', true),
-		fillCRSales.prop('disabled', true),
-		fillCRDesc.prop('readonly', true);
+	fillCRCc.prop('readonly', true);
+	fillCRGre.prop('disabled', true);
+	fillCRName.prop('readonly', true);
+	fillCREmail.prop('readonly', true);
+	fillCRProv.prop('disabled', true);
+	fillCRCity.prop('disabled', true);
+	fillCRAddress.prop('readonly', true);
+	fillCRPhone.prop('readonly', true);
+	fillCRPhone2.prop('readonly', true);
+	fillCRSales.prop('disabled', true);
+	fillCRDesc.prop('readonly', true);
 }
 
 function unchkdCus() { //unchecked
-	fillCRCc.prop('readonly', false),
-		fillCRGre.prop('disabled', false),
-		fillCRName.prop('readonly', false),
-		fillCREmail.prop('readonly', false),
-		fillCRProv.prop('disabled', false),
-		fillCRCity.prop('disabled', false),
-		fillCRAddress.prop('readonly', false),
-		fillCRPhone.prop('readonly', false),
-		fillCRPhone2.prop('readonly', false),
-		fillCRSales.prop('disabled', false),
-		fillCRDesc.prop('readonly', false);
+	fillCRCc.prop('readonly', false);
+	fillCRGre.prop('disabled', false);
+	fillCRName.prop('readonly', false);
+	fillCREmail.prop('readonly', false);
+	fillCRProv.prop('disabled', false);
+	fillCRCity.prop('disabled', false);
+	fillCRAddress.prop('readonly', false);
+	fillCRPhone.prop('readonly', false);
+	fillCRPhone2.prop('readonly', false);
+	fillCRSales.prop('disabled', false);
+	fillCRDesc.prop('readonly', false);
 }
 
 function fSaleShowHide() {
