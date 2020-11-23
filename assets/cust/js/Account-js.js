@@ -7,18 +7,18 @@ const fillABank = $('[name = acc_bank]'),
 const errABank = $('#error_acc_bank'),
 	errAAccountNo = $('#error_acc_accountno'),
 	errAName = $('#error_acc_name');
-	
+
 btnNewAcc.click(function () {
 	openModalForm();
 	Scrollmodal();
 	modalTitle.text('New Courier');
 	clearAcc();
 	accActive.prop('checked', true);
-	
+
 	const formID = accForm[0]['id'];
 	isActive(formID);
-
 	setSave = 'add';
+	accBank(setSave, 0);
 });
 
 _tableAcc.on('click', 'td:not(:last-child)', function (e) {
@@ -28,16 +28,17 @@ _tableAcc.on('click', 'td:not(:last-child)', function (e) {
 	ID = row[0]; //index array ID
 	var NAME = row[2];
 	url = SITE_URL + SHOW + ID;
-	
+
 	openModalForm();
 	Scrollmodal();
 	modalTitle.html(NAME);
 	clearAcc();
 	isActive(formID);
-	
+
 	setSave = 'update';
 
-	$.getJSON(url, function(result) {
+	$.getJSON(url, function (result) {
+		accBank(setSave, result.m_bank_id);
 		fillABank.val(result.bank);
 		fillAAccountNo.val(result.accountno);
 		fillAName.val(result.name);
@@ -80,27 +81,42 @@ function errFormAcc(data) {
 
 function clearAcc() {
 	accForm[0].reset();
-	errABank.html(''),
-	errAAccountNo.html(''),
-	errAName.html(''),
-	fillABank.removeClass(isInvalid),
-	fillAAccountNo.removeClass(isInvalid),
+	errABank.html('');
+	errAAccountNo.html('');
+	errAName.html('');
+	fillABank.removeClass(isInvalid);
+	fillAAccountNo.removeClass(isInvalid);
 	fillAName.removeClass(isInvalid);
 }
 
 function chkdAcc() { //checked
-	fillABank.prop('readonly', true),
-	fillAAccountNo.prop('readonly', true),
-	fillAName.prop('readonly', true),
+	fillABank.prop('readonly', true);
+	fillAAccountNo.prop('readonly', true);
+	fillAName.prop('readonly', true);
 	fillADesc.prop('readonly', true);
 }
 
 function unchkdAcc() { //unchecked
-	fillABank.prop('readonly', false),
-	fillAAccountNo.prop('readonly', false),
-	fillAName.prop('readonly', false),
+	fillABank.prop('disabled', false);
+	fillAAccountNo.prop('readonly', false);
+	fillAName.prop('readonly', false);
 	fillADesc.prop('readonly', false);
 }
 
+function accBank(set, id) {
+	url = SITE_URL + '/showBank';
 
+	$.getJSON(url, function (response) {
+		fillABank.empty();
+		fillABank.append('<option selected="selected" value="">-- Choose One --</option>');
 
+		$.each(response, function (idx, elem) {
+			var bank_id = elem.m_bank_id;
+			var bank_name = elem.name;
+			if (id == bank_id)
+				fillABank.append('<option value="' + bank_id + '" selected="selected">' + bank_name + '</option>');
+			else
+				fillABank.append('<option value="' + bank_id + '">' + bank_name + '</option>');
+		});
+	});
+}
