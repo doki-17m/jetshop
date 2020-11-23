@@ -110,6 +110,24 @@ class Account extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function showBank()
+	{
+		$status = $this->status;
+		$account = $this->m_account;
+		$isActive = $status->ACTIVE;
+		$response = $account->listBank($isActive)->result();
+		echo json_encode($response);
+	}
+
+	public function showAccount()
+	{
+		$status = $this->status;
+		$account = $this->m_account;
+		$isActive = $status->ACTIVE;
+		$response = $account->listAccount($isActive)->result();
+		echo json_encode($response);
+	}
+
 	public function check_accountno()
 	{
 		$status = $this->status;
