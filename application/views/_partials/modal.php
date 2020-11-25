@@ -8,7 +8,7 @@
 				</button>
 			</div>
 			<div class="modal-body" id="form-all">
-			<?php
+				<?php
 				$uri = $this->uri->segment('1');
 				if ($uri == 'product') {
 					$this->load->view('product/form_product');
@@ -37,7 +37,7 @@
 				} else if ($uri == 'user') {
 					$this->load->view('user/form_user');
 				}
-			?>
+				?>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-outline-danger" id="close_form" data-dismiss="modal">Close</button>
@@ -79,10 +79,28 @@
 			<div class="modal-body">
 				<?php $this->load->view('sales/form_checkout'); ?>
 			</div>
-			<!-- <div class="modal-footer">
-				<button type="button" class="btn btn-outline-danger" id="close_checkout" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-outline-primary" id="save_checkout">Save changes</button>
-			</div> -->
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal_exp">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"></h4>
+				<button type="button" class="close" id="close_exp" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<?php
+				$this->load->view('expense/form_expense');
+				?>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-danger" id="close_exp">Close</button>
+				<button type="button" class="btn btn-outline-primary" id="save_exp">Save changes</button>
+			</div>
 		</div>
 	</div>
 </div>
