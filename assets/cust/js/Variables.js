@@ -97,7 +97,8 @@ const btnNewSo = $('#new_so'), //button sales order
 	btnNewAcc = $('#new_account'), //button account
 	btnNewUsr = $('#new_user'), //button user
 	btnNewJob = $('#new_job'), //button job
-	btnNewExp = $('#new_expense'); //button job
+	btnNewExp = $('#new_expense'), //button expense
+	btnNewExpLine = $('#new_expenseline'); //button expense line
 
 const btnSave = $('#save_form'),
 	btnSList = $('#save_list'),
@@ -124,4 +125,5 @@ const CITY = '/city',
 	SALES = '/sales',
 	COURIER = '/courier',
 	CUSTOMER = '/customer',
-	EXPENSE = '/expense';
+	EXPENSE = '/expense',
+	ACCOUNT = '/account';
