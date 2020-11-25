@@ -90,3 +90,14 @@ function formatRupiah($numeric)
 {
 	return number_format($numeric, 0, '', '.');
 }
+
+function docStatus($id, $string)
+{
+	if ($string == 'CO') {
+		return '<center><a onclick="processDoc(' . "'" . $id . "'," . "'" . $string . "'" . ')" title="Completed"><span class="badge badge-success">Completed</span></a></center>';
+	} else if ($string == 'VO') {
+		return '<center><span class="badge badge-danger">Voided</span></center>';
+	} else {
+		return '<center><a onclick="processDoc(' . "'" . $id . "'," . "'" . $string . "'" . ')" title="Drafted"><span class="badge badge-warning">Drafted</span></a></center>';
+	}
+}
