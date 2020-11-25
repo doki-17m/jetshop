@@ -36,9 +36,11 @@
 <script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
 <!-- bootstrap-datepicker -->
-<!-- <script src="<?php //echo base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') ?>"></script> -->
+<!-- <script src="<?php //echo base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') 
+					?>"></script> -->
 <!-- Bootstrap Toggle -->
-<!-- <script src="<?php //echo base_url('assets/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js') ?>"></script> -->
+<!-- <script src="<?php //echo base_url('assets/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js') 
+					?>"></script> -->
 <script src="<?php echo base_url('/assets/plugins/auto-numeric/autoNumeric.js') ?>"></script>
 
 <!-- JS -->
@@ -58,4 +60,4 @@
 <script src="<?php echo base_url('assets/cust/js/Account-js.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/User.min.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Sales.js')  ?>"></script>
-
+<script src="<?php echo base_url('assets/cust/js/Expense.js')  ?>"></script>
