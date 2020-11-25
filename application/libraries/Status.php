@@ -40,9 +40,21 @@ class Status
 
 	public $DELCART = 'DC'; //delete cart
 
-	//status success insert
+	//status success insert cart
 	public $SUCCESS_INSERT_CART = [
 		'success' => true,
 		'message' => '<h5> Success!</h5> Your cart has been submit successfully!'
+	];
+
+	//status success process docaction
+	public $SUCCESS_DOCACTION = [
+		'success' => true,
+		'message' => '<h5> Success!</h5> Your Document Status has been changed successfully!'
+	];
+
+	//status erroyr line is empt
+	public $ERROR_LINE = [
+		'error' => true,
+		'message' => 'Request failed: Detail Line cannot be empty !'
 	];
 }
