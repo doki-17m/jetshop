@@ -240,7 +240,6 @@ function showExpLine(data) {
 			url = SITE_URL + '/destroy_line?id=' + IDX;
 
 			$.get(url, function (result) {
-				console.log(result)
 				row.remove().draw(false)
 			});
 		}
@@ -373,6 +372,12 @@ function clearExp() {
 	errEBank.html('');
 	fillEDate.removeClass(isInvalid);
 	_tableExpLine.clear().draw();
+	fillEDate.prop('readonly', false);
+	fillEDesc.prop('readonly', false);
+	fillEPayment.prop('disabled', false);
+	fillEBank.prop('disabled', false);
+	btnNewExpLine.prop('disabled', false);
+	$('#save_exp').prop('disabled', false);
 }
 
 function expAccount(set, id) {
