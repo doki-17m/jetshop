@@ -456,6 +456,73 @@ function isActive(form) {
 	});
 }
 
+function processDoc(id, status) {
+	var optionsAction = [];
+	var arrDocAction;
+	if (status === 'DR') {
+		arrDocAction = [{
+				status: 'CO',
+				name: 'Complete'
+			},
+			{
+				status: 'VO',
+				name: 'Void'
+			}
+		];
+	} else {
+		arrDocAction = [{
+			status: 'VO',
+			name: 'Void'
+		}];
+	}
+
+
+	$.map(arrDocAction, function (data) {
+		optionsAction[data.status] = data.name;
+	});
+
+	Swal.fire({
+		title: 'Document Action',
+		input: 'select',
+		inputOptions: optionsAction,
+		customClass: 'swal-docaction',
+		showCancelButton: true,
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Start',
+		cancelButtonText: 'Close',
+		showLoaderOnConfirm: true,
+		preConfirm: (generate) => {
+			return new Promise(function (resolve) {
+				url = SITE_URL + '/processDocaction?id=' + id + '&docaction=' + generate;
+				$.getJSON(url, function (response) {
+						if (response.success) {
+							Toast.fire({
+								type: 'success',
+								title: response.message
+							});
+							reloadTable(LAST_URL);
+						}
+
+						if (response.error) {
+							Swal.showValidationMessage(
+								response.message
+							);
+							resolve(false);
+						}
+					})
+					.fail(function (jqXHR, textStatus, errorThrown) {
+						console.info(errorThrown)
+						alert(errorThrown)
+					});
+			});
+		},
+		allowOutsideClick: () => !Swal.isLoading()
+	}).then(result => {
+		if (!result.value)
+			console.info('Close')
+	});
+}
+
 function formatRupiah(numeric) {
 	var number_string = numeric.toString(),
 		split = number_string.split(','),
@@ -478,6 +545,18 @@ function replaceChar(string) {
 
 function replaceRupiah(numeric) {
 	return numeric.replace(/\./g, "");
+}
+
+function formatDate(date) {
+	var d = new Date(date),
+		month = '' + (d.getMonth() + 1),
+		day = '' + d.getDate(),
+		year = d.getFullYear();
+
+	if (month.length < 2) month = '0' + month;
+	if (day.length < 2) day = '0' + day;
+
+	return [year, month, day].join('-');
 }
 
 $(document).ready(function () {
