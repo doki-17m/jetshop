@@ -4,7 +4,8 @@
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="acc_bank">Bank <span class="required">*</span></label>
-					<input type="text" class="form-control" id="acc_bank" name="acc_bank">
+					<select class="form-control select2" id="acc_bank" name="acc_bank">
+					</select>
 					<small id="error_acc_bank" class="form-text text-danger"></small>
 				</div>
 			</div>
