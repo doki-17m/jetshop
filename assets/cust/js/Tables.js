@@ -291,6 +291,14 @@ _tableExp = $('#tb_expense').DataTable({
 	'autoWidth': true
 });
 
+_tableExpLine = $('#tb_expenseline').DataTable({
+	'autoWidth': true,
+	'lengthChange': false,
+	'pageLength': 5,
+	'searching': false,
+	'ordering': false
+});
+
 function reloadTable(last_url) {
 	if (last_url == 'product')
 		_tablePro.ajax.reload(null, false);
@@ -318,6 +326,8 @@ function reloadTable(last_url) {
 		_tableAcc.ajax.reload(null, false);
 	else if (last_url == 'user')
 		_tableUsr.ajax.reload(null, false);
+	else if (last_url == 'expense')
+		_tableExp.ajax.reload(null, false);
 	else
 		console.info(false)
 }
