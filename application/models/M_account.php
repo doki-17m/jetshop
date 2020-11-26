@@ -81,7 +81,7 @@ class M_account extends CI_Model
 
 	public function listAccount($active)
 	{
-		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('isactive' => $active));
+		return $this->db->order_by('name', 'ASC')->get_where($this->v_bank_account, array('isactive' => $active));
 	}
 
 	public function callbackAccountNo($post)
