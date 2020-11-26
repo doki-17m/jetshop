@@ -72,6 +72,7 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 		fillPName.val(result.name);
 		fillPDesc.val(result.description);
 		fillPWeight.val(result.weight);
+		fillPQty.val(result.qty);
 		fillPMinOrder.val(result.minorder);
 		fillPPurch.val(formatRupiah(result.purchprice));
 		fillPSales.val(formatRupiah(result.salesprice));
