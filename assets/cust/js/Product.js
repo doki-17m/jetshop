@@ -208,6 +208,18 @@ function errFormPro(data) {
 	else
 		errPSales.html(''),
 		fillPSales.removeClass(isInvalid);
+
+	if (data.error_pro_catg != '')
+		errPCatg.html(data.error_pro_catg);
+	else
+		errPCatg.html('');
+
+	if (data.error_pro_qty != '')
+		errPQty.html(data.error_pro_qty),
+		fillPQty.addClass(isInvalid);
+	else
+		errPQty.html(''),
+		fillPQty.removeClass(isInvalid);
 }
 
 function clearPro() {
