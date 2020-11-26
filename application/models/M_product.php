@@ -73,7 +73,7 @@ class M_product extends CI_Model
 		if (!empty($value)) {
 			$this->db->like('value', $value, 'after');
 		}
-		return $this->db->get($this->_table);
+		return $this->db->get($this->v_product_detail);
 	}
 
 	public function update($id, $post)
