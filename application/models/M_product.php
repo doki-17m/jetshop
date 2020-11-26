@@ -215,7 +215,9 @@ class M_product extends CI_Model
 			'error_pro_weight'		=> form_error('pro_weight'),
 			'error_pro_purchidr'	=> form_error('pro_purchidr'),
 			'error_pro_slsidr'		=> form_error('pro_slsidr'),
-			'error_pro_minorder'	=> form_error('pro_minorder')
+			'error_pro_minorder'	=> form_error('pro_minorder'),
+			'error_pro_catg'		=> form_error('pro_catg'),
+			'error_pro_qty'			=> form_error('pro_qty')
 		];
 	}
 }
