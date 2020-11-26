@@ -215,6 +215,8 @@ function clearPro() {
 	errPMinOrder.html('');
 	errPPurch.html('');
 	errPSales.html('');
+	errPCatg.html('');
+	errPQty.html('');
 	fillPCatg.val(null).change();
 	fillPUom.val(null).change();
 	fillPCode.removeClass(isInvalid);
@@ -223,10 +225,12 @@ function clearPro() {
 	fillPMinOrder.removeClass(isInvalid);
 	fillPPurch.removeClass(isInvalid);
 	fillPSales.removeClass(isInvalid);
+	errPQty.removeClass(isInvalid);
 	$('.img-result').remove();
 	formResult.hide();
 	formUpload.show();
 	imgSrc = 0;
+
 }
 
 function chkdPro() { //checked
