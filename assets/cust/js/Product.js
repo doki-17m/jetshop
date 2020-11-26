@@ -43,12 +43,13 @@ btnNewPro.click(function () {
 	modalTitle.text('New Product');
 	clearPro();
 	fillPHide();
-	proActive.attr('checked', true);
+	proActive.prop('checked', true);
 	const formID = proForm[0]['id'];
 	isActive(formID);
 	setSave = 'add';
 	proUom(setSave, 0);
 	proCategory(setSave, 0);
+	fillPQty.prop('readonly', false);
 });
 
 _tablePro.on('click', 'td:not(:last-child)', function (e) {
@@ -64,6 +65,7 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 
 	clearPro();
 	fillPHide();
+	fillPQty.prop('readonly', true);
 	isActive(formID);
 	setSave = 'update';
 	url = SITE_URL + SHOW + ID;
