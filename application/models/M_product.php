@@ -34,7 +34,7 @@ class M_product extends CI_Model
 			$row[] = $value->value;
 			$row[] = $value->name;
 			$row[] = $value->category;
-			$row[] = $value->minorder;
+			// $row[] = $value->minorder;
 			$row[] = $value->qty;
 			$row[] = $value->unitmeasure;
 			$row[] = formatRupiah($value->purchprice);
