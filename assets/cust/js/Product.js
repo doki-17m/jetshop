@@ -209,24 +209,24 @@ function errFormPro(data) {
 
 function clearPro() {
 	proForm[0].reset();
-	errPCode.html(''),
-		errPName.html(''),
-		errPWeight.html(''),
-		errPMinOrder.html(''),
-		errPPurch.html(''),
-		errPSales.html(''),
-		fillPCatg.val(null).change(),
-		fillPUom.val(null).change(),
-		fillPCode.removeClass(isInvalid),
-		fillPName.removeClass(isInvalid),
-		fillPWeight.removeClass(isInvalid),
-		fillPMinOrder.removeClass(isInvalid),
-		fillPPurch.removeClass(isInvalid),
-		fillPSales.removeClass(isInvalid),
-		$('.img-result').remove(),
-		formResult.hide(),
-		formUpload.show(),
-		imgSrc = 0;
+	errPCode.html('');
+	errPName.html('');
+	errPWeight.html('');
+	errPMinOrder.html('');
+	errPPurch.html('');
+	errPSales.html('');
+	fillPCatg.val(null).change();
+	fillPUom.val(null).change();
+	fillPCode.removeClass(isInvalid);
+	fillPName.removeClass(isInvalid);
+	fillPWeight.removeClass(isInvalid);
+	fillPMinOrder.removeClass(isInvalid);
+	fillPPurch.removeClass(isInvalid);
+	fillPSales.removeClass(isInvalid);
+	$('.img-result').remove();
+	formResult.hide();
+	formUpload.show();
+	imgSrc = 0;
 }
 
 function chkdPro() { //checked
