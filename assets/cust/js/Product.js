@@ -240,7 +240,7 @@ function clearPro() {
 	fillPMinOrder.removeClass(isInvalid);
 	fillPPurch.removeClass(isInvalid);
 	fillPSales.removeClass(isInvalid);
-	errPQty.removeClass(isInvalid);
+	fillPQty.removeClass(isInvalid);
 	$('.img-result').remove();
 	formResult.hide();
 	formUpload.show();
