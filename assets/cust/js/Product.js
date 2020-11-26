@@ -16,6 +16,7 @@ const errPCode = $('#error_pro_code'),
 	errPMinOrder = $('#error_pro_minorder'),
 	errPPurch = $('#error_pro_purchidr'),
 	errPSales = $('#error_pro_slsidr'),
+	errPCatg = $('#error_pro_catg'),
 	errPQty = $('#error_pro_qty');
 
 const groupPQty = $('#group_pro_qty'),
@@ -41,6 +42,7 @@ btnNewPro.click(function () {
 	Scrollmodal();
 	modalTitle.text('New Product');
 	clearPro();
+	fillPHide();
 	proActive.attr('checked', true);
 	const formID = proForm[0]['id'];
 	isActive(formID);
@@ -61,6 +63,7 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 	modalTitle.html(NAME);
 
 	clearPro();
+	fillPHide();
 	isActive(formID);
 	setSave = 'update';
 	url = SITE_URL + SHOW + ID;
@@ -303,5 +306,5 @@ function fillPShow() {
 }
 
 function fillPHide() {
-	groupPMinOrder.show();
+	groupPMinOrder.hide();
 }
