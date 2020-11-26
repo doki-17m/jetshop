@@ -36,6 +36,11 @@ function listAction($id, $string)
 		$list = '<center>
 						<a class="btn" onclick="Print(' . "'" . $id . "'" . ')" title="Cart"><i class="fas fa-print text-primary"></i></a>
 					</center>';
+	} else if ($string === 'DQ') {
+		$list = '<center>
+						<a class="btn" onclick="addQty(' . "'" . $id . "'" . ')" title="New Quantity"><i class="fas fa-tshirt text-primary"></i></a>
+						<a class="btn" onclick="Destroy(' . "'" . $id . "'" . ')" title="Delete"><i class="fas fa-trash-alt text-danger"></i></a>
+					</center>';
 	} else {
 		$list = '<center>
 						<a class="btn" onclick="Print(' . "'" . $id . "'" . ')" title="Cart"><i class="fas fa-print text-primary"></i></a>
