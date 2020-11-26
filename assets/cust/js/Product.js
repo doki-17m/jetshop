@@ -73,8 +73,8 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 		fillPDesc.val(result.description);
 		fillPWeight.val(result.weight);
 		fillPMinOrder.val(result.minorder);
-		fillPPurch.val(formatRupiah(result.costprice));
-		fillPSales.val(formatRupiah(result.sellprice));
+		fillPPurch.val(formatRupiah(result.purchprice));
+		fillPSales.val(formatRupiah(result.salesprice));
 		var image = result.ad_image_id;
 
 		if (image !== '')
