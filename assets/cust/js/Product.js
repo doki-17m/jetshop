@@ -21,7 +21,7 @@ const msgPWeight = $('#msg_pro_weight');
 const formUResult = $('#form-upload-result'),
 	formUpload = $('#form-upload'),
 	formResult = $('.form-result');
-	
+
 const btnDelImg = $('#btn_delimg');
 
 const IMAGE_PATH = '/assets/cust/images/';
@@ -45,36 +45,34 @@ btnNewPro.click(function () {
 });
 
 _tablePro.on('click', 'td:not(:last-child)', function (e) {
-	e.preventDefault();	
+	e.preventDefault();
 	const formID = proForm[0]['id'];
 	const row = _tablePro.row(this).data();
 	ID = row[0]; //index array ID
-	var NAME = row[3];	
+	var NAME = row[3];
 	openModalForm();
 	Scrollmodal();
 	Largemodal();
 	modalTitle.html(NAME);
-	
+
 	clearPro();
 	isActive(formID);
 	setSave = 'update';
 	url = SITE_URL + SHOW + ID;
 
 	$.getJSON(url, function (result) {
-		proCategory(setSave,result.m_product_category_id);
+		proCategory(setSave, result.m_product_category_id);
 		proUom(setSave, result.m_uom_id);
 		fillPCode.val(result.value);
 		fillPName.val(result.name);
 		fillPDesc.val(result.description);
-		// fillPCatg.val(result.m_product_category_id).change();
-		// fillPUom.val(result.m_uom_id).change();
 		fillPWeight.val(result.weight);
 		fillPMinOrder.val(result.minorder);
 		fillPPurch.val(formatRupiah(result.costprice));
 		fillPSales.val(formatRupiah(result.sellprice));
 		var image = result.ad_image_id;
 
-		if (image !== '')			
+		if (image !== '')
 			setAction = setSave,
 			loadImage(image, setAction),
 			imgSrc = image;
@@ -106,7 +104,7 @@ fillPImage.change(function (e) {
 		cache: false,
 		async: false,
 		dataType: 'JSON',
-		success: function (result) {			
+		success: function (result) {
 			if (result.success)
 				setAction = 'add',
 				loadImage(replaceChar(result.success), setAction),
@@ -144,13 +142,11 @@ function deleteImage(path) {
 	if (setSave == 'update')
 		product_id = ID;
 
-	$.post(url,
-		{
-			src: path,
-			set: setAction,
-			id: product_id
-		}, function(e){
-		// console.log(e)
+	$.post(url, {
+		src: path,
+		set: setAction,
+		id: product_id
+	}, function (e) {
 		imgSrc = 0;
 		$('.img-result').remove();
 		formResult.hide();
@@ -184,7 +180,7 @@ function errFormPro(data) {
 
 	if (data.error_pro_minorder != '')
 		errPMinOrder.html(data.error_pro_minorder),
-		
+
 		fillPMinOrder.addClass(isInvalid);
 	else
 		errPMinOrder.html(''),
@@ -208,63 +204,63 @@ function errFormPro(data) {
 function clearPro() {
 	proForm[0].reset();
 	errPCode.html(''),
-	errPName.html(''),
-	errPWeight.html(''),
-	errPMinOrder.html(''),
-	errPPurch.html(''),
-	errPSales.html(''),
-	fillPCatg.val(null).change(),
-	fillPUom.val(null).change(),
-	fillPCode.removeClass(isInvalid),
-	fillPName.removeClass(isInvalid),
-	fillPWeight.removeClass(isInvalid),
-	fillPMinOrder.removeClass(isInvalid),
-	fillPPurch.removeClass(isInvalid),
-	fillPSales.removeClass(isInvalid),
-	$('.img-result').remove(),
-	formResult.hide(),
-	formUpload.show(),
-	imgSrc = 0;
+		errPName.html(''),
+		errPWeight.html(''),
+		errPMinOrder.html(''),
+		errPPurch.html(''),
+		errPSales.html(''),
+		fillPCatg.val(null).change(),
+		fillPUom.val(null).change(),
+		fillPCode.removeClass(isInvalid),
+		fillPName.removeClass(isInvalid),
+		fillPWeight.removeClass(isInvalid),
+		fillPMinOrder.removeClass(isInvalid),
+		fillPPurch.removeClass(isInvalid),
+		fillPSales.removeClass(isInvalid),
+		$('.img-result').remove(),
+		formResult.hide(),
+		formUpload.show(),
+		imgSrc = 0;
 }
 
 function chkdPro() { //checked
 	fillPCode.prop('readonly', true),
-	fillPName.prop('readonly', true),
-	fillPDesc.prop('readonly', true),
-	fillPWeight.prop('readonly', true),
-	fillPMinOrder.prop('readonly', true),
-	fillPPurch.prop('readonly', true),
-	fillPSales.prop('readonly', true),
-	fillPCatg.prop('disabled', true),
-	fillPUom.prop('disabled', true);
+		fillPName.prop('readonly', true),
+		fillPDesc.prop('readonly', true),
+		fillPWeight.prop('readonly', true),
+		fillPMinOrder.prop('readonly', true),
+		fillPPurch.prop('readonly', true),
+		fillPSales.prop('readonly', true),
+		fillPCatg.prop('disabled', true),
+		fillPUom.prop('disabled', true);
 }
 
 function unchkdPro() { //unchecked
 	fillPCode.prop('readonly', false),
-	fillPName.prop('readonly', false),
-	fillPDesc.prop('readonly', false),
-	fillPWeight.prop('readonly', false),
-	fillPMinOrder.prop('readonly', false),
-	fillPPurch.prop('readonly', false),
-	fillPSales.prop('readonly', false),
-	fillPCatg.prop('disabled', false),
-	fillPUom.prop('disabled', false);
+		fillPName.prop('readonly', false),
+		fillPDesc.prop('readonly', false),
+		fillPWeight.prop('readonly', false),
+		fillPMinOrder.prop('readonly', false),
+		fillPPurch.prop('readonly', false),
+		fillPSales.prop('readonly', false),
+		fillPCatg.prop('disabled', false),
+		fillPUom.prop('disabled', false);
 }
 
 function proCategory(set, id) {
 	url = CUST_URL + CATEGORY + '/showCategory';
-	
+
 	$.getJSON(url, function (response) {
 		fillPCatg.empty();
 		fillPCatg.append('<option selected="selected" value="">-- Choose One --</option>');
 
-		$.each(response, function(idx, elem) {
+		$.each(response, function (idx, elem) {
 			var category_id = elem.m_product_category_id;
 			var category_name = elem.name;
 			if (id == category_id)
-				fillPCatg.append('<option value="'+category_id+'" selected="selected">'+category_name+'</option>');
+				fillPCatg.append('<option value="' + category_id + '" selected="selected">' + category_name + '</option>');
 			else
-				fillPCatg.append('<option value="'+category_id+'">'+category_name+'</option>');
+				fillPCatg.append('<option value="' + category_id + '">' + category_name + '</option>');
 		});
 	});
 }
@@ -275,20 +271,20 @@ function proUom(set, id) {
 	$.getJSON(url, function (response) {
 		fillPUom.empty();
 		fillPUom.append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
+		$.each(response, function (idx, elem) {
 			var uom_id = elem.m_uom_id;
 			var uom_code = elem.value;
 			var uom_name = elem.name;
-			if (set == 'add') 
+			if (set == 'add')
 				if (uom_id == 1 || uom_code === 'PCS')
-					fillPUom.append('<option value="'+uom_id+'" selected="selected">'+uom_name+'</option>');
-				else					
-					fillPUom.append('<option value="'+uom_id+'">'+uom_name+'</option>');
+					fillPUom.append('<option value="' + uom_id + '" selected="selected">' + uom_name + '</option>');
+				else
+					fillPUom.append('<option value="' + uom_id + '">' + uom_name + '</option>');
 			else if (set == 'update' && id == uom_id)
-				fillPUom.append('<option value="'+uom_id+'" selected="selected">'+uom_name+'</option>');
+				fillPUom.append('<option value="' + uom_id + '" selected="selected">' + uom_name + '</option>');
 			else
-				fillPUom.append('<option value="'+uom_id+'">'+uom_name+'</option>');
+				fillPUom.append('<option value="' + uom_id + '">' + uom_name + '</option>');
 		});
-		
+
 	});
 }
