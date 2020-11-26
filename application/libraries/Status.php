@@ -38,7 +38,9 @@ class Status
 
 	public $DELPRINT = 'DP'; //delete and print
 
-	public $DELCART = 'DC'; //delete cart
+	public $DELCART = 'DC'; //delete and cart
+
+	public $DELQTY = 'DQ'; //delet and quantity
 
 	//status success insert cart
 	public $SUCCESS_INSERT_CART = [
