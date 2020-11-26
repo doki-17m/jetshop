@@ -248,27 +248,27 @@ function clearPro() {
 }
 
 function chkdPro() { //checked
-	fillPCode.prop('readonly', true),
-		fillPName.prop('readonly', true),
-		fillPDesc.prop('readonly', true),
-		fillPWeight.prop('readonly', true),
-		fillPMinOrder.prop('readonly', true),
-		fillPPurch.prop('readonly', true),
-		fillPSales.prop('readonly', true),
-		fillPCatg.prop('disabled', true),
-		fillPUom.prop('disabled', true);
+	fillPCode.prop('readonly', true);
+	fillPName.prop('readonly', true);
+	fillPDesc.prop('readonly', true);
+	fillPWeight.prop('readonly', true);
+	fillPMinOrder.prop('readonly', true);
+	fillPPurch.prop('readonly', true);
+	fillPSales.prop('readonly', true);
+	fillPCatg.prop('disabled', true);
+	fillPUom.prop('disabled', true);
 }
 
 function unchkdPro() { //unchecked
-	fillPCode.prop('readonly', false),
-		fillPName.prop('readonly', false),
-		fillPDesc.prop('readonly', false),
-		fillPWeight.prop('readonly', false),
-		fillPMinOrder.prop('readonly', false),
-		fillPPurch.prop('readonly', false),
-		fillPSales.prop('readonly', false),
-		fillPCatg.prop('disabled', false),
-		fillPUom.prop('disabled', false);
+	fillPCode.prop('readonly', false);
+	fillPName.prop('readonly', false);
+	fillPDesc.prop('readonly', false);
+	fillPWeight.prop('readonly', false);
+	fillPMinOrder.prop('readonly', false);
+	fillPPurch.prop('readonly', false);
+	fillPSales.prop('readonly', false);
+	fillPCatg.prop('disabled', false);
+	fillPUom.prop('disabled', false);
 }
 
 function proCategory(set, id) {
