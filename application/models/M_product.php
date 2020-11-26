@@ -40,7 +40,7 @@ class M_product extends CI_Model
 			$row[] = formatRupiah($value->purchprice);
 			$row[] = formatRupiah($value->salesprice);
 			$row[] = isActive($isActive);
-			$row[] = listAction($ID, $status->DELETE);
+			$row[] = listAction($ID, $status->DELQTY);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);
