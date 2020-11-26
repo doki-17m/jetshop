@@ -230,7 +230,6 @@ function clearPro() {
 	formResult.hide();
 	formUpload.show();
 	imgSrc = 0;
-
 }
 
 function chkdPro() { //checked
@@ -297,4 +296,12 @@ function proUom(set, id) {
 		});
 
 	});
+}
+
+function fillPShow() {
+	groupPMinOrder.show();
+}
+
+function fillPHide() {
+	groupPMinOrder.show();
 }
