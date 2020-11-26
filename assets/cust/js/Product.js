@@ -7,14 +7,19 @@ const fillPCode = $('[name = pro_code]'),
 	fillPMinOrder = $('[name = pro_minorder]'),
 	fillPPurch = $('[name = pro_purchidr]'),
 	fillPSales = $('[name = pro_slsidr]'),
-	fillPImage = $('[name = pro_image]');
+	fillPImage = $('[name = pro_image]'),
+	fillPQty = $('[name = pro_qty]');
 
 const errPCode = $('#error_pro_code'),
 	errPName = $('#error_pro_name'),
 	errPWeight = $('#error_pro_weight'),
 	errPMinOrder = $('#error_pro_minorder'),
 	errPPurch = $('#error_pro_purchidr'),
-	errPSales = $('#error_pro_slsidr');
+	errPSales = $('#error_pro_slsidr'),
+	errPQty = $('#error_pro_qty');
+
+const groupPQty = $('#group_pro_qty'),
+	groupPMinOrder = $('#group_pro_minorder');
 
 const msgPWeight = $('#msg_pro_weight');
 
