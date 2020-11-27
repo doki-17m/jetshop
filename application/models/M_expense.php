@@ -30,7 +30,7 @@ class M_expense extends CI_Model
 				$lastCode = sprintf("%04s", $intCode);
 			endforeach;
 		} else {
-			$lastCode = "0002";
+			$lastCode = "0001";
 		}
 		return $firstCode . date('ymd') . $lastCode;
 	}
