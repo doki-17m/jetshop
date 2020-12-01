@@ -34,8 +34,6 @@ const IMAGE_PATH = '/assets/cust/images/';
 
 const TMP = '/tmp/';
 
-// proUom(setSave);
-
 btnNewPro.click(function () {
 	openModalForm();
 	Largemodal();
@@ -96,6 +94,11 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 		else
 			proActive.prop('checked', false),
 			readonly(formID, true);
+
+		if (result.isobral == active)
+			proObral.prop('checked', true);
+		else
+			proObral.prop('checked', false);
 	});
 });
 
@@ -247,6 +250,7 @@ function clearPro() {
 	formResult.hide();
 	formUpload.show();
 	imgSrc = 0;
+	proObral.prop('checked', false);
 }
 
 function chkdPro() { //checked
