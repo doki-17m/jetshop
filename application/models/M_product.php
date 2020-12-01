@@ -62,6 +62,7 @@ class M_product extends CI_Model
 			$this->ad_image_id = $post['pro_img'];
 		}
 		$this->isactive = $post['isactive'];
+		$this->isobral = $post['isobral'];
 		return $this->db->insert($this->_table, $this);
 	}
 
@@ -95,6 +96,7 @@ class M_product extends CI_Model
 			$this->ad_image_id = $post['pro_img'];
 		}
 		$this->isactive = $post['isactive'];
+		$this->isobral = $post['isobral'];
 		$where = array('m_product_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);
