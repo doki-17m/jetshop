@@ -79,6 +79,16 @@ function SalesValue() {
 	return isSales;
 }
 
+// value checkbox obral field in form
+function ObralValue() {
+	var isObral;
+	if (classObral.is(':checked'))
+		isObral = active;
+	else
+		isObral = nonactive;
+	return isObral;
+}
+
 // do open the modal form
 function openModalForm() {
 	return modalForm.modal({
