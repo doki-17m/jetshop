@@ -9,6 +9,7 @@ class M_product extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('m_inventory');
 	}
 
 	public function getAll()
@@ -49,6 +50,7 @@ class M_product extends CI_Model
 
 	public function insert($post)
 	{
+		$inventory = $this->m_inventory;
 		$this->value = $post['pro_code'];
 		$this->name = $post['pro_name'];
 		$this->description = $post['pro_desc'];
@@ -63,7 +65,23 @@ class M_product extends CI_Model
 		}
 		$this->isactive = $post['isactive'];
 		$this->isobral = $post['isobral'];
-		return $this->db->insert($this->_table, $this);
+		$this->db->insert($this->_table, $this);
+		$last_id = $this->db->insert_id();
+
+		$qty = $post['pro_qty'];
+		if (!empty($qty)) {
+			$post['id'] = $last_id;
+			$post_invent = (object) [
+				'qtyIn'			=> 'Y',
+				'qty_entered'	=> $qty
+			];
+
+			$post_merge = (object) array_merge(
+				(array) $post,
+				(array) $post_invent
+			);
+			return $inventory->insert($this->_table, $post_merge);
+		}
 	}
 
 	public function detail($id, $value)
