@@ -73,6 +73,19 @@ class Product extends CI_Controller
 				'errors'	=> 	[
 					'check_prominorder'	=> 'The %s cannot smaller than 1'
 				]
+			],
+			[
+				'field'		=>	'pro_catg',
+				'label'		=>	'Product Category',
+				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'pro_qty',
+				'label'		=>	'Quantity',
+				'rules'		=>	'required|callback_check_proqty',
+				'errors'		=>	[
+					'check_proqty'	=> 'The %s cannot smaller than 1'
+				]
 			]
 		]);
 
@@ -151,6 +164,19 @@ class Product extends CI_Controller
 				'rules'		=>	'required|callback_check_prominorder',
 				'errors'	=> 	[
 					'check_prominorder'	=> 'The %s cannot smaller than 1'
+				]
+			],
+			[
+				'field'		=>	'pro_catg',
+				'label'		=>	'Product Category',
+				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'pro_qty',
+				'label'		=>	'Quantity',
+				'rules'		=>	'required|callback_check_proqty',
+				'errors'		=>	[
+					'check_proqty'	=> 'The %s cannot smaller than 1'
 				]
 			]
 		]);
@@ -269,6 +295,15 @@ class Product extends CI_Controller
 		$minOrder = $post['pro_minorder'];
 		if ($minOrder !== '') {
 			return $minOrder < 1 ? false : true;
+		}
+	}
+
+	public function check_proqty()
+	{
+		$post = $this->input->post(NULL, TRUE);
+		$qty = $post['pro_qty'];
+		if ($qty !== '') {
+			return $qty < 1 ? false : true;
 		}
 	}
 
