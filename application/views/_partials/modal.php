@@ -104,3 +104,25 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="modal_qty">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"></h4>
+				<button type="button" class="close" id="close_qty" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<?php
+				$this->load->view('product/form_quantity');
+				?>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal" id="close_qty">Close</button>
+				<button type="button" class="btn btn-outline-primary" id="save_qty">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
