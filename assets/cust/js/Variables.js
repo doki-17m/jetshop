@@ -10,7 +10,7 @@ var imgSrc = 0;
 
 const classActive = $('.active'), //checkbox class active
 	classSalesrep = $('.salesrep'), //checkbox class salesrep
-	classObral = $('.isobral'); //checkbox class obral
+	classObral = $('.obral'); //checkbox class obral
 
 const classNumber = $('.number'),
 	classBarcode = $('.barcode');
@@ -82,7 +82,8 @@ const proActive = $('#pro_isactive'), //product
 	couActive = $('#cou_isactive'), //courier
 	accActive = $('#acc_isactive'), //account
 	usrActive = $('#usr_isactive'), //user
-	jobActive = $('#job_isactive'); //job
+	jobActive = $('#job_isactive'), //job
+	proObral = $('#pro_isobral'); //product
 
 //button
 const btnNewSo = $('#new_so'), //button sales order
