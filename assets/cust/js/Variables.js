@@ -66,7 +66,8 @@ const soForm = $('#form_so'),
 	jobForm = $('#form_job'),
 	lgnForm = $('#form_login'),
 	chgForm = $('#form_chgpass'),
-	expForm = $('#form_expense');
+	expForm = $('#form_expense'),
+	qtyForm = $('#form_quantity');
 
 //Checkbox
 const proActive = $('#pro_isactive'), //product
@@ -98,7 +99,8 @@ const btnNewSo = $('#new_so'), //button sales order
 	btnNewUsr = $('#new_user'), //button user
 	btnNewJob = $('#new_job'), //button job
 	btnNewExp = $('#new_expense'), //button expense
-	btnNewExpLine = $('#new_expenseline'); //button expense line
+	btnNewExpLine = $('#new_expenseline'), //button expense line
+	btnNewQty = $('#new_quantity'); //button new quantity
 
 const btnSave = $('#save_form'),
 	btnSList = $('#save_list'),
@@ -126,4 +128,5 @@ const CITY = '/city',
 	COURIER = '/courier',
 	CUSTOMER = '/customer',
 	EXPENSE = '/expense',
-	ACCOUNT = '/account';
+	ACCOUNT = '/account',
+	INVENTORY = '/inventory';
