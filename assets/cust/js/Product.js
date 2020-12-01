@@ -326,3 +326,82 @@ function fillPShow() {
 function fillPHide() {
 	groupPMinOrder.hide();
 }
+
+const fillQAvailable = $('[name = qty_available]'),
+	fillQEntered = $('[name = qty_entered]');
+
+const cxbQIn = $('#qty_in'),
+	cxbQOut = $('#qty_out');
+
+const errQEntered = $('#error_qty_entered');
+
+function addQty(id) {
+	fillQAvailable.prop('readonly', true);
+	cxbQIn.prop('checked', true);
+
+	ID = id;
+	url = SITE_URL + SHOW + ID;
+	$.getJSON(url, function (result) {
+		let NAME = result.value;
+		let qtyAvailable = result.qty;
+		Removemodal();
+		$('#modal_qty').modal({
+			backdrop: 'static',
+			keyboard: false
+		});
+		modalTitle.html(NAME);
+		clearQty();
+		fillQAvailable.val(qtyAvailable);
+	});
+}
+
+$('#save_qty').click(function (e) {
+	let radioIn = 'N';
+	let radioOut = 'N';
+
+	if (cxbQIn.is(':checked'))
+		radioIn = 'Y';
+	else if (cxbQOut.is(':checked'))
+		radioOut = 'Y';
+
+	const formData = qtyForm.serialize() +
+		'&qtyIn=' + radioIn +
+		'&qtyOut=' + radioOut +
+		'&id=' + ID;
+
+	url = CUST_URL + INVENTORY + CREATE;
+
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: formData,
+		dataType: 'JSON',
+		success: function (result) {
+			if (result.success) {
+				Toast.fire({
+					type: 'success',
+					title: result.message
+				});
+				reloadTable(LAST_URL);
+				clearQty();
+				$('#modal_qty').modal('hide');
+			}
+
+			if (result.error) {
+				if (result.error_qty_entered != '') {
+					errQEntered.html(result.error_qty_entered);
+					fillQEntered.addClass(isInvalid);
+				} else {
+					errQEntered.html('');
+					fillQEntered.removeClass(isInvalid);
+				}
+			}
+		}
+	});
+});
+
+function clearQty() {
+	fillQEntered.val('');
+	errQEntered.html('');
+	fillQEntered.removeClass(isInvalid);
+}
