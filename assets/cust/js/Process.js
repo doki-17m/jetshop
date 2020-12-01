@@ -137,7 +137,8 @@ function getForm(form) {
 			'&isactive=' + ActiveValue() +
 			'&pro_catg=' + $('#pro_catg option:selected').val() +
 			'&pro_uom=' + $('#pro_uom option:selected').val() +
-			'&pro_img=' + imgSrc
+			'&pro_img=' + imgSrc +
+			'&isobral=' + ObralValue()
 		];
 	else if (form == 'form_so')
 		arrForm = [
