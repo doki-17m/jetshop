@@ -9,7 +9,8 @@ var url, ID, setSave, Toast, setAction;
 var imgSrc = 0;
 
 const classActive = $('.active'), //checkbox class active
-	classSalesrep = $('.salesrep'); //checkbox class active
+	classSalesrep = $('.salesrep'), //checkbox class salesrep
+	classObral = $('.isobral'); //checkbox class obral
 
 const classNumber = $('.number'),
 	classBarcode = $('.barcode');
