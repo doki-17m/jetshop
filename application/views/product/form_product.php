@@ -53,6 +53,14 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-2">
+				<div class="form-group customcheck">
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input obral" id="pro_isobral">
+						<label for="pro_isobral" class="custom-control-label">Obral</label>
+					</div>
+				</div>
+			</div>
 			<div class="col-md-6" id="group_pro_qty">
 				<div class="form-group">
 					<label for="pro_qty">Quantity <span class="required">*</span></label>
