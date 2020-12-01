@@ -42,13 +42,34 @@
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="pro_desc">Description</label>
-					<textarea class="form-control" id="pro_desc" name="pro_desc" rows="3"></textarea>
+					<textarea class="form-control" id="pro_desc" name="pro_desc" rows="2"></textarea>
+				</div>
+			</div>
+			<div class="col-md-6" id="group_pro_qty">
+				<div class="form-group">
+					<label for="pro_qty">Quantity <span class="required">*</span></label>
+					<input type="text" class="form-control number" id="pro_qty" name="pro_qty">
+					<small id="error_pro_qty" class="form-text text-danger"></small>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="pro_catg">Product Category</label>
+					<label for="pro_uom">UOM</label>
+					<select class="form-control select2" id="pro_uom" name="pro_uom"></select>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="pro_catg">Product Category <span class="required">*</span></label>
 					<select class="form-control select2" id="pro_catg" name="pro_catg"></select>
+					<small id="error_pro_catg" class="form-text text-danger"></small>
+				</div>
+			</div>
+			<div class="col-md-6" id="group_pro_minorder">
+				<div class="form-group">
+					<label for="pro_minorder">Minimum Order</label>
+					<input type="number" class="form-control number" id="pro_minorder" name="pro_minorder" value="1" placeholder="Enter minimal order">
+					<small id="error_pro_minorder" class="form-text text-danger"></small>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -64,20 +85,6 @@
 						Satuan <strong>gram</strong>, berat 1 kg: <strong>1000 gram</strong>
 					</small>
 					<small id="error_pro_weight" class="form-text text-danger"></small>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="pro_minorder">Minimum Order</label>
-					<input type="number" class="form-control number" id="pro_minorder" name="pro_minorder" value="1" placeholder="Enter minimal order">
-					<small id="error_pro_minorder" class="form-text text-danger"></small>
-				</div>
-			</div>
-
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="pro_uom">UOM</label>
-					<select class="form-control select2" id="pro_uom" name="pro_uom"></select>
 				</div>
 			</div>
 			<div class="col-md-6">
