@@ -39,10 +39,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="form-group">
 					<label for="pro_desc">Description</label>
 					<textarea class="form-control" id="pro_desc" name="pro_desc" rows="2"></textarea>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group customcheck">
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input active" id="pro_isactive">
+						<label for="pro_isactive" class="custom-control-label">Active</label>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-6" id="group_pro_qty">
@@ -109,12 +117,6 @@
 						<input type="text" class="form-control rupiah" id="pro_slsidr" name="pro_slsidr">
 					</div>
 					<small id="error_pro_slsidr" class="form-text text-danger"></small>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input active" id="pro_isactive">
-					<label for="pro_isactive" class="custom-control-label">Active</label>
 				</div>
 			</div>
 		</div>
