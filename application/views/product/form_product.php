@@ -30,7 +30,7 @@
 					</div>
 					<div id="form-upload">
 						<label class="form-upload-foto col-md-6">
-							<input type="file" id="pro_image" name="pro_image"></input>
+							<input type="file" id="pro_image" name="pro_image" accept="image/jpeg, image/png"></input>
 							<img class="img-upload" src="<?= base_url('assets/dist/img/cameraroll.png') ?>" />
 						</label>
 						<small class="form-upload-text text-muted">
