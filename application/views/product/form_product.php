@@ -34,7 +34,7 @@
 							<img class="img-upload" src="<?= base_url('assets/dist/img/cameraroll.png') ?>" />
 						</label>
 						<small class="form-upload-text text-muted">
-							Tipe file (JPG, PNG), Maksimal ukuran file adalah <strong> 1 Mb</strong>
+							Tipe file (JPG, PNG), Maksimal ukuran file adalah <strong> 5 Mb</strong>
 						</small>
 					</div>
 				</div>

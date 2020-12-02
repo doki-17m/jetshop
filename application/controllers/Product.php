@@ -231,14 +231,28 @@ class Product extends CI_Controller
 		$path = $this->path;
 		$config['upload_path'] = $path->TMP;
 		$config['allowed_types'] = 'jpg|png';
-		$config['max_size'] = 1024; //satuan KB
+		$config['max_size'] = 5024; //satuan KB
 		$config['encrypt_name'] = TRUE;
 		$this->load->library('upload', $config);
 
 		$upload = $this->upload;
 		if ($upload->do_upload('pro_image')) {
 			$data = array('upload_data' => $upload->data());
-			$response = ['success' => $data['upload_data']['file_name']];
+			$file_name = $data['upload_data']['file_name'];
+			$file_size = $data['upload_data']['file_size'];
+
+			//Resize and Compress Image
+			$config['image_library'] = 'gd2';
+			$config['source_image'] = $path->TMP . $file_name;
+			$config['create_thumb'] = FALSE;
+			$config['maintain_ratio'] = FALSE;
+			$config['quality'] = '70%';
+			$config['width'] = 600;
+			$config['height'] = 600;
+			$config['new_image'] = $path->TMP . $file_name;
+			$this->load->library('image_lib', $config);
+			$this->image_lib->resize();
+			$response = ['success' => $file_name];
 		} else {
 			$response = ['error' => $upload->display_errors()];
 		}
