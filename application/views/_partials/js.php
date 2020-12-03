@@ -41,7 +41,10 @@
 <!-- Bootstrap Toggle -->
 <!-- <script src="<?php //echo base_url('assets/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js') 
 					?>"></script> -->
+<!-- AutoNumeric Rupiah -->
 <script src="<?php echo base_url('/assets/plugins/auto-numeric/autoNumeric.js') ?>"></script>
+<!-- Scanner Auto Focus -->
+<script src="<?php echo base_url('assets/plugins/jquery-scanner/jquery.scannerdetection.js') ?>"></script>
 
 <!-- JS -->
 <script src="<?php echo base_url('assets/cust/js/Variables.js')  ?>"></script>
