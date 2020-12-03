@@ -108,6 +108,21 @@ $(document).ready(function () {
 		autoComplete();
 })
 
+fillSBarcode.scannerDetection({
+	timeBeforeScanTest: 100, // wait for the next character for upto 200ms
+	avgTimeByChar: 40, // it's not a barcode if a character takes longer than 100ms
+	preventDefault: true,
+	endChar: [13],
+	onComplete: function (barcode, qty) {
+		validScan = true;
+		fillSBarcode.val(barcode);
+		insertCart(barcode, qty);
+	},
+	onError: function (string, qty) {
+		fillSBarcode.val(fillSBarcode.val() + string);
+	}
+});
+
 function autoComplete() {
 	classBarcode.autocomplete({
 		source: CUST_URL + PRODUCT + '/showProduct/?',
