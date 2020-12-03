@@ -133,21 +133,30 @@ class M_order extends CI_Model
 		$product = $this->m_product;
 		$cart = $this->cart;
 		$product_row = $product->detail(0, $value)->row();
-		$id = $product_row->m_product_id;
-		$sellprice = $product_row->sellprice;
-		$name = $product_row->name;
+		if (!empty($product_row)) {
+			$id = $product_row->m_product_id;
+			$sellprice = $product_row->salesprice;
+			$name = $product_row->name;
 
-		$arrData = array(
-			'id'	=> $id,
-			'qty'	=> $qty,
-			'price'	=> replaceFormat($sellprice),
-			'name'	=> $name,
-		);
-		$cart->insert($arrData);
-		$arrCart = array(
-			'content' => $cart->contents(),
-			'total' => $cart->total()
-		);
+
+			$arrData = array(
+				'id'	=> $id,
+				'qty'	=> $qty,
+				'price'	=> replaceFormat($sellprice),
+				'name'	=> $name,
+			);
+
+			$cart->insert($arrData);
+			$arrCart = array(
+				'content' => $cart->contents(),
+				'total' => $cart->total()
+			);
+		} else {
+			$arrCart = array(
+				'content' => $cart->contents(),
+				'total' => $cart->total()
+			);
+		}
 		return $this->show_cart($arrCart);
 	}
 
