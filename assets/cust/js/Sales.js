@@ -70,10 +70,13 @@ $(document).ready(function () {
 	});
 
 	// number only on field quantity of the cart datatable
-	_tablePOS.on('keypress keyup blur', '.quantity-field', function (evt) {
+	_tablePOS.on('keypress', '.quantity-field', function (evt) {
 		$(this).val($(this).val().replace(/[^\d].+/, ""));
 		if ((evt.which < 48 || evt.which > 57))
 			evt.preventDefault();
+
+		if (evt.code === 'Enter')
+			autoFocus();
 	});
 
 	// button add and button substract quantity of the cart datatable
