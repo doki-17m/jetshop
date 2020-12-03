@@ -146,6 +146,7 @@ class M_order extends CI_Model
 				'name'	=> $name,
 			);
 
+			$cart->product_name_rules = '[:print:]';
 			$cart->insert($arrData);
 			$arrCart = array(
 				'content' => $cart->contents(),
