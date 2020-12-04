@@ -50,7 +50,9 @@ var _tablePro, //Table master data product
 	_tableSo, //Table transaction so
 	_tablePOS, //Table transaction pos
 	_tableExp, //Table transaction expense
-	_tableExpLine; //Table transaction expense line
+	_tableExpLine, //Table transaction expense line
+	_tableRma, //Table transaction return
+	_tableRmaLine; //Table transaction return line
 
 
 //Forms
