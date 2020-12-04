@@ -49,7 +49,9 @@ var _tablePro, //Table master data product
 	_tablePo, //Table transaction po
 	_tableSo, //Table transaction so
 	_tablePOS, //Table transaction pos
-	_tableProList; //Table transaction product list
+	_tableExp, //Table transaction expense
+	_tableExpLine; //Table transaction expense line
+
 
 //Forms
 const soForm = $('#form_so'),
