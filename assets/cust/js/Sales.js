@@ -342,7 +342,9 @@ function saveOrderLine(arrData, last_id) {
 				});
 				clearErrPos();
 				chkdPos();
+				clearTable();
 				btnPos.hide();
+				btnPrint.show();
 				btnClosePos.show();
 			}
 		}
@@ -370,8 +372,10 @@ function checkoutData() {
 	Scrollmodal();
 	modalDialog.addClass('modal-xl');
 	modalTitle.html('BIll No: ' + invoiceno.bold());
+	$('#form_checkout')[0].reset();
 
 	btnClosePos.hide();
+	btnPrint.hide();
 	fillPosPhone.prop('readonly', true);
 	fillPosCourier.prop('disabled', true);
 	fillPosDelivery.prop('disabled', true);
@@ -840,3 +844,9 @@ function chkdPos() { //checked
 	fillPosDelivery.prop('disabled', true);
 	cxbIsmember.prop('disabled', true);
 }
+
+
+$(document).on('click', '#close_checkout, #btn_close_pos', function (e) {
+	$('#modal_checkout').modal('hide');
+	$('#form_checkout')[0].reset();
+});
