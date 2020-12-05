@@ -42,22 +42,6 @@ class Sales extends CI_Controller
 		echo json_encode($response);
 	}
 
-	public function totalWeight()
-	{
-		$order = $this->m_order;
-		$post = $this->input->post(NULL, TRUE);
-		$response = $order->calculate_weight($post);
-		echo json_encode($response);
-	}
-
-	public function cost()
-	{
-		$order = $this->m_order;
-		$post = $this->input->post(NULL, TRUE);
-		$response = $order->calculate_cost($post);
-		echo json_encode($response);
-	}
-
 	public function create()
 	{
 		$order = $this->m_order;
@@ -130,6 +114,22 @@ class Sales extends CI_Controller
 		} else {
 			$response = $result;
 		}
+		echo json_encode($response);
+	}
+
+	public function totalWeight()
+	{
+		$order = $this->m_order;
+		$post = $this->input->post(NULL, TRUE);
+		$response = $order->calculate_weight($post);
+		echo json_encode($response);
+	}
+
+	public function cost()
+	{
+		$order = $this->m_order;
+		$post = $this->input->post(NULL, TRUE);
+		$response = $order->calculate_cost($post);
 		echo json_encode($response);
 	}
 
