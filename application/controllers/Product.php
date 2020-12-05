@@ -230,7 +230,7 @@ class Product extends CI_Controller
 	{
 		$path = $this->path;
 		$config['upload_path'] = $path->TMP;
-		$config['allowed_types'] = 'jpg|png';
+		$config['allowed_types'] = '*';
 		$config['max_size'] = 5024; //satuan KB
 		$config['encrypt_name'] = TRUE;
 		$this->load->library('upload', $config);
