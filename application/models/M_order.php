@@ -9,11 +9,15 @@ class M_order extends CI_Model
 	private $Docstatus_CO = 'CO';
 	private $Docstatus_VO = 'VO';
 
+	private $MovementIn = 'O+';
+	private $MovementOut = 'O-';
+
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('m_product');
 		$this->load->model('m_courier');
+		$this->load->model('m_transaction');
 	}
 
 	public function show_invoiceno()
@@ -258,6 +262,7 @@ class M_order extends CI_Model
 
 	public function insert_line($post)
 	{
+		$transaction = $this->m_transaction;
 		$product = $this->m_product;
 		$last_id = $post['id'];
 		$data = $post['data'];
@@ -287,7 +292,18 @@ class M_order extends CI_Model
 						'costprice'			=> $purchprice, //harga beli
 						'isobral'			=> $isobral,
 					);
-					$result = $this->db->insert($this->_tableline, $listOrderLine);
+					$this->db->insert($this->_tableline, $listOrderLine);
+					$lastline_id = $this->db->insert_id();
+
+					$post_line = (object) [
+						'trx_orderline_id'		=> $lastline_id,
+						'movementdate'			=> date('Y-m-d'),
+						'qty_entered'			=> - ($qty),
+						'movementtype'			=> $this->MovementOut,
+						'id'					=> $product_id,
+						'table'					=> $this->_table
+					];
+					$result = $transaction->insert($post_line);
 				}
 			}
 			return $result;
