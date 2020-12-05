@@ -159,6 +159,7 @@ class M_product extends CI_Model
 					$codeBarcode = $value->value;
 					$productName = $value->name;
 					$priceUom = formatRupiah($value->salesprice) . $slash . $value->unitmeasure;
+					$qtyCost = '@' . $value->qty . ' | ' . $priceUom;
 					$pathImg = $path->IMG_PATH . $image;
 
 					$row['value'] = $codeBarcode;
@@ -166,11 +167,11 @@ class M_product extends CI_Model
 						$row['label'] = '<img src="' . $pathImg . '" />' .
 							'<h3>' . $codeBarcode . '</h3>' .
 							'<p>' . $productName . '</p>' .
-							'<p>' . $priceUom . '</p>';
+							'<p>' . $qtyCost . '</p>';
 					} else {
 						$row['label'] = '<h3>' . $codeBarcode . '</h3>' .
 							'<p>' . $productName . '</p>' .
-							'<p>' . $priceUom . '</p>';
+							'<p>' . $qtyCost . '</p>';
 					}
 					$data[] = $row;
 				}
