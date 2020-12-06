@@ -29,16 +29,19 @@ const fillPosCustSelect = $('[name = pos_cust_id]'),
 	fillPosCity = $('[name = pos_city]'),
 	fillPosAddress = $('[name = pos_address]'),
 	fillPosJMarket = $('[name = pos_job_market]'),
-	fillPosNote = $('[name = pos_note]');
+	fillPosNote = $('[name = pos_note]'),
+	fillPosPayment = $('[name = pos_payment]'),
+	fillPosBank = $('[name = pos_bankacc]');
 
-const groupPosCustSelect = $('#pos_cust_id'),
-	groupPosCustInput = $('#pos_cust_name'),
-	groupPosPhone = $('#pos_phone'),
-	groupPosCourier = $('#pos_courier'),
-	groupPosCustDelivery = $('#pos_delivery'),
-	groupPosCustCity = $('#pos_city'),
-	groupPosCustAddress = $('#pos_address'),
-	groupPosCustJMarket = $('#pos_job_market');
+const groupPosCustSelect = $('#group_pos_cust_id'),
+	groupPosCustInput = $('#group_pos_cust_name'),
+	groupPosPhone = $('#group_pos_phone'),
+	groupPosCourier = $('#group_pos_courier'),
+	groupPosCustDelivery = $('#group_pos_delivery'),
+	groupPosCustCity = $('#group_pos_city'),
+	groupPosCustAddress = $('#group_pos_address'),
+	groupPosCustJMarket = $('#group_pos_job_market'),
+	groupPosBank = $('#group_pos_bankacc');
 
 const errPosCustSelect = $('#error_pos_cust_id'),
 	errPosCustInput = $('#error_pos_cust_name'),
@@ -46,7 +49,9 @@ const errPosCustSelect = $('#error_pos_cust_id'),
 	errPosCourier = $('#error_pos_courier'),
 	errPosCity = $('#error_pos_city'),
 	errPosAddress = $('#error_pos_faddress'),
-	errPosDelivery = $('#error_pos_delivery');
+	errPosDelivery = $('#error_pos_delivery'),
+	errPosPayment = $('#error_pos_payment'),
+	errPosBank = $('#error_pos_bankacc');
 
 const cxbIsmember = $('#pos_ismember'); // checkbox walk in customer
 
@@ -220,13 +225,17 @@ function saveOrder(table) {
 	var invoiceno = fillSInvoiceNo.html();
 	var ismember = MemberValue();
 	var courier = $('#pos_courier option:selected').val();
+	var payment = $('#pos_payment option:selected').val();
+	var bank = $('#pos_bankacc option:selected').val();
 
 	var form = $('#form_checkout').serialize() +
 		'&pos_courier=' + courier +
 		'&ismember=' + ismember +
 		'&pos_date=' + dateTrx +
 		'&pos_cashier=' + cashier +
-		'&pos_invoiceno=' + invoiceno;
+		'&pos_invoiceno=' + invoiceno +
+		'&pos_payment=' + payment +
+		'&pos_bankacc=' + bank;
 
 	var arrData = callbackTable(table)
 
@@ -264,11 +273,9 @@ function saveOrder(table) {
 					success: function (response) {
 						if (response.error) {
 							if (response.error_pos_cust_id != '')
-								errPosCustSelect.html(response.error_pos_cust_id),
-								fillPosCustSelect.addClass(isInvalid);
+								errPosCustSelect.html(response.error_pos_cust_id);
 							else
-								errPosCustSelect.html(''),
-								fillURPass.removeClass(isInvalid);
+								errPosCustSelect.html('');
 
 							if (response.error_pos_cust_name != '')
 								errPosCustInput.html(response.error_pos_cust_name),
@@ -285,18 +292,14 @@ function saveOrder(table) {
 								fillPosPhone.removeClass(isInvalid);
 
 							if (response.error_pos_courier != '')
-								errPosCourier.html(response.error_pos_courier),
-								fillPosCourier.addClass(isInvalid);
+								errPosCourier.html(response.error_pos_courier);
 							else
-								errPosCourier.html(''),
-								fillPosCourier.removeClass(isInvalid);
+								errPosCourier.html('');
 
 							if (response.error_pos_city != '')
-								errPosCity.html(response.error_pos_city),
-								fillPosCity.addClass(isInvalid);
+								errPosCity.html(response.error_pos_city);
 							else
-								errPosCity.html(''),
-								fillPosCity.removeClass(isInvalid);
+								errPosCity.html('');
 
 							if (response.error_pos_faddress != '')
 								errPosAddress.html(response.error_pos_faddress),
@@ -306,11 +309,19 @@ function saveOrder(table) {
 								fillPosAddress.removeClass(isInvalid);
 
 							if (response.error_pos_delivery != '')
-								errPosDelivery.html(response.error_pos_delivery),
-								fillPosCustSelect.addClass(isInvalid);
+								errPosDelivery.html(response.error_pos_delivery);
 							else
-								errPosDelivery.html(''),
-								fillPosCustSelect.removeClass(isInvalid);
+								errPosDelivery.html('');
+
+							if (response.error_pos_payment != '')
+								errPosPayment.html(response.error_pos_payment);
+							else
+								errPosPayment.html('');
+
+							if (response.error_pos_bankacc != '')
+								errPosBank.html(response.error_pos_bankacc);
+							else
+								errPosBank.html('');
 						}
 
 						if (response.last_id) {
@@ -384,6 +395,7 @@ function checkoutData() {
 	groupPosCustCity.hide();
 	groupPosCustAddress.hide();
 	groupPosCustJMarket.hide();
+	groupPosBank.hide();
 
 	posCustomer(null, null);
 	posCourier(null, null);
@@ -391,6 +403,7 @@ function checkoutData() {
 	getDelivery(null, null);
 	getTotalWeight(lastArrCart);
 	getListCart(table, lastArrCart);
+	posAccount(null, null);
 
 	// checkbox member
 	cxbIsmember.change(function (e) {
@@ -456,6 +469,18 @@ function checkoutData() {
 
 	btnPos.click(function (e) {
 		saveOrder(table);
+	});
+
+	fillPosPayment.change(function (e) {
+		var value = $(this).val();
+
+		if (value == 2) {
+			groupPosBank.show();
+			fillPosBank.val(null).change();
+		} else {
+			groupPosBank.hide();
+			fillPosBank.val(null).change();
+		}
 	});
 }
 
@@ -810,6 +835,27 @@ function getDelivery(set, id) {
 	});
 }
 
+function posAccount(set, id) {
+	url = CUST_URL + ACCOUNT + '/showAccount';
+
+	$.getJSON(url, function (response) {
+		fillPosBank.empty();
+		fillPosBank.append('<option selected="selected" value="">-- Choose One --</option>');
+
+		$.each(response, function (idx, elem) {
+			var account_id = elem.m_account_id;
+			var bank = elem.bank;
+			var accountno = elem.accountno;
+			var account_name = accountno + '_' + bank + ' - ' + elem.name;
+
+			if (id == account_id)
+				fillPosBank.append('<option value="' + account_id + '" selected="selected">' + account_name + '</option>');
+			else
+				fillPosBank.append('<option value="' + account_id + '">' + account_name + '</option>');
+		});
+	});
+}
+
 // function auto focus field barcode
 function autoFocus() {
 	document.getElementById('pos_barcode').focus();
@@ -829,6 +875,10 @@ function clearErrPos() {
 	errPosDelivery.html('');
 	fillPosPhone.removeClass(isInvalid);
 	fillPosAddress.removeClass(isInvalid);
+	errPosPayment.html('');
+	errPosBank.html('');
+	fillPosPayment.val(null).change();
+	errPosBank.val(null).change();
 }
 
 function chkdPos() { //checked
@@ -843,10 +893,30 @@ function chkdPos() { //checked
 	fillPosCity.prop('disabled', true);
 	fillPosDelivery.prop('disabled', true);
 	cxbIsmember.prop('disabled', true);
+	fillPosPayment.prop('disabled', true);
+	fillPosBank.prop('disabled', true);
+}
+
+function unchkdPos() { //checked
+	fillPosCustInput.prop('readonly', false);
+	fillPosPhone.prop('readonly', false);
+	fillPosAddress.prop('readonly', false);
+	fillPosJMarket.prop('readonly', false);
+	fillPosNote.prop('readonly', false);
+	fillPosWeight.prop('readonly', false);
+	fillPosCustSelect.prop('disabled', false);
+	fillPosCourier.prop('disabled', false);
+	fillPosCity.prop('disabled', false);
+	fillPosDelivery.prop('disabled', false);
+	cxbIsmember.prop('disabled', false);
+	fillPosPayment.prop('disabled', false);
+	fillPosBank.prop('disabled', false);
 }
 
 
 $(document).on('click', '#close_checkout, #btn_close_pos', function (e) {
 	$('#modal_checkout').modal('hide');
 	$('#form_checkout')[0].reset();
+	clearErrPos();
+	unchkdPos();
 });
