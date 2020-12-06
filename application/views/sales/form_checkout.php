@@ -19,25 +19,25 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group" id="pos_cust_id">
+								<div class="form-group" id="group_pos_cust_id">
 									<label for="pos_cust_id">Customer <span class="required">*</span></label>
 									<select class="form-control select2" id="pos_cust_id" name="pos_cust_id"></select>
 									<small id="error_pos_cust_id" class="form-text text-danger"></small>
 								</div>
-								<div class="form-group" id="pos_cust_name">
+								<div class="form-group" id="group_pos_cust_name">
 									<label for="pos_cust_name">Customer <span class="required">*</span></label>
 									<input type="text" class="form-control" id="pos_cust_name" name="pos_cust_name" placeholder="Enter customer name">
 									<small id="error_pos_cust_name" class="form-text text-danger"></small>
 								</div>
 							</div>
-							<div class="col-md-6" id="pos_phone">
+							<div class="col-md-6" id="group_pos_phone">
 								<div class="form-group">
 									<label for="pos_phone">Phone <span class="required">*</span></label>
 									<input type="text" class="form-control number" id="pos_phone" name="pos_phone" placeholder="Enter phone">
 									<small id="error_pos_phone" class="form-text text-danger"></small>
 								</div>
 							</div>
-							<div class="col-md-6" id="pos_courier">
+							<div class="col-md-6" id="group_pos_courier">
 								<div class="form-group">
 									<label for="pos_courier">Courier <span class="required">*</span></label>
 									<select class="form-control select2" id="pos_courier" name="pos_courier"></select>
@@ -55,29 +55,29 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-12">
-								<div class="form-group" id="pos_city">
+							<div class="col-md-12" id="group_pos_city">
+								<div class="form-group">
 									<label for="pos_city">City <span class="required">*</span></label>
 									<select class="form-control select2" id="pos_city" name="pos_city"></select>
 									<small id="error_pos_city" class="form-text text-danger"></small>
 								</div>
 							</div>
-							<div class="col-md-12">
-								<div class="form-group" id="pos_address">
+							<div class="col-md-12" id="group_pos_address">
+								<div class="form-group">
 									<label for="pos_address">Full Address <span class="required">*</span></label>
 									<textarea class="form-control" id="pos_address" name="pos_address" rows="2"></textarea>
 									<small id="error_pos_faddress" class="form-text text-danger"></small>
 								</div>
 							</div>
-							<div class="col-md-12">
-								<div class="form-group" id="pos_delivery">
+							<div class="col-md-12" id="group_pos_delivery">
+								<div class="form-group">
 									<label for="pos_delivery">Delivery Service <span class="required">*</span></label>
 									<select class="form-control select2" id="pos_delivery" name="pos_delivery"></select>
 									<small id="error_pos_delivery" class="form-text text-danger"></small>
 								</div>
 							</div>
-							<div class="col-md-12">
-								<div class="form-group" id="pos_job_market">
+							<div class="col-md-12" id="group_pos_job_market">
+								<div class="form-group">
 									<label for="pos_job_market">Job Marketplace </label>
 									<input type="text" class="form-control" id="pos_job_market" name="pos_job_market" placeholder="Order from marketplace">
 								</div>
