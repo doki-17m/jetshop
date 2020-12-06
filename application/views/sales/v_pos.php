@@ -52,9 +52,9 @@
 					<h3 class="invoice-no">Bill No # <strong id="documentno"><?= $invoiceno ?></strong></h3>
 					<h3 class="grandtotal">Rp. <strong id="grandtotal"></strong></h3>
 					<hr class="solid">
-					<div class="row no-print">
-						<div class="flex-parent float-right">
-							<button type="button" class="btn btn-outline-primary margin-right" id="btn_refresh"><i class="fas fa-sync-alt"></i> Reset</button>
+					<div class="card-header">
+						<div class="float-right">
+							<button type="button" class="btn btn-outline-primary" id="btn_refresh"><i class="fas fa-sync-alt"></i> Reset</button>
 							<button type="button" class="btn btn-success" id="btn_checkout"><i class="far fa-credit-card"></i> Submit</button>
 						</div>
 					</div>
