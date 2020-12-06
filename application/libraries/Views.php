@@ -42,4 +42,6 @@ class Views
 	public $VIEW_EXPENSE = 'expense/v_expense'; //view expense
 
 	public $VIEW_RETURN = 'return/v_return'; //view return
+
+	public $VIEW_ORDER = 'sales/v_order'; //view order
 }
