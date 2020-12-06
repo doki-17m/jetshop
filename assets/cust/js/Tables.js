@@ -53,17 +53,23 @@ _tableJob = $('#tb_job').DataTable({
 });
 
 _tableSo = $('#tb_sales').DataTable({
-	// 'ajax': SITE_URL + STORE,
-	'columnDefs': [
-		// {
-		// 	'targets': -1,
-		// 	'orderable': false //nonaktif sort by
-		// },
+	'ajax': CUST_URL + SALES + SHOWALL,
+	'processing': true,
+	'language': {
+		'processing': '<i class="fas fa-spinner fa-spin fa-1x fa-fw"></i><span> Processing...</span>'
+	},
+	'order': [2, 'desc'],
+	'columnDefs': [{
+			'targets': -1,
+			'orderable': false //nonaktif sort by
+		},
 		{
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 //defined table greeting
@@ -299,6 +305,24 @@ _tableExpLine = $('#tb_expenseline').DataTable({
 	'ordering': false
 });
 
+_tableRma = $('#tb_return').DataTable({
+	// 'ajax': SITE_URL + SHOWALL,
+	'processing': true,
+	'language': {
+		'processing': '<i class="fas fa-spinner fa-spin fa-1x fa-fw"></i><span> Processing...</span>'
+	},
+	'columnDefs': [{
+			'targets': -1,
+			'orderable': false //nonaktif sort by
+		},
+		{
+			'targets': 0,
+			'visible': false //hide column
+		}
+	],
+	'autoWidth': true
+});
+
 function reloadTable(last_url) {
 	if (last_url == 'product')
 		_tablePro.ajax.reload(null, false);
@@ -328,6 +352,8 @@ function reloadTable(last_url) {
 		_tableUsr.ajax.reload(null, false);
 	else if (last_url == 'expense')
 		_tableExp.ajax.reload(null, false);
+	else if (last_url == 'viewSo')
+		_tableSo.ajax.reload(null, false);
 	else
 		console.info(false)
 }
