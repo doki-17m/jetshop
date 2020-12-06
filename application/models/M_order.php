@@ -248,6 +248,8 @@ class M_order extends CI_Model
 		$this->orderreference = $post['pos_job_market'];
 		$this->totalweight = $post['pos_total_weight'];
 		$this->ismember = $post['ismember'];
+		$this->paymentmethod = $post['pos_payment'];
+		$this->m_account_id = $post['pos_bankacc'];
 
 		$row = $courier->getByValue($post['pos_courier'])->row();
 		$service = substr($delivery_service, 0, $length);
