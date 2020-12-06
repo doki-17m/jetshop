@@ -85,7 +85,7 @@ class Sales extends CI_Controller
 			],
 			[
 				'field'		=>	'pos_city',
-				'label'		=>	'City',
+				'label'		=>	'Destination',
 				'rules'		=>	'required'
 			],
 			[
