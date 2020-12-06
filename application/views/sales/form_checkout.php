@@ -106,13 +106,9 @@
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
-					<div class="table-responsive">
-						<table id="list_cart" class="table">
-						</table>
-					</div>
-					<div class="row no-print">
-						<div class="flex-parent float-right">
-							<button type="button" class="btn btn-outline-primary margin-right" id="btn_print"><i class="fas fa-print"></i> Print</button>
+					<div class="card-header">
+						<div class="float-right">
+							<button type="button" class="btn btn-outline-primary" id="btn_print"><i class="fas fa-print"></i> Print</button>
 							<button type="button" class="btn btn-primary" id="btn_pos"><i class="far fa-save"></i> Save</button>
 							<button type="button" class="btn btn-danger" id="btn_close_pos"><i class="fas fa-times"></i> Close</button>
 						</div>
