@@ -34,7 +34,7 @@ function listAction($id, $string)
 					</center>';
 	} else if ($string === 'P') {
 		$list = '<center>
-						<a class="btn" onclick="Print(' . "'" . $id . "'" . ')" title="Cart"><i class="fas fa-print text-primary"></i></a>
+						<a class="btn" onclick="Print(' . "'" . $id . "'" . ')" title="Print"><i class="fas fa-print text-primary"></i></a>
 					</center>';
 	} else if ($string === 'DQ') {
 		$list = '<center>
@@ -108,5 +108,14 @@ function docStatus($id, $string)
 		return '<center><span class="badge badge-danger">Voided</span></center>';
 	} else {
 		return '<center><a onclick="processDoc(' . "'" . $id . "'," . "'" . $string . "'" . ')" title="Drafted"><span class="badge badge-warning">Drafted</span></a></center>';
+	}
+}
+
+function isMember($string)
+{
+	if ($string == 'Y') {
+		return '<center><span class="badge badge-primary">Yes</span></center>';
+	} else {
+		return '<center><span class="badge badge-danger">No</span></center>';
 	}
 }
