@@ -42,6 +42,12 @@ class Sales extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function viewSo()
+	{
+		$view = $this->views;
+		$this->template->load($view->OVERVIEW, $view->VIEW_ORDER);
+	}
+
 	public function create()
 	{
 		$order = $this->m_order;
@@ -91,8 +97,23 @@ class Sales extends CI_Controller
 				'field'		=>	'pos_delivery',
 				'label'		=>	'Delivery',
 				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'pos_payment',
+				'label'		=>	'Payment Method',
+				'rules'		=>	'required'
 			]
 		]);
+
+		if ($post['pos_payment'] == 2) {
+			$validation->set_rules([
+				[
+					'field'		=>	'pos_bankacc',
+					'label'		=>	'Bank Account',
+					'rules'		=>	'required'
+				]
+			]);
+		}
 
 		if ($validation->run()) {
 			$last_id = $order->insert($post);
