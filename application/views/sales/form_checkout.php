@@ -57,7 +57,7 @@
 							</div>
 							<div class="col-md-12" id="group_pos_city">
 								<div class="form-group">
-									<label for="pos_city">City <span class="required">*</span></label>
+									<label for="pos_city">Destination <span class="required">*</span></label>
 									<select class="form-control select2" id="pos_city" name="pos_city"></select>
 									<small id="error_pos_city" class="form-text text-danger"></small>
 								</div>
