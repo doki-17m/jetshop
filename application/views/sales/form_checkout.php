@@ -106,6 +106,30 @@
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
+					<div class="row">
+						<div class="table-responsive">
+							<table id="list_cart" class="table">
+							</table>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="pos_payment">Payment Method <span class="required">*</span></label>
+								<select class="form-control select2" id="pos_payment" name="pos_payment">
+									<option value="" selected></option>
+									<option value="1">Cash</option>
+									<option value="2">Transfer</option>
+								</select>
+								<small id="error_pos_payment" class="form-text text-danger"></small>
+							</div>
+						</div>
+						<div class="col-md-6" id="group_pos_bankacc">
+							<div class="form-group">
+								<label for="pos_bankacc">Bank Account <span class="required">*</span></label>
+								<select class="form-control select2" id="pos_bankacc" name="pos_bankacc"></select>
+								<small id="error_pos_bankacc" class="form-text text-danger"></small>
+							</div>
+						</div>
+					</div>
 					<div class="card-header">
 						<div class="float-right">
 							<button type="button" class="btn btn-outline-primary" id="btn_print"><i class="fas fa-print"></i> Print</button>
