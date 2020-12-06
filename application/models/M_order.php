@@ -5,6 +5,7 @@ class M_order extends CI_Model
 	private $_table = 'trx_order';
 
 	private $_tableline = 'trx_orderline';
+	private $v_order_detail = 'v_order_detail';
 
 	private $Docstatus_CO = 'CO';
 	private $Docstatus_VO = 'VO';
@@ -42,44 +43,40 @@ class M_order extends CI_Model
 
 	public function listData()
 	{
-		return $this->db->get($this->_table);
+		$this->db->select('*,
+						count(trx_orderline_id) as total_line');
+		$this->db->group_by('trx_order_id');
+		$this->db->order_by('documentno', 'DESC');
+		return $this->db->get($this->v_order_detail);
 	}
 
-	public function setData()
+	public function setDataList()
 	{
+		$status = $this->status;
 		$list = $this->listData()->result();
 		$data = array();
 		$number = 0;
 		foreach ($list as $value) {
 			$row = array();
-			// $number++;
-			// $row[] = $value->m_product_id;
-			// $row[] = $number;
-			// $row[] = $value->value;
-			// $row[] = $value->name;
-			// if ($value->m_product_category_id == 1) {
-			// 	$row[] = 'Baju';
-			// } else if ($value->m_product_category_id == 2) {
-			// 	$row[] = 'Lain-Lain';
-			// }
-			// if ($value->unitmeasure == 'pcs') {
-			// 	$row[] = 'Pcs';
-			// } else if ($value->unitmeasure == 'pk') {
-			// 	$row[] = 'Pack';
-			// } else {
-			// 	$row[] = 'Each';
-			// }
-			// $row[] = $value->qtyonhand;
-			// $row[] = $value->costprice;
-			// $row[] = $value->sellprice;
-			// if ($value->isactive == 'Y') {
-			// 	$row[] = '<span class="badge badge-success">Active</span>';
-			// } else {
-			// 	$row[] = '<span class="badge badge-danger">Non-active</span>';
-			// }
-			// $row[] = '<center>
-			//             <a class="btn" onclick="delete_data(' . "'" . $value->m_product_id . "'" . ')" title="Delete"><i class="fas fa-trash-alt text-danger"></i></a>
-			//         </center>';
+			$number++;
+			$ID = $value->trx_order_id;
+			$destination = $value->type . ' ' . $value->city;
+			$row[] = $ID;
+			$row[] = $number;
+			$row[] = $value->documentno;
+			$row[] = $value->bpartner;
+			$row[] = date('d-m-Y', strtotime($value->dateordered));
+			$row[] = $value->address;
+			$row[] = $destination;
+			$row[] = $value->courier;
+			$row[] = $value->service;
+			$row[] = $value->total_line;
+			$row[] = formatRupiah($value->totalweight) . ' gram';
+			$row[] = formatRupiah($value->grandtotal);
+			$row[] = $value->cashier;
+			$row[] = isMember($value->ismember);
+			$row[] = docStatus($ID, $value->docstatus);
+			$row[] = listAction($ID, $status->PRINT);
 			$data[] = $row;
 		}
 		$result = array('data' => $data);
@@ -331,6 +328,19 @@ class M_order extends CI_Model
 			$num_rows = $this->db->affected_rows();
 			return $num_rows;
 		}
+	}
+
+	public function detail($id)
+	{
+		return $this->db->get_where($this->v_order_detail, array('trx_order_id' => $id));
+	}
+
+	public function processStatus($id, $action)
+	{
+		$this->docstatus = $action;
+		$where = array('trx_order_id' => $id);
+		return $this->db->where($where)
+			->update($this->_table, $this);
 	}
 
 	public function check_qty($post)
