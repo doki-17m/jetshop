@@ -170,14 +170,6 @@ class Product extends CI_Controller
 				'field'		=>	'pro_catg',
 				'label'		=>	'Product Category',
 				'rules'		=>	'required'
-			],
-			[
-				'field'		=>	'pro_qty',
-				'label'		=>	'Quantity',
-				'rules'		=>	'required|callback_check_proqty',
-				'errors'		=>	[
-					'check_proqty'	=> 'The %s cannot smaller than 1'
-				]
 			]
 		]);
 
