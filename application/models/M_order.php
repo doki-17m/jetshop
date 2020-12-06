@@ -346,9 +346,9 @@ class M_order extends CI_Model
 				$qty = $value->qty;
 
 				if ($qty == 0) {
-					$listProduct[] = array('zero' => $product_name . ' quantity belum diset: ' . $qty);
+					$listProduct[] = array('zero' => $product_name . ' quantity cannot available: ' . $qty);
 				} else if ($qtyordered > $qty) {
-					$listProduct[] = array('more' => $product_name . 'qty melebihi: ' . $qty);
+					$listProduct[] = array('more' => $product_name . 'quantity greather than: ' . $qty);
 				}
 			}
 		}
