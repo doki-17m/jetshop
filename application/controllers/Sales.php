@@ -48,6 +48,13 @@ class Sales extends CI_Controller
 		$this->template->load($view->OVERVIEW, $view->VIEW_ORDER);
 	}
 
+	public function showAll()
+	{
+		$order = $this->m_order;
+		$response = $order->setDataList();
+		echo json_encode($response);
+	}
+
 	public function create()
 	{
 		$order = $this->m_order;
@@ -134,6 +141,21 @@ class Sales extends CI_Controller
 			$response = $status->SUCCESS_INSERT_CART;
 		} else {
 			$response = $result;
+		}
+		echo json_encode($response);
+	}
+
+	public function processDocaction()
+	{
+		$status = $this->status;
+		$order = $this->m_order;
+		$id = $_GET['id'];
+		$docaction = $_GET['docaction'];
+		$result = $order->processStatus($id, $docaction);
+		if ($result) {
+			$response = $status->SUCCESS_DOCACTION;
+		} else {
+			$response = $status->ERROR_LINE;
 		}
 		echo json_encode($response);
 	}
