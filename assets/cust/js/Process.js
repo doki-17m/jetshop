@@ -504,7 +504,11 @@ function processDoc(id, status) {
 		showLoaderOnConfirm: true,
 		preConfirm: (generate) => {
 			return new Promise(function (resolve) {
-				url = SITE_URL + '/processDocaction?id=' + id + '&docaction=' + generate;
+				if (LAST_URL === 'viewSo')
+					url = CUST_URL + SALES + '/processDocaction?id=' + id + '&docaction=' + generate;
+				else
+					url = SITE_URL + '/processDocaction?id=' + id + '&docaction=' + generate;
+
 				$.getJSON(url, function (response) {
 						if (response.success) {
 							Toast.fire({
