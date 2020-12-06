@@ -367,7 +367,9 @@ class M_order extends CI_Model
 			'error_pos_courier'		=> form_error('pos_courier'),
 			'error_pos_city'		=> form_error('pos_city'),
 			'error_pos_faddress'	=> form_error('pos_address'),
-			'error_pos_delivery'	=> form_error('pos_delivery')
+			'error_pos_delivery'	=> form_error('pos_delivery'),
+			'error_pos_payment'		=> form_error('pos_payment'),
+			'error_pos_bankacc'		=> form_error('pos_bankacc')
 		];
 	}
 }
