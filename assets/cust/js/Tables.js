@@ -191,7 +191,8 @@ _tableCity = $('#tb_city').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableCou = $('#tb_courier').DataTable({
