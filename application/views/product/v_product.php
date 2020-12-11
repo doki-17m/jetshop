@@ -8,8 +8,8 @@
 				</div>
 			</div>
 			<!-- /.card-header -->
-			<div class="card-body table-responsive">
-				<table id="tb_product" class="table table-bordered table-hover custom-pointer" style="width: 100%">
+			<div class="card-body">
+				<table id="tb_product" class="table table-bordered table-hover table-pointer table-md" style="width: 100%">
 					<thead>
 						<tr>
 							<th>ID</th>
