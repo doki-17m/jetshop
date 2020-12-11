@@ -243,3 +243,12 @@ button.margin-right {
 .swal-docaction {
 	width: 350px !important;
 }
+
+/* Header dataTable Column */
+.dataTables_scrollHeadInner {
+	width: 100% !important;
+}
+
+.dataTables_scrollHeadInner .table-md {
+	width: 100% !important;
+}
