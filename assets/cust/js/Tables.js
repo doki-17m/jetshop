@@ -31,7 +31,9 @@ _tableCat = $('#tb_category').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 //defined table job
