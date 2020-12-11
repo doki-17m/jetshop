@@ -15,7 +15,11 @@ _tablePro = $('#tb_product').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': 1,
+		'heightMatch': 'auto'
+	}
 });
 
 //defined table category
