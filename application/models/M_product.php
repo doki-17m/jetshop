@@ -28,6 +28,7 @@ class M_product extends CI_Model
 			$number++;
 			$ID = $value->m_product_id;
 			$isActive = $value->isactive;
+			$isObral = $value->isobral;
 			$image = $value->ad_image_id;
 			$row[] = $ID;
 			$row[] = $number;
@@ -35,11 +36,12 @@ class M_product extends CI_Model
 			$row[] = $value->value;
 			$row[] = $value->name;
 			$row[] = $value->category;
-			// $row[] = $value->minorder;
 			$row[] = $value->qty;
+			$row[] = formatRupiah($value->weight);
 			$row[] = $value->unitmeasure;
 			$row[] = formatRupiah($value->purchprice);
 			$row[] = formatRupiah($value->salesprice);
+			$row[] = isObral($isObral);
 			$row[] = isActive($isActive);
 			$row[] = listAction($ID, $status->DELQTY);
 			$data[] = $row;
