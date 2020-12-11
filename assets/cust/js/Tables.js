@@ -113,7 +113,9 @@ _tableUom = $('#tb_uom').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 //defined table customer
