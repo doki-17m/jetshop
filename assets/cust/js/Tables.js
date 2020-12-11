@@ -151,7 +151,8 @@ _tableSup = $('#tb_supplier').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableProv = $('#tb_province').DataTable({
