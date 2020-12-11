@@ -6,8 +6,8 @@
 					<button type="button" class="btn btn-block bg-gradient-primary btn-sm" id="new_courier"><i class="fas fa-plus-circle"> New</i></button>
 				</div>
 			</div>
-			<div class="card-body table-responsive">
-				<table id="tb_courier" class="table table-bordered table-hover table-pointer" style="width: 100%">
+			<div class="card-body">
+				<table id="tb_courier" class="table table-bordered table-hover table-pointer table-md" style="width: 100%">
 					<thead>
 						<tr>
 							<th>ID</th>
