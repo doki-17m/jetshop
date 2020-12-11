@@ -219,7 +219,8 @@ _tableAcc = $('#tb_account').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableUsr = $('#tb_user').DataTable({
