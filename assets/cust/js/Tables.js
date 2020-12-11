@@ -201,7 +201,8 @@ _tableCou = $('#tb_courier').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableAcc = $('#tb_account').DataTable({
