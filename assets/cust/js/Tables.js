@@ -310,7 +310,8 @@ _tableExp = $('#tb_expense').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableExpLine = $('#tb_expenseline').DataTable({
