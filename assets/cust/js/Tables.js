@@ -93,7 +93,9 @@ _tableGre = $('#tb_greeting').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 //defined table uom
