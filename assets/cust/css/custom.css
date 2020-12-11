@@ -136,10 +136,6 @@ ol.alert {
 	color: #ff0000;
 }
 
-.custom-pointer {
-	cursor: pointer;
-}
-
 /* Line */
 hr.solid {
 	border-top: 2px solid #bbb;
