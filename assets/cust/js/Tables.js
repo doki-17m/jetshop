@@ -170,7 +170,9 @@ _tableProv = $('#tb_province').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableCity = $('#tb_city').DataTable({
