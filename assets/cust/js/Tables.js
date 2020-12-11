@@ -69,7 +69,11 @@ _tableSo = $('#tb_sales').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': 2,
+		'heightMatch': 'auto'
+	}
 });
 
 //defined table greeting
