@@ -132,7 +132,8 @@ _tableCus = $('#tb_customer').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableSup = $('#tb_supplier').DataTable({
