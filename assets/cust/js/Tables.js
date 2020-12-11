@@ -337,7 +337,8 @@ _tableRma = $('#tb_return').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 function reloadTable(last_url) {
