@@ -237,7 +237,8 @@ _tableUsr = $('#tb_user').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tablePOS = $('#tb_sales_pos').DataTable({
