@@ -49,7 +49,9 @@ _tableJob = $('#tb_job').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableSo = $('#tb_sales').DataTable({
