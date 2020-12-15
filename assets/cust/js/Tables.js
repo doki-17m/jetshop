@@ -13,7 +13,13 @@ _tablePro = $('#tb_product').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': 1,
+		'heightMatch': 'auto'
+	}
 });
 
 //defined table category
@@ -31,7 +37,9 @@ _tableCat = $('#tb_category').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 //defined table job
@@ -49,7 +57,9 @@ _tableJob = $('#tb_job').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableSo = $('#tb_sales').DataTable({
@@ -69,7 +79,11 @@ _tableSo = $('#tb_sales').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': 2,
+		'heightMatch': 'auto'
+	}
 });
 
 //defined table greeting
@@ -87,7 +101,9 @@ _tableGre = $('#tb_greeting').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 //defined table uom
@@ -105,7 +121,9 @@ _tableUom = $('#tb_uom').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 //defined table customer
@@ -124,7 +142,8 @@ _tableCus = $('#tb_customer').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableSup = $('#tb_supplier').DataTable({
@@ -142,7 +161,8 @@ _tableSup = $('#tb_supplier').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableProv = $('#tb_province').DataTable({
@@ -160,7 +180,9 @@ _tableProv = $('#tb_province').DataTable({
 			'targets': 0,
 			'visible': false //hide column
 		}
-	]
+	],
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableCity = $('#tb_city').DataTable({
@@ -179,7 +201,8 @@ _tableCity = $('#tb_city').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableCou = $('#tb_courier').DataTable({
@@ -197,7 +220,8 @@ _tableCou = $('#tb_courier').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableAcc = $('#tb_account').DataTable({
@@ -215,7 +239,8 @@ _tableAcc = $('#tb_account').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableUsr = $('#tb_user').DataTable({
@@ -233,7 +258,8 @@ _tableUsr = $('#tb_user').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tablePOS = $('#tb_sales_pos').DataTable({
@@ -294,7 +320,8 @@ _tableExp = $('#tb_expense').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 _tableExpLine = $('#tb_expenseline').DataTable({
@@ -320,7 +347,8 @@ _tableRma = $('#tb_return').DataTable({
 			'visible': false //hide column
 		}
 	],
-	'autoWidth': true
+	'autoWidth': true,
+	'scrollX': true
 });
 
 function reloadTable(last_url) {

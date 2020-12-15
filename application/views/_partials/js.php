@@ -35,6 +35,7 @@
 <!-- DataTables -->
 <script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.min.js') ?>"></script>
 <!-- bootstrap-datepicker -->
 <!-- <script src="<?php //echo base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') 
 					?>"></script> -->

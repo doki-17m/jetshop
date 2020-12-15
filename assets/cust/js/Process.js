@@ -455,7 +455,7 @@ function isActive(form) {
 					chkdCou();
 					break;
 				case 'form_account':
-					chkdCou();
+					chkdAcc();
 					break;
 				case 'form_user':
 					chkdUsr();

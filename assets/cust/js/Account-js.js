@@ -11,7 +11,7 @@ const errABank = $('#error_acc_bank'),
 btnNewAcc.click(function () {
 	openModalForm();
 	Scrollmodal();
-	modalTitle.text('New Courier');
+	modalTitle.text('New Account');
 	clearAcc();
 	accActive.prop('checked', true);
 

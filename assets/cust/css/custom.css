@@ -136,10 +136,6 @@ ol.alert {
 	color: #ff0000;
 }
 
-.custom-pointer {
-	cursor: pointer;
-}
-
 /* Line */
 hr.solid {
 	border-top: 2px solid #bbb;
@@ -242,4 +238,13 @@ button.margin-right {
 
 .swal-docaction {
 	width: 350px !important;
+}
+
+/* Header dataTable Column */
+.dataTables_scrollHeadInner {
+	width: 100% !important;
+}
+
+.dataTables_scrollHeadInner .table-md {
+	width: 100% !important;
 }

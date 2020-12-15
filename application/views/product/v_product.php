@@ -8,8 +8,8 @@
 				</div>
 			</div>
 			<!-- /.card-header -->
-			<div class="card-body table-responsive">
-				<table id="tb_product" class="table table-bordered table-hover custom-pointer" style="width: 100%">
+			<div class="card-body">
+				<table id="tb_product" class="table table-bordered table-hover table-pointer" style="width: 100%">
 					<thead>
 						<tr>
 							<th>ID</th>
@@ -18,11 +18,12 @@
 							<th>Code Product</th>
 							<th>Product</th>
 							<th>Product Category</th>
-							<!-- <th>Minimum Order</th> -->
 							<th>Qty</th>
+							<th>Weight</th>
 							<th>UOM</th>
 							<th>Purch-IDR</th>
 							<th>Sales-IDR</th>
+							<th>Obral</th>
 							<th>Active</th>
 							<th>Action</th>
 						</tr>

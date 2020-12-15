@@ -119,3 +119,12 @@ function isMember($string)
 		return '<center><span class="badge badge-danger">No</span></center>';
 	}
 }
+
+function isObral($string)
+{
+	if ($string == 'Y') {
+		return '<center><span class="badge badge-primary">Yes</span></center>';
+	} else {
+		return '<center><span class="badge badge-danger">No</span></center>';
+	}
+}
