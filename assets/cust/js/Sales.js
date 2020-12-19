@@ -117,7 +117,7 @@ $(document).ready(function () {
 })
 
 fillSBarcode.scannerDetection({
-	timeBeforeScanTest: 100, // wait for the next character for upto 200ms
+	timeBeforeScanTest: 100, // wait for the next character for upto 100ms
 	avgTimeByChar: 40, // it's not a barcode if a character takes longer than 100ms
 	preventDefault: true,
 	endChar: [13],
@@ -396,6 +396,8 @@ function checkoutData() {
 	groupPosCustAddress.hide();
 	groupPosCustJMarket.hide();
 	groupPosBank.hide();
+	fillPosPayment.val(null).change();
+	fillPosBank.val(null).change();
 
 	posCustomer(null, null);
 	posCourier(null, null);
@@ -413,27 +415,27 @@ function checkoutData() {
 		}
 
 		if (chkVal) {
-			fillPosCourier.val(null).change();
-			fillPosPhone.val('');
 			groupPosCustSelect.show();
 			groupPosCustInput.hide();
 			groupPosCustCity.hide();
 			groupPosCustAddress.hide();
 			groupPosCustDelivery.hide();
+			fillPosPhone.val('');
 			fillPosPhone.prop('readonly', true);
+			fillPosCourier.val(null).change();
 			fillPosCourier.prop('disabled', true);
 		} else {
-			fillPosCustSelect.val(null).change();
-			fillPosCourier.val(null).change();
-			fillPosPhone.val('');
-			fillPosCity.val(null).change();
-			fillPosAddress.val('');
 			groupPosCustSelect.hide();
 			groupPosCustInput.show();
 			groupPosCustCity.show();
 			groupPosCustAddress.show();
+			fillPosCustSelect.val(null).change();
+			fillPosPhone.val('');
 			fillPosPhone.prop('readonly', false);
+			fillPosCourier.val(null).change();
 			fillPosCourier.prop('disabled', false);
+			fillPosCity.val(null).change();
+			fillPosAddress.val('');
 		}
 	});
 
@@ -877,8 +879,6 @@ function clearErrPos() {
 	fillPosAddress.removeClass(isInvalid);
 	errPosPayment.html('');
 	errPosBank.html('');
-	fillPosPayment.val(null).change();
-	errPosBank.val(null).change();
 }
 
 function chkdPos() { //checked
@@ -897,13 +897,12 @@ function chkdPos() { //checked
 	fillPosBank.prop('disabled', true);
 }
 
-function unchkdPos() { //checked
+function unchkdPos() { //unchecked
 	fillPosCustInput.prop('readonly', false);
 	fillPosPhone.prop('readonly', false);
 	fillPosAddress.prop('readonly', false);
 	fillPosJMarket.prop('readonly', false);
 	fillPosNote.prop('readonly', false);
-	fillPosWeight.prop('readonly', false);
 	fillPosCustSelect.prop('disabled', false);
 	fillPosCourier.prop('disabled', false);
 	fillPosCity.prop('disabled', false);
