@@ -39,14 +39,13 @@
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div class="float-right">
+				<div class="float-left">
 					<button type="button" class="btn btn-block bg-gradient-primary btn-sm" id="new_expenseline"><i class="fas fa-plus-circle"> New Item</i></button>
 				</div>
 			</div>
-
 		</div>
 		<div class="row">
-			<div class="col-md-12" style="margin-top:20px;">
+			<div class="col-md-12" style="margin-top:10px;">
 				<div class="table-responsive">
 					<table id="tb_expenseline" class="table table-bordered table-hover table-pointer" style="width: 100%;">
 						<thead>
