@@ -183,4 +183,12 @@ class Sales extends CI_Controller
 		$response = $order->check_qty($post);
 		echo json_encode($response);
 	}
+
+	public function getDocNo()
+	{
+		$order = $this->m_order;
+		$order_id = $_GET['id'];
+		$response = $order->detail($order_id)->row()->documentno;
+		echo json_encode($response);
+	}
 }
