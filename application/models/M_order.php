@@ -139,7 +139,6 @@ class M_order extends CI_Model
 			$sellprice = $product_row->salesprice;
 			$name = $product_row->name;
 
-
 			$arrData = array(
 				'id'	=> $id,
 				'qty'	=> $qty,
@@ -235,7 +234,7 @@ class M_order extends CI_Model
 		}
 
 		$this->cashier_id = $post['pos_cashier'];
-		$this->documentno = $post['pos_invoiceno'];
+		$this->documentno = $this->show_invoiceno();
 		$this->docstatus = $this->Docstatus_CO;
 		$this->dateordered = $post['pos_date'];
 		$this->phone = $post['pos_phone'];
