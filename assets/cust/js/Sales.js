@@ -1,11 +1,11 @@
 //field pos
 const fillSDate = $('[name = pos_date]'),
 	fillSCashier = $('[name = pos_cashier]'),
-	fillSBarcode = $('[name = pos_barcode]'),
-	fillSInvoiceNo = $('#documentno');
+	fillSBarcode = $('[name = pos_barcode]');
+// fillSInvoiceNo = $('#documentno');
 
-const msgInvoiceNo = $('#documentno'),
-	msgGrandTotal = $('#grandtotal');
+const msgGrandTotal = $('#grandtotal');
+// msgInvoiceNo = $('#documentno'),
 
 const btnCheckout = $('#btn_checkout'),
 	btnPrint = $('#btn_print'),
@@ -221,7 +221,7 @@ function indecrementVal(id, e, field, action) {
 function saveOrder(table) {
 	var dateTrx = fillSDate.val();
 	var cashier = fillSCashier.val();
-	var invoiceno = fillSInvoiceNo.html();
+	// var invoiceno = fillSInvoiceNo.html();
 	var ismember = MemberValue();
 	var courier = $('#pos_courier option:selected').val();
 	var payment = $('#pos_payment option:selected').val();
@@ -232,7 +232,7 @@ function saveOrder(table) {
 		'&ismember=' + ismember +
 		'&pos_date=' + dateTrx +
 		'&pos_cashier=' + cashier +
-		'&pos_invoiceno=' + invoiceno +
+		// '&pos_invoiceno=' + invoiceno +
 		'&pos_payment=' + payment +
 		'&pos_bankacc=' + bank;
 
@@ -350,6 +350,7 @@ function saveOrderLine(arrData, last_id) {
 					type: 'success',
 					title: result.message
 				});
+				getInvoiceNo(last_id)
 				clearErrPos();
 				chkdPos();
 				clearTable();
@@ -373,7 +374,7 @@ function MemberValue() {
 function checkoutData() {
 	var lastArrCart = arrCart[arrCart.length - 1]; // last index array datatables
 	const table = document.getElementById('list_cart');
-	var invoiceno = fillSInvoiceNo.html();
+	// var invoiceno = fillSInvoiceNo.html();
 
 	$('#modal_checkout').modal({
 		backdrop: 'static',
@@ -381,7 +382,7 @@ function checkoutData() {
 	});
 	Scrollmodal();
 	modalDialog.addClass('modal-xl');
-	modalTitle.html('BIll No: ' + invoiceno.bold());
+	modalTitle.html('New Order');
 	$('#form_checkout')[0].reset();
 
 	btnClosePos.hide();
@@ -638,6 +639,13 @@ function callbackTable(table) {
 		}
 	}
 	return listProduct.map((item, i) => Object.assign({}, item, listQty[i], listAmt[i], ongkir[i], grandtotal[i]))
+}
+
+function getInvoiceNo(id) {
+	url = SITE_URL + '/getDocNo?id=' + id;
+	$.getJSON(url, function (result) {
+		modalTitle.html('BIll No: ' + result.bold());
+	});
 }
 
 function getTotalWeight(dataCart) {
