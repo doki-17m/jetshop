@@ -219,7 +219,6 @@ function indecrementVal(id, e, field, action) {
 }
 
 function saveOrder(table) {
-
 	var dateTrx = fillSDate.val();
 	var cashier = fillSCashier.val();
 	var invoiceno = fillSInvoiceNo.html();
