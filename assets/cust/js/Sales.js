@@ -170,10 +170,10 @@ function showTable(url) {
 
 		if (total > 0) {
 			totalAmount = total;
-			msgGrandTotal.html(totalAmount);
+			msgGrandTotal.html(formatRupiah(totalAmount));
 		} else {
 			totalAmount = 0;
-			msgGrandTotal.html(totalAmount);
+			msgGrandTotal.html(formatRupiah(totalAmount));
 		}
 	});
 }
