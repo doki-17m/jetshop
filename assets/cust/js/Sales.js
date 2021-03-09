@@ -647,7 +647,7 @@ function callbackTable(table) {
 function getInvoiceNo(id) {
 	url = SITE_URL + '/getDocNo?id=' + id;
 	$.getJSON(url, function (result) {
-		modalTitle.html('BIll No: ' + result.bold());
+		modalTitle.html('BIll No: ' + result);
 	});
 }
 
