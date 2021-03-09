@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="card-body table-responsive">
-					<table id="tb_sales_pos" class="table table-bordered table-hover" style="cursor:pointer; width: 100%">
+					<table id="tb_sales_pos" class="table table-bordered table-hover table-md" style="cursor:pointer; width: 100%">
 						<thead>
 							<tr>
 								<th>#ID Product</th>
@@ -49,7 +49,7 @@
 		<div class="col-md-4">
 			<div class="card card-secondary card-outline">
 				<div class="card-body box-profile">
-					<h3 class="invoice-no">Bill No # <strong id="documentno"><?= $invoiceno ?></strong></h3>
+					<!-- <h3 class="invoice-no">Bill No # <strong id="documentno"><?= $invoiceno ?></strong></h3> -->
 					<h3 class="grandtotal">Rp. <strong id="grandtotal"></strong></h3>
 					<hr class="solid">
 					<div class="card-header">
