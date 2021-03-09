@@ -108,8 +108,11 @@ $(document).ready(function () {
 		e.preventDefault();
 		const existDataTable = _tablePOS.data().any();
 
-		if (existDataTable)
+		if (existDataTable) {
 			checkoutData();
+			btnPos.show();
+		}
+
 	});
 
 	if (LAST_URL == 'sales')
