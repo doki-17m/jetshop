@@ -58,6 +58,8 @@ const cxbIsmember = $('#pos_ismember'); // checkbox walk in customer
 const ACTION_increment = 'INCREMENT',
 	ACTION_decrement = 'DECREMENT';
 
+const table = document.getElementById('list_cart');
+
 let totalAmount = 0;
 let setQty = 0;
 var arrCart = [];
@@ -111,6 +113,8 @@ $(document).ready(function () {
 		if (existDataTable) {
 			checkoutData();
 			btnPos.show();
+			groupPosCustSelect.show();
+			$('#group_pos_total_weight').hide();
 		}
 
 	});
@@ -237,7 +241,8 @@ function saveOrder(table) {
 		'&pos_cashier=' + cashier +
 		// '&pos_invoiceno=' + invoiceno +
 		'&pos_payment=' + payment +
-		'&pos_bankacc=' + bank;
+		'&pos_bankacc=' + bank +
+		'&isurgent=' + UrgentValue();
 
 	var arrData = callbackTable(table)
 
@@ -247,7 +252,16 @@ function saveOrder(table) {
 		data: {
 			data: arrData
 		},
+		cache: false,
 		dataType: 'JSON',
+		beforeSend: function () {
+			$('#btn_pos').attr('disabled', true);
+			loadingForm('form_checkout', 'facebook')
+		},
+		// complete: function () {
+		// 	$('#btn_pos').removeAttr('disabled');
+		// 	hideLoadingForm('form_checkout')
+		// },
 		success: function (result) {
 			if (result.length > 0) {
 				$.each(result, function (idx, elem) {
@@ -265,13 +279,24 @@ function saveOrder(table) {
 							title: more
 						});
 				});
+				$('#btn_pos').removeAttr('disabled');
+				hideLoadingForm('form_checkout')
 			} else {
 				url = SITE_URL + CREATE;
 				$.ajax({
 					url: url,
 					type: 'POST',
 					data: form,
+					cache: false,
 					dataType: 'JSON',
+					// beforeSend: function () {
+					// 	$('#btn_pos').attr('disabled', true);
+					// 	loadingForm('form_checkout', 'facebook')
+					// },
+					// complete: function () {
+					// 	$('#btn_pos').removeAttr('disabled');
+					// 	hideLoadingForm('form_checkout')
+					// },
 					success: function (response) {
 						if (response.error) {
 							if (response.error_pos_cust_id != '')
@@ -357,6 +382,8 @@ function saveOrderLine(arrData, last_id) {
 				clearErrPos();
 				chkdPos();
 				clearTable();
+				$('#btn_pos').removeAttr('disabled');
+				hideLoadingForm('form_checkout')
 				btnPos.hide();
 				btnPrint.show();
 				btnClosePos.show();
@@ -374,9 +401,17 @@ function MemberValue() {
 	return isActive;
 }
 
+function UrgentValue() {
+	var isActive;
+	if ($('#pos_isurgent').is(':checked'))
+		isActive = active;
+	else
+		isActive = nonactive;
+	return isActive;
+}
+
 function checkoutData() {
 	var lastArrCart = arrCart[arrCart.length - 1]; // last index array datatables
-	const table = document.getElementById('list_cart');
 	// var invoiceno = fillSInvoiceNo.html();
 
 	$('#modal_checkout').modal({
@@ -405,7 +440,7 @@ function checkoutData() {
 	posCustomer(null, null);
 	posCourier(null, null);
 	posCity(null, null);
-	getDelivery(null, null);
+	// getDelivery(null, null);
 	getTotalWeight(lastArrCart);
 	getListCart(table, lastArrCart);
 	posAccount(null, null);
@@ -425,69 +460,69 @@ function checkoutData() {
 			groupPosCustDelivery.hide();
 			fillPosPhone.val('');
 			fillPosPhone.prop('readonly', true);
-			fillPosCourier.val(null).change();
-			fillPosCourier.prop('disabled', true);
+			// fillPosCourier.val(null).change();
+			// fillPosCourier.prop('disabled', true);
 		} else {
 			groupPosCustSelect.hide();
-			groupPosCustInput.show();
-			groupPosCustCity.show();
-			groupPosCustAddress.show();
 			fillPosCustSelect.val(null).change();
+			groupPosCustInput.show();
+
+			if ($('#pos_isurgent').is(':checked')) {
+				groupPosCustCity.hide();
+				groupPosCustAddress.hide();
+			} else {
+				groupPosCustAddress.show();
+				groupPosCustCity.show();
+			}
+
 			fillPosPhone.val('');
-			fillPosPhone.prop('readonly', false);
-			fillPosCourier.val(null).change();
-			fillPosCourier.prop('disabled', false);
-			fillPosCity.val(null).change();
+			fillPosPhone.removeAttr('readonly');
+			// fillPosCourier.val(null).change();
+			// fillPosCourier.prop('disabled', false);
+			// fillPosCity.val(null).change();
 			fillPosAddress.val('');
 		}
 	});
-
-	// event change field customer select
-	fillPosCustSelect.change(function (e) {
-		var customer = $(this).val();
-		fillPosCourier.prop('disabled', false);
-
-		url = CUST_URL + CUSTOMER + SHOW + customer;
-
-		$.getJSON(url, function (result) {
-			var phone = result.phone;
-			var address = result.address;
-			var city = result.city_id;
-
-			posCity(null, city);
-			fillPosPhone.val(phone);
-			fillPosAddress.val(address);
-		});
-	});
-
-	// event change field courier
-	fillPosCourier.change(function (e) {
-		groupPosCustDelivery.show();
-		groupPosCustCity.show();
-		groupPosCustAddress.show();
-	});
-
-	// event change field delivery
-	fillPosDelivery.change(function (e) {
-		groupPosCustJMarket.show();
-	});
-
-	btnPos.click(function (e) {
-		saveOrder(table);
-	});
-
-	fillPosPayment.change(function (e) {
-		var value = $(this).val();
-
-		if (value == 2) {
-			groupPosBank.show();
-			fillPosBank.val(null).change();
-		} else {
-			groupPosBank.hide();
-			fillPosBank.val(null).change();
-		}
-	});
 }
+
+// event change field customer select
+fillPosCustSelect.change(function (e) {
+	var customer = $(this).val();
+	fillPosCourier.prop('disabled', false);
+
+	url = CUST_URL + CUSTOMER + SHOW + customer;
+
+	$.getJSON(url, function (result) {
+		var phone = result.phone;
+		var address = result.address;
+		var city = result.city_id;
+
+		posCity(null, city);
+		fillPosPhone.val(phone);
+		fillPosAddress.val(address);
+	});
+});
+
+btnPos.click(function (e) {
+	saveOrder(table);
+});
+
+// event change field delivery
+fillPosDelivery.change(function (e) {
+	groupPosCustJMarket.show();
+});
+
+fillPosPayment.change(function (e) {
+	var value = $(this).val();
+
+	if (value == 2) {
+		groupPosBank.show();
+		fillPosBank.val(null).change();
+	} else {
+		groupPosBank.hide();
+		fillPosBank.val(null).change();
+	}
+});
 
 function getListCart(table, dataCart) {
 	const tableListCart = $('#list_cart');
@@ -542,6 +577,22 @@ function getListCart(table, dataCart) {
 	var cellSubtotal = $('.subtotal'),
 		cellOngkir = $('.ongkir'),
 		cellGrandTotal = $('.grandTotal');
+
+	if ($('#pos_isurgent').is(':checked')) {
+		total = replaceRupiah(cellSubtotal.html());
+		cost = replaceRupiah(cellOngkir.html());
+		grandTotal = parseInt(total) + parseInt(cost);
+		cellGrandTotal.html(formatRupiah(grandTotal));
+	}
+
+	$('#pos_isurgent').change(function (evt) {
+		if ($('#pos_isurgent').is(':checked')) {
+			total = replaceRupiah(cellSubtotal.html());
+			cost = cellOngkir.html(0);
+			grandTotal = parseInt(total) + parseInt(0);
+			cellGrandTotal.html(formatRupiah(grandTotal));
+		}
+	});
 
 	//cek ongkos kirim
 	fillPosDelivery.change(function (e) {
@@ -745,9 +796,133 @@ function posCity(set, id) {
 		}
 	});
 }
+var delivery = 155;
+
+fillPosCourier.change(function (e) {
+	url = SITE_URL + '/cost';
+	let destination = $('#pos_city option:selected').val();
+	let totalWeight = fillPosWeight.val();
+	let courier = $(this).val();
+
+	fillPosDelivery.prop('disabled', true);
+	fillPosDelivery.empty();
+
+	if (!$('#pos_isurgent').is(':checked') & (courier === 'pos' | courier === 'tiki' | courier === 'jne')) {
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: {
+				origin: delivery,
+				destination: destination,
+				weight: totalWeight,
+				courier: courier
+			},
+			cache: false,
+			dataType: 'JSON',
+			beforeSend: function () {
+				$('#btn_pos').attr('disabled', true);
+				loadingForm('form_checkout', 'facebook')
+			},
+			complete: function () {
+				$('#btn_pos').removeAttr('disabled');
+				hideLoadingForm('form_checkout')
+				fillPosDelivery.removeAttr('disabled');
+				groupPosCustDelivery.show();
+				groupPosCustCity.show();
+				groupPosCustAddress.show();
+			},
+			success: function (result) {
+				if (result.code === 400) {
+					Toast.fire({
+						type: 'error',
+						title: result.description
+					});
+					fillPosDelivery.prop('disabled', true);
+				} else {
+					fillPosDelivery.prop('disabled', false);
+					fillPosDelivery.append('<option selected="selected" value="">-- Choose One --</option>');
+					$.each(result, function (idx, elem) {
+						var costs = elem.cost;
+						var desc = elem.description;
+						var service = elem.service;
+						$.each(costs, function (idx, obj) {
+							var etd = obj.etd; //estimated delivery
+							var cost = obj.value;
+							var delivery_name = service + ' - ' + '(Rp. ' + formatRupiah(cost) + ', Estimasi pengiriman : ' + etd + ' Hari)';
+							fillPosDelivery.append('<option value="' + service + '/' + cost + '">' + delivery_name + '</option>');
+						})
+					});
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				console.info(errorThrown)
+				alert(errorThrown)
+			}
+		});
+		return false;
+	}
+});
+
+fillPosCity.change(function (evt) {
+	url = SITE_URL + '/cost';
+	let destination = $(this).val();
+	let totalWeight = fillPosWeight.val();
+	let courier = $('#pos_courier option:selected').val();
+
+	fillPosDelivery.prop('disabled', true);
+	fillPosDelivery.empty();
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: {
+			origin: delivery,
+			destination: destination,
+			weight: totalWeight,
+			courier: courier
+		},
+		cache: false,
+		dataType: 'JSON',
+		beforeSend: function () {
+			$('#btn_pos').attr('disabled', true);
+			loadingForm('form_checkout', 'facebook')
+		},
+		complete: function () {
+			$('#btn_pos').removeAttr('disabled');
+			hideLoadingForm('form_checkout')
+			fillPosDelivery.removeAttr('disabled');
+		},
+		success: function (result) {
+			if (result.code === 400) {
+				Toast.fire({
+					type: 'error',
+					title: result.description
+				});
+				fillPosDelivery.attr('disabled', true);
+			} else {
+				fillPosDelivery.prop('disabled', false);
+				fillPosDelivery.append('<option selected="selected" value="">-- Choose One --</option>');
+				$.each(result, function (idx, elem) {
+					var costs = elem.cost;
+					var desc = elem.description;
+					var service = elem.service;
+					$.each(costs, function (idx, obj) {
+						var etd = obj.etd; //estimated delivery
+						var cost = obj.value;
+						var delivery_name = service + ' - ' + '(Rp. ' + formatRupiah(cost) + ', Estimasi pengiriman : ' + etd + ' Hari)';
+						fillPosDelivery.append('<option value="' + service + '/' + cost + '">' + delivery_name + '</option>');
+					})
+				});
+			}
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			console.info(errorThrown)
+			alert(errorThrown)
+		}
+	});
+});
 
 function getDelivery(set, id) {
-	var delivery = 155; //Jakarta Utara
+	// var delivery = 155; //Jakarta Utara
 	var destination = 0;
 	var totalWeight = 0;
 	var courier = null;
@@ -928,4 +1103,41 @@ $(document).on('click', '#close_checkout, #btn_close_pos', function (e) {
 	$('#form_checkout')[0].reset();
 	clearErrPos();
 	unchkdPos();
+	$('#form_checkout')[0].reset();
+});
+
+
+function loadingForm(selectorID, effect) {
+	$('#' + selectorID + '').waitMe({
+		effect: effect,
+		text: 'Please wait...',
+		bg: 'rgba(255,255,255,0.7)',
+		color: '#000',
+		maxSize: '',
+		waitTime: -1,
+		textPos: 'vertical',
+		fontSize: '100%',
+		source: '',
+		onClose: function () {}
+	});
+}
+
+function hideLoadingForm(selectorID) {
+	$('#' + selectorID + '').waitMe('hide');
+}
+
+
+$('#pos_isurgent').change(function (evt) {
+	if ($(this).is(':checked')) {
+		$('#group_pos_total_weight').hide();
+		groupPosCustDelivery.hide();
+		groupPosCustCity.hide();
+		groupPosCustAddress.hide();
+		groupPosCustJMarket.hide();
+	} else {
+		$('#group_pos_total_weight').show();
+		groupPosCustDelivery.show();
+		groupPosCustCity.show();
+		groupPosCustAddress.show();
+	}
 });
