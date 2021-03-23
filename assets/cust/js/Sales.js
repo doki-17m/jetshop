@@ -349,6 +349,8 @@ function saveOrder(table) {
 								errPosBank.html(response.error_pos_bankacc);
 							else
 								errPosBank.html('');
+							$('#btn_pos').removeAttr('disabled');
+							hideLoadingForm('form_checkout')
 						}
 
 						if (response.last_id) {
