@@ -10,11 +10,19 @@
 				<div class="card-body">
 					<form class="form-horizontal" id="form_checkout">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-4">
 								<div class="form-group">
 									<div class="custom-control custom-checkbox">
 										<input type="checkbox" class="custom-control-input" id="pos_ismember" checked>
 										<label for="pos_ismember" class="custom-control-label">Member</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="custom-control custom-checkbox">
+										<input type="checkbox" class="custom-control-input" id="pos_isurgent" checked>
+										<label for="pos_isurgent" class="custom-control-label">Urgent</label>
 									</div>
 								</div>
 							</div>
@@ -37,15 +45,15 @@
 									<small id="error_pos_phone" class="form-text text-danger"></small>
 								</div>
 							</div>
-							<div class="col-md-6" id="group_pos_courier">
-								<div class="form-group">
+							<div class="col-md-6">
+								<div class="form-group" id="group_pos_courier">
 									<label for="pos_courier">Courier <span class="required">*</span></label>
 									<select class="form-control select2" id="pos_courier" name="pos_courier"></select>
 									<small id="error_pos_courier" class="form-text text-danger"></small>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="form-group" id="group_pos_total_weight">
 									<label for="pos_total_weight">Total Weight (gram) </label>
 									<div class="input-group">
 										<input type="text" class="form-control number" id="pos_total_weight" name="pos_total_weight" readonly>
