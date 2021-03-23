@@ -224,8 +224,6 @@ class M_order extends CI_Model
 	public function insert($post)
 	{
 		$courier = $this->m_courier;
-		$delivery_service = $post['pos_delivery'];
-		$length = strpos($post['pos_delivery'], "/");
 
 		if ($post['ismember'] === 'Y') {
 			$this->m_bpartner_id = $post['pos_cust_id'];
@@ -238,20 +236,27 @@ class M_order extends CI_Model
 		$this->docstatus = $this->Docstatus_CO;
 		$this->dateordered = $post['pos_date'];
 		$this->phone = $post['pos_phone'];
-		$this->address = $post['pos_address'];
-		$this->m_city_id = $post['pos_city'];
+
+		if ($post['isurgent'] === 'N') {
+			$delivery_service = $post['pos_delivery'];
+			$length = strpos($post['pos_delivery'], "/");
+			$this->address = $post['pos_address'];
+			$this->m_city_id = $post['pos_city'];
+			$this->totalweight = $post['pos_total_weight'];
+			$service = substr($delivery_service, 0, $length);
+			$this->service = $service;
+		}
+
+		if ($post['pos_courier'] !== '') {
+			$row = $courier->getByValue($post['pos_courier'])->row();
+			$this->m_courier_id = $row->m_courier_id;
+		}
+
 		$this->order_note = $post['pos_note'];
 		$this->orderreference = $post['pos_job_market'];
-		$this->totalweight = $post['pos_total_weight'];
 		$this->ismember = $post['ismember'];
 		$this->paymentmethod = $post['pos_payment'];
 		$this->m_account_id = $post['pos_bankacc'];
-
-		$row = $courier->getByValue($post['pos_courier'])->row();
-		$service = substr($delivery_service, 0, $length);
-
-		$this->m_courier_id = $row->m_courier_id;
-		$this->service = $service;
 
 		$this->db->insert($this->_table, $this);
 		$insert_id = $this->db->insert_id();

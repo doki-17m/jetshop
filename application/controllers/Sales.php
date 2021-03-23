@@ -79,30 +79,36 @@ class Sales extends CI_Controller
 			]);
 		}
 
+		if ($post['isurgent'] === 'N') {
+			$validation->set_rules([
+				[
+					'field'		=>	'pos_courier',
+					'label'		=>	'Courier',
+					'rules'		=>	'required'
+				],
+				[
+					'field'		=>	'pos_city',
+					'label'		=>	'Destination',
+					'rules'		=>	'required'
+				],
+				[
+					'field'		=>	'pos_address',
+					'label'		=>	'Full Address',
+					'rules'		=>	'required'
+				],
+				[
+					'field'		=>	'pos_delivery',
+					'label'		=>	'Delivery',
+					'rules'		=>	'required'
+				]
+			]);
+		}
+
+
 		$validation->set_rules([
 			[
 				'field'		=>	'pos_phone',
 				'label'		=>	'Phone',
-				'rules'		=>	'required'
-			],
-			[
-				'field'		=>	'pos_courier',
-				'label'		=>	'Courier',
-				'rules'		=>	'required'
-			],
-			[
-				'field'		=>	'pos_city',
-				'label'		=>	'Destination',
-				'rules'		=>	'required'
-			],
-			[
-				'field'		=>	'pos_address',
-				'label'		=>	'Full Address',
-				'rules'		=>	'required'
-			],
-			[
-				'field'		=>	'pos_delivery',
-				'label'		=>	'Delivery',
 				'rules'		=>	'required'
 			],
 			[
