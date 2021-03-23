@@ -38,4 +38,7 @@
 								?>">
 <!-- Bootstrap Toggle -->
 <!-- <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> -->
+<!-- Loader WaitMe -->
+<link rel="stylesheet" href="<?= base_url('assets/plugins/loader/waitMe.min.css') ?>">
+
 <link rel="stylesheet" href="<?php echo base_url('assets/cust/css/custom.css') ?>">

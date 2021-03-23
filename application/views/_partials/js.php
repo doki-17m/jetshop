@@ -46,6 +46,8 @@
 <script src="<?php echo base_url('/assets/plugins/auto-numeric/autoNumeric.js') ?>"></script>
 <!-- Scanner Auto Focus -->
 <script src="<?php echo base_url('assets/plugins/jquery-scanner/jquery.scannerdetection.js') ?>"></script>
+<!-- Loader WaitMe -->
+<script src="<?= base_url('assets/plugins/loader/waitMe.min.js') ?>"></script>
 
 <!-- JS -->
 <script src="<?php echo base_url('assets/cust/js/Variables.js')  ?>"></script>
