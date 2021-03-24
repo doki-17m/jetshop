@@ -169,7 +169,7 @@ class Sales extends CI_Controller
 	public function totalWeight()
 	{
 		$order = $this->m_order;
-		$post = $this->input->post(NULL, TRUE);
+		$post = $this->input->post();
 		$response = $order->calculate_weight($post);
 		echo json_encode($response);
 	}
