@@ -714,26 +714,6 @@ function getTotalWeight(dataCart) {
 		dataType: 'JSON',
 		success: function (result) {
 			fillPosWeight.val(result)
-		},
-		error: function (jqXHR, exception) {
-			let msg = '';
-
-			if (jqXHR.status === 0)
-				msg = 'Not connect.\n Verify Network.';
-			else if (jqXHR.status == 404)
-				msg = 'Requested page not found. [404]';
-			else if (jqXHR.status == 500)
-				msg = 'Internal Server Error [500].';
-			else if (exception === 'parsererror')
-				msg = 'Requested JSON parse failed.';
-			else if (exception === 'timeout')
-				msg = 'Time out error.';
-			else if (exception === 'abort')
-				msg = 'Ajax request aborted.';
-			else
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-
-			console.info(msg);
 		}
 	});
 }
@@ -779,7 +759,7 @@ function posCourier(set, id) {
 
 	$.getJSON(url, function (response) {
 		fillPosCourier.empty();
-		fillPosCourier.append('<option selected="selected" value="0"></option>');
+		fillPosCourier.append('<option selected="selected" value="">-- Choose One --</option>');
 		$.each(response, function (idx, elem) {
 			var courier_id = elem.m_courier_id;
 			var courier_value = elem.value;
@@ -1102,7 +1082,6 @@ function chkdPos() { //checked
 	cxbIsmember.prop('disabled', true);
 	fillPosPayment.prop('disabled', true);
 	fillPosBank.prop('disabled', true);
-	$('#pos_isurgent').prop('disabled', true);
 }
 
 function unchkdPos() { //unchecked
@@ -1118,7 +1097,6 @@ function unchkdPos() { //unchecked
 	cxbIsmember.prop('disabled', false);
 	fillPosPayment.prop('disabled', false);
 	fillPosBank.prop('disabled', false);
-	$('#pos_isurgent').prop('disabled', false);
 }
 
 
