@@ -1082,6 +1082,7 @@ function chkdPos() { //checked
 	cxbIsmember.prop('disabled', true);
 	fillPosPayment.prop('disabled', true);
 	fillPosBank.prop('disabled', true);
+	$('#pos_isurgent').prop('disabled', true);
 }
 
 function unchkdPos() { //unchecked
@@ -1097,6 +1098,7 @@ function unchkdPos() { //unchecked
 	cxbIsmember.prop('disabled', false);
 	fillPosPayment.prop('disabled', false);
 	fillPosBank.prop('disabled', false);
+	$('#pos_isurgent').prop('disabled', false);
 }
 
 
