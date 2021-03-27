@@ -43,13 +43,18 @@ class Product extends CI_Controller
 					'is_unique'	=> 'This %s already exists.'
 				]
 			],
+			// [
+			// 	'field'		=>	'pro_name',
+			// 	'label'		=>	'Brand Product',
+			// 	'rules'		=>	'required|is_unique[m_product.name]',
+			// 	'errors'	=> 	[
+			// 		'is_unique'	=> 'This %s already exists.'
+			// 	]
+			// ],
 			[
 				'field'		=>	'pro_name',
 				'label'		=>	'Brand Product',
-				'rules'		=>	'required|is_unique[m_product.name]',
-				'errors'	=> 	[
-					'is_unique'	=> 'This %s already exists.'
-				]
+				'rules'		=>	'required'
 			],
 			[
 				'field'		=>	'pro_weight',
@@ -135,13 +140,18 @@ class Product extends CI_Controller
 					'check_procode'	=> 'This %s already exists.'
 				]
 			],
+			// [
+			// 	'field'		=>	'pro_name',
+			// 	'label'		=>	'Brand Product',
+			// 	'rules'		=>	'required|callback_check_proname',
+			// 	'errors'	=> 	[
+			// 		'check_proname'	=> 'This %s already exists.'
+			// 	]
+			// ],
 			[
 				'field'		=>	'pro_name',
 				'label'		=>	'Brand Product',
-				'rules'		=>	'required|callback_check_proname',
-				'errors'	=> 	[
-					'check_proname'	=> 'This %s already exists.'
-				]
+				'rules'		=>	'required'
 			],
 			[
 				'field'		=>	'pro_weight',
