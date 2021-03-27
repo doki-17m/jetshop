@@ -257,6 +257,8 @@ class M_order extends CI_Model
 		$this->ismember = $post['ismember'];
 		$this->paymentmethod = $post['pos_payment'];
 		$this->m_account_id = $post['pos_bankacc'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 
 		$this->db->insert($this->_table, $this);
 		$insert_id = $this->db->insert_id();
@@ -294,6 +296,8 @@ class M_order extends CI_Model
 						'lineamount'		=> $amount,
 						'costprice'			=> $purchprice, //harga beli
 						'isobral'			=> $isobral,
+						'createdby'			=> $this->session->userdata('user_id'),
+						'updatedby'			=> $this->session->userdata('user_id')
 					);
 					$this->db->insert($this->_tableline, $listOrderLine);
 					$lastline_id = $this->db->insert_id();

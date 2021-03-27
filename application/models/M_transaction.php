@@ -31,6 +31,10 @@ class M_transaction extends CI_Model
 		if ($table == 'trx_inventory') {
 			$this->trx_inventoryline_id = $post->trx_inventoryline_id;
 		}
+
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
+
 		return $this->db->insert($this->_table, $this);
 	}
 }
