@@ -779,7 +779,7 @@ function posCourier(set, id) {
 
 	$.getJSON(url, function (response) {
 		fillPosCourier.empty();
-		fillPosCourier.append('<option selected="selected" value="">-- Choose One --</option>');
+		fillPosCourier.append('<option selected="selected" value="0"></option>');
 		$.each(response, function (idx, elem) {
 			var courier_id = elem.m_courier_id;
 			var courier_value = elem.value;
