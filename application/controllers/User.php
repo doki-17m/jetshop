@@ -28,7 +28,7 @@ class User extends CI_Controller
 		$user = $this->m_user;
 		$validation = $this->form_validation;
 		$post = $this->input->post(NULL, TRUE);
-		
+
 		$validation->set_rules([
 			[
 				'field'		=>	'usr_username',
@@ -80,7 +80,7 @@ class User extends CI_Controller
 		$user = $this->m_user;
 		$validation = $this->form_validation;
 		$post = $this->input->post(NULL, TRUE);
-		
+
 		$validation->set_rules([
 			[
 				'field'		=>	'usr_username',
@@ -145,7 +145,7 @@ class User extends CI_Controller
 		$status = $this->status;
 		$user = $this->m_user;
 		$isActive = $status->ACTIVE;
-		$cashier = "Kasir";
+		$cashier = "cashier";
 		$response = $user->listCashier($isActive, $cashier)->result();
 		echo json_encode($response);
 	}
@@ -181,13 +181,13 @@ class User extends CI_Controller
 		if ($validation->run()) {
 			$user->updatePassword($post);
 			$response = $status->SUCCESS_UPDATE;
-		} else {	
+		} else {
 			$response = array(
-                'error'					=> true,
-                'error_chg_oldpass'		=> form_error('chg_oldpass'),
-                'error_chg_newpass'		=> form_error('chg_newpass'),
-                'error_chg_confpass'	=> form_error('chg_confpass')
-            );
+				'error'					=> true,
+				'error_chg_oldpass'		=> form_error('chg_oldpass'),
+				'error_chg_newpass'		=> form_error('chg_newpass'),
+				'error_chg_confpass'	=> form_error('chg_confpass')
+			);
 		}
 		echo json_encode($response);
 	}
@@ -200,7 +200,7 @@ class User extends CI_Controller
 		$post = $this->input->post(NULL, TRUE);
 		$rows = $user->callbackUsername($post)->num_rows();
 		return $rows > $zero ? false : true;
-	}	
+	}
 
 	public function check_usremail()
 	{
