@@ -91,12 +91,13 @@ class M_inventory extends CI_Model
 			$qty = $qty_entered;
 			$pricelist = $post->pro_slsidr;
 			$post_type = (object) ['movementtype' => $this->MovementIn];
+			$post->table = $this->_table;
 		}
 
 		$dataLine = [
 			'trx_inventory_id' 	=> $inventory_id,
 			'qtyentered' 		=> $qty,
-			'pricelist' 		=> $pricelist
+			'pricelist' 		=> replaceFormat($pricelist)
 		];
 
 		$insert = $this->db->insert($this->_tableline, $dataLine);
@@ -112,7 +113,7 @@ class M_inventory extends CI_Model
 
 			//update table inventory
 			$data = [
-				'amount'	=> $pricelist
+				'amount'	=> replaceFormat($pricelist)
 			];
 
 			$where = ['trx_inventory_id' => $inventory_id];
@@ -124,7 +125,6 @@ class M_inventory extends CI_Model
 				(array) $post_type,
 				(array) $post_line
 			);
-
 			//insert into transaction
 			return $transaction->insert($post_merge);
 		} else {
