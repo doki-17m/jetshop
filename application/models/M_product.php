@@ -67,6 +67,8 @@ class M_product extends CI_Model
 		}
 		$this->isactive = $post['isactive'];
 		$this->isobral = $post['isobral'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 		$this->db->insert($this->_table, $this);
 		$last_id = $this->db->insert_id();
 
@@ -117,6 +119,8 @@ class M_product extends CI_Model
 		}
 		$this->isactive = $post['isactive'];
 		$this->isobral = $post['isobral'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_product_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);

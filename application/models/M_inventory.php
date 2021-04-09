@@ -97,7 +97,9 @@ class M_inventory extends CI_Model
 		$dataLine = [
 			'trx_inventory_id' 	=> $inventory_id,
 			'qtyentered' 		=> $qty,
-			'pricelist' 		=> replaceFormat($pricelist)
+			'pricelist' 		=> replaceFormat($pricelist),
+			'created_by' 		=> $this->session->userdata('user_id'),
+			'updated_by'		=> $this->session->userdata('user_id')
 		];
 
 		$insert = $this->db->insert($this->_tableline, $dataLine);

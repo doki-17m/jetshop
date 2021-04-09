@@ -34,7 +34,7 @@ class M_transaction extends CI_Model
 
 		$this->createdby = $this->session->userdata('user_id');
 		$this->updatedby = $this->session->userdata('user_id');
-
+		$this->m_locator_id = 1; //warehouse online
 		return $this->db->insert($this->_table, $this);
 	}
 }
