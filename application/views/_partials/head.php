@@ -6,7 +6,7 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
 <!-- Ionicons -->
-<!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Tempusdominus Bbootstrap 4 -->
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') ?>">
 <!-- iCheck -->
@@ -36,6 +36,8 @@
 <!-- Bootstrap Datepicker -->
 <link rel="stylesheet" href="<?php //echo base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') 
 								?>">
+<!-- daterange picker -->
+<link rel="stylesheet" href="<?= base_url('assets/plugins/daterangepicker/daterangepicker.css') ?>">
 <!-- Bootstrap Toggle -->
 <!-- <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> -->
 <!-- Loader WaitMe -->

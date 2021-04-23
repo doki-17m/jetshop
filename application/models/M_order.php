@@ -351,6 +351,19 @@ class M_order extends CI_Model
 			->update($this->_table, $this);
 	}
 
+	public function getInsentif($salesrep, $obral, $date)
+	{
+		$this->db->select('COALESCE(count(trx_orderline_id), 0) AS item_product');
+		$this->db->where([
+			'salesrep_id'	=> $salesrep,
+			'isobral' 		=> $obral,
+			'dateordered'	=> $date
+		]);
+		$this->db->group_by('dateordered');
+		$this->db->order_by('dateordered', 'ASC');
+		return $this->db->get($this->v_order_detail);
+	}
+
 	public function check_qty($post)
 	{
 		$product = $this->m_product;

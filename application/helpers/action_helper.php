@@ -38,6 +38,7 @@ function listAction($id, $string)
 					</center>';
 	} else if ($string === 'DQ') {
 		$list = '<center>
+						<a class="btn" onclick="addBarcode(' . "'" . $id . "'" . ')" title="Barcode"><i class="fas fa-barcode text-secondary"></i></a>
 						<a class="btn" onclick="addQty(' . "'" . $id . "'" . ')" title="New Quantity"><i class="fas fa-tshirt text-primary"></i></a>
 						<a class="btn" onclick="Destroy(' . "'" . $id . "'" . ')" title="Delete"><i class="fas fa-trash-alt text-danger"></i></a>
 					</center>';

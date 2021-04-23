@@ -285,6 +285,83 @@ class Product extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function showBarcode($code)
+	{
+		$pdf = new TCPDF('L', 'mm', array(54, 23), true, 'UTF-8', false);
+		$pdf = new TCPDF('L', 'mm', array(101.6, 101.6), true, 'UTF-8', false);
+
+		// set document information
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('Jet Shop');
+		$pdf->SetTitle('Barcode');
+		$pdf->SetSubject('Jet Shop Barcode');
+		$pdf->SetKeywords('JS, Jet Shop, barcode');
+
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+		// set default monospaced font
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+		// set margins
+		$pdf->SetMargins(3, 3, 3);
+
+		// set auto page breaks
+		$pdf->SetAutoPageBreak(TRUE, 0);
+
+		// set image scale factor
+		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+		// set some language-dependent strings (optional)
+		if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+			require_once(dirname(__FILE__) . '/lang/eng.php');
+			$pdf->setLanguageArray($l);
+		}
+
+		// set a barcode on the page footer
+		$pdf->setBarcode(date('Y-m-d H:i:s'));
+
+		// set font
+		$pdf->SetFont('helvetica', '', 11);
+
+		// add a page
+		$pdf->AddPage();
+
+		$pdf->SetFont('helvetica', '', 10);
+
+		// define barcode style
+		$style = array(
+			'position' => 'C',
+			'align' => 'C',
+			'stretch' => false,
+			'fitwidth' => true,
+			'cellfitalign' => '',
+			'border' => false,
+			'hpadding' => 'auto',
+			'vpadding' => 'auto',
+			'fgcolor' => array(0, 0, 0),
+			'bgcolor' => false, //array(255,255,255),
+			'text' => true,
+			'font' => 'helvetica',
+			'fontsize' => 6,
+			'stretchtext' => 4
+		);
+
+		// $pdf->write1DBarcode($code, 'C128', 2, 1, '', 18, 0.4, $style, 'N');
+		$product = $this->m_product->detail(0, $code)->row();
+
+		$pdf->SetFont('helvetica', '', 9);
+
+		// for ($i = 0; $i < 1; $i++) {
+		$pdf->Cell(50, 0, 'JS Online', 0, 1, 'C', 0, '', 0, false, 'C', 'C');
+		$pdf->write1DBarcode($code, 'C128', '', '', '', 14, 0.4, $style, 'N');
+		$pdf->Cell(50, 0, 'Rp. ' . formatRupiah($product->salesprice), 0, 1, 'C', 0, '', 1, false, 'A', 'C');
+		// }
+
+		//Close and output PDF document
+		$pdf->Output($code . '.pdf', 'I');
+	}
+
 	public function check_procode()
 	{
 		$status = $this->status;

@@ -48,7 +48,8 @@
 <script src="<?php echo base_url('assets/plugins/jquery-scanner/jquery.scannerdetection.js') ?>"></script>
 <!-- Loader WaitMe -->
 <script src="<?= base_url('assets/plugins/loader/waitMe.min.js') ?>"></script>
-
+<!-- date-range-picker -->
+<script src="<?= base_url('assets/plugins/daterangepicker/daterangepicker.js') ?>"></script>
 <!-- JS -->
 <script src="<?php echo base_url('assets/cust/js/Variables.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Process.js')  ?>"></script>
@@ -67,3 +68,11 @@
 <script src="<?php echo base_url('assets/cust/js/User.min.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Sales.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Expense.js')  ?>"></script>
+
+<script>
+	$('#ins_date').daterangepicker({
+		locale: {
+			format: 'DD-MM-YYYY'
+		}
+	});
+</script>

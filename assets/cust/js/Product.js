@@ -355,6 +355,16 @@ function addQty(id) {
 	});
 }
 
+function addBarcode(id) {
+	ID = id;
+	let url = SITE_URL + '/show/' + ID;
+
+	$.getJSON(url, function (result) {
+		url = SITE_URL + '/showBarcode/' + result.value;
+		window.open(url, '_blank');
+	})
+}
+
 $('#save_qty').click(function (e) {
 	let radioIn = 'N';
 	let radioOut = 'N';

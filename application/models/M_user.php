@@ -112,7 +112,10 @@ class M_user extends CI_Model
 
 	public function listSales($params)
 	{
-		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array('issalesrep' => $params));
+		return $this->db->order_by('name', 'ASC')->get_where($this->_table, array(
+			'isactive' => 'Y',
+			'issalesrep' => $params
+		));
 	}
 
 	public function listCashier($active, $string)
@@ -129,11 +132,11 @@ class M_user extends CI_Model
 		$this->db->select('value');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'value'			 	=> $post['usr_username'],
-					'sys_user_id !='	=> $post['id']
-					)
-				);
+			array(
+				'value'			 	=> $post['usr_username'],
+				'sys_user_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 
@@ -160,18 +163,20 @@ class M_user extends CI_Model
 	}
 
 	public function checkLogin($username, $isactive)
-    {
-        return $this->db->get_where($this->_table, array(
+	{
+		return $this->db->get_where(
+			$this->_table,
+			array(
 				'value' 	=> $username,
 				'isactive'	=> $isactive
-				)
-			);
-    }
+			)
+		);
+	}
 
-    public function updateLastLogin($id)
-    {
-        $sql = "UPDATE {$this->_table} SET datelastlogin = now() WHERE sys_user_id = {$id}";
-        return $this->db->query($sql);
+	public function updateLastLogin($id)
+	{
+		$sql = "UPDATE {$this->_table} SET datelastlogin = now() WHERE sys_user_id = {$id}";
+		return $this->db->query($sql);
 	}
 
 	public function form_error()
