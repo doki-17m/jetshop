@@ -16,7 +16,7 @@
 							<th>#</th>
 							<th>Image</th>
 							<th>Code Product</th>
-							<th>Product</th>
+							<th>Brand</th>
 							<th>Product Category</th>
 							<th>Qty</th>
 							<th>Weight</th>

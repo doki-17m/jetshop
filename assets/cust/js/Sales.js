@@ -723,14 +723,15 @@ function posCashier() {
 	url = CUST_URL + USER + '/showCashier';
 
 	$.getJSON(url, function (response) {
+		var job_id = response.m_job_id;
+		var cashier_id = response.sys_user_id;
+		var cashier_name = response.username;
 
-		$.each(response, function (idx, elem) {
-			var job_id = elem.m_job_id;
-			var cashier_id = elem.sys_user_id;
-			var cashier_name = elem.username;
-			if (job_id == 1)
-				fillSCashier.append('<option value="' + cashier_id + '" selected="selected">' + cashier_name + '</option>');
-		});
+		if (job_id == 1)
+			fillSCashier.append('<option value="' + cashier_id + '" selected="selected">' + cashier_name + '</option>');
+		else
+			fillSCashier.append('<option value="" selected="selected"></option>');
+
 		fillSCashier.prop('disabled', true);
 	});
 }

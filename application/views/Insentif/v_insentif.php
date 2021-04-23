@@ -15,7 +15,7 @@
 								</span>
 							</div>
 							<input type="text" class="form-control float-right" name="ins_date" id="ins_date" value="<?= $date_range ?>">
-							<small class="form-text text-danger">Pilih Tanggal Transaksi Order. Sesuai Waktu Penjualan.</small>
+							<!-- <small class="form-text text-danger">Pilih Tanggal Transaksi Order. Sesuai Waktu Penjualan.</small> -->
 						</div>
 					</div>
 			</div>
