@@ -288,7 +288,6 @@ class Product extends CI_Controller
 	public function showBarcode($code)
 	{
 		$pdf = new TCPDF('L', 'mm', array(54, 23), true, 'UTF-8', false);
-		$pdf = new TCPDF('L', 'mm', array(101.6, 101.6), true, 'UTF-8', false);
 
 		// set document information
 		$pdf->SetCreator(PDF_CREATOR);
