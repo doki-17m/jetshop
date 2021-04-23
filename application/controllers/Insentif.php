@@ -18,7 +18,7 @@ class Insentif extends CI_Controller
 	{
 		$startDate = date('d-m-Y', strtotime('- 1 days'));
 		$endDate = date('d-m-Y');
-
+		//test
 		$data['date_range'] = $startDate . ' - ' . $endDate;
 		$this->template->load('overview', 'insentif/v_insentif', $data);
 	}
