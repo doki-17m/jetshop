@@ -142,11 +142,8 @@ class User extends CI_Controller
 
 	public function showCashier()
 	{
-		$status = $this->status;
 		$user = $this->m_user;
-		$isActive = $status->ACTIVE;
-		$cashier = "cashier";
-		$response = $user->listCashier($isActive, $cashier)->result();
+		$response = $user->listCashier()->row();
 		echo json_encode($response);
 	}
 

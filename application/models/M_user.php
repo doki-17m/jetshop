@@ -118,12 +118,12 @@ class M_user extends CI_Model
 		));
 	}
 
-	public function listCashier($active, $string)
+	public function listCashier()
 	{
 		$this->db->from($this->v_sysuser_detail);
-		$this->db->where('isactive', $active);
-		$this->db->like('skey_job', $string, 'after')
-			->or_like('job', $string, 'after');
+		$this->db->where([
+			'sys_user_id' => $this->session->userdata('user_id')
+		]);
 		return $this->db->order_by('job', 'ASC')->get();
 	}
 
