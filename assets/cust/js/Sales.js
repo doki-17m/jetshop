@@ -349,6 +349,12 @@ function saveOrder(table) {
 								errPosBank.html(response.error_pos_bankacc);
 							else
 								errPosBank.html('');
+
+							if (response.error_pos_sales != '')
+								$('#pos_sales').html(response.error_pos_sales);
+							else
+								$('#pos_sales').html('');
+
 							$('#btn_pos').removeAttr('disabled');
 							hideLoadingForm('form_checkout')
 						}
@@ -498,10 +504,12 @@ fillPosCustSelect.change(function (e) {
 		var phone = result.phone;
 		var address = result.address;
 		var city = result.city_id;
+		var salesrep = result.salesrep_id;
 
 		posCity(null, city);
 		fillPosPhone.val(phone);
 		fillPosAddress.val(address);
+		posSales(null, salesrep);
 	});
 });
 
@@ -799,6 +807,30 @@ function posCity(set, id) {
 		}
 	});
 }
+
+function posSales(set, id) {
+	url = CUST_URL + '/user' + '/showSales';
+
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'JSON',
+		success: function (result) {
+			$('#pos_sales').empty();
+			$('#pos_sales').append('<option selected="selected" value="">-- Choose One --</option>');
+			$.each(result, function (idx, elem) {
+				var sales_id = elem.sys_user_id;
+				var sales_name = elem.name;
+
+				if (id == sales_id)
+					$('#pos_sales').append('<option value="' + sales_id + '" selected="selected">' + sales_name + '</option>');
+				else
+					$('#pos_sales').append('<option value="' + sales_id + '">' + sales_name + '</option>');
+			});
+		}
+	});
+}
+
 var delivery = 155;
 
 fillPosCourier.change(function (e) {
@@ -1083,6 +1115,7 @@ function chkdPos() { //checked
 	cxbIsmember.prop('disabled', true);
 	fillPosPayment.prop('disabled', true);
 	fillPosBank.prop('disabled', true);
+	$('#pos_sales').prop('disabled', true);
 }
 
 function unchkdPos() { //unchecked
@@ -1098,6 +1131,7 @@ function unchkdPos() { //unchecked
 	cxbIsmember.prop('disabled', false);
 	fillPosPayment.prop('disabled', false);
 	fillPosBank.prop('disabled', false);
+	$('#pos_sales').prop('disabled', false);
 }
 
 

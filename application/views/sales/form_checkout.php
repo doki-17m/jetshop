@@ -121,6 +121,15 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
+								<label for="pos_sales">Sales <span class="required">*</span></label>
+								<select class="form-control select2" id="pos_sales" name="pos_sales"></select>
+								<small id="error_pos_sales" class="form-text text-danger"></small>
+							</div>
+						</div>
+						<div class="col-md-6">
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
 								<label for="pos_payment">Payment Method <span class="required">*</span></label>
 								<select class="form-control select2" id="pos_payment" name="pos_payment">
 									<option value="" selected></option>

@@ -115,6 +115,11 @@ class Sales extends CI_Controller
 				'field'		=>	'pos_payment',
 				'label'		=>	'Payment Method',
 				'rules'		=>	'required'
+			],
+			[
+				'field'		=>	'pos_sales',
+				'label'		=>	'Sales',
+				'rules'		=>	'required'
 			]
 		]);
 

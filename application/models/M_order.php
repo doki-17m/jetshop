@@ -236,13 +236,13 @@ class M_order extends CI_Model
 		$this->docstatus = $this->Docstatus_CO;
 		$this->dateordered = $post['pos_date'];
 		$this->phone = $post['pos_phone'];
+		$this->totalweight = $post['pos_total_weight'];
 
 		if ($post['isurgent'] === 'N') {
 			$delivery_service = $post['pos_delivery'];
 			$length = strpos($post['pos_delivery'], "/");
 			$this->address = $post['pos_address'];
 			$this->m_city_id = $post['pos_city'];
-			$this->totalweight = $post['pos_total_weight'];
 			$service = substr($delivery_service, 0, $length);
 			$this->service = $service;
 		}
@@ -259,6 +259,7 @@ class M_order extends CI_Model
 		$this->m_account_id = $post['pos_bankacc'];
 		$this->createdby = $this->session->userdata('user_id');
 		$this->updatedby = $this->session->userdata('user_id');
+		$this->salesrep_id = $post['pos_sales'];
 
 		$this->db->insert($this->_table, $this);
 		$insert_id = $this->db->insert_id();
