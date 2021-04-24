@@ -389,6 +389,23 @@ class M_order extends CI_Model
 		return $listProduct;
 	}
 
+	public function todayOmzet()
+	{
+		$this->db->select('SUM(grandtotal) AS total_omzet');
+		$this->db->from($this->_table)
+			->where('docstatus', 'CO')
+			->where('DATE(dateordered)', 'CURDATE()', false);
+		return $this->db->get();
+	}
+
+	public function todayTransaction()
+	{
+		$this->db->from($this->_table)
+			->where('docstatus', 'CO')
+			->where('DATE(dateordered)', 'CURDATE()', false);
+		return $this->db->get();
+	}
+
 	public function form_error()
 	{
 		return [

@@ -198,6 +198,11 @@ class M_product extends CI_Model
 		return $this->db->get($this->v_product_detail);
 	}
 
+	public function totalProduct()
+	{
+		return $this->db->get($this->v_product_detail);
+	}
+
 	public function callbackCode($post)
 	{
 		$this->db->select('value');
