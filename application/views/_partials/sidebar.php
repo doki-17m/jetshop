@@ -39,16 +39,30 @@
 							<p>Sales Order Details</p>
 						</a>
 					</li>
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<a href="<?php echo site_url('retur') ?>" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
 							<p>Return</p>
 						</a>
-					</li>
+					</li> -->
 					<li class="nav-item">
 						<a href="<?php echo site_url('expense') ?>" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
 							<p>Expense</p>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">
+					<i class="nav-icon fas fa-recycle"></i>
+					<p>Report<i class="fas fa-angle-left right"></i></p>
+				</a>
+				<ul class="nav nav-treeview">
+					<li class="nav-item">
+						<a href="<?php echo site_url('insentif') ?>" class="nav-link">
+							<i class="far fa-circle nav-icon"></i>
+							<p>Insentif Sales</p>
 						</a>
 					</li>
 				</ul>
