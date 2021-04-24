@@ -115,6 +115,7 @@ $(document).ready(function () {
 			btnPos.show();
 			groupPosCustSelect.show();
 			$('#group_pos_total_weight').hide();
+			posSales(null, null);
 		}
 
 	});
