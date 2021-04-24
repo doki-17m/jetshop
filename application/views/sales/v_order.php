@@ -14,7 +14,7 @@
 							<th>Destination</th>
 							<th>Courier</th>
 							<th>Service</th>
-							<th>Total Product</th>
+							<th>Item Product</th>
 							<th>Weight</th>
 							<th>Amount</th>
 							<th>Cashier</th>
