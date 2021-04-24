@@ -306,7 +306,7 @@ function proUom(set, id) {
 			var uom_code = elem.value;
 			var uom_name = elem.name;
 			if (set == 'add')
-				if (uom_id == 1 || uom_code === 'PCS')
+				if (uom_id == 1 || uom_code === 'Pcs')
 					fillPUom.append('<option value="' + uom_id + '" selected="selected">' + uom_name + '</option>');
 				else
 					fillPUom.append('<option value="' + uom_id + '">' + uom_name + '</option>');
