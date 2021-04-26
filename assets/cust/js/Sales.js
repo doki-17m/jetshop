@@ -115,7 +115,6 @@ $(document).ready(function () {
 			btnPos.show();
 			groupPosCustSelect.show();
 			$('#group_pos_total_weight').hide();
-			posSales(null, null);
 		}
 
 	});
@@ -449,6 +448,7 @@ function checkoutData() {
 	posCustomer(null, null);
 	posCourier(null, null);
 	posCity(null, null);
+	posSales(null, null);
 	// getDelivery(null, null);
 	getTotalWeight(lastArrCart);
 	getListCart(table, lastArrCart);
