@@ -370,7 +370,8 @@ class M_order extends CI_Model
 	{
 		$sql = "SELECT *,
 		((unitprice * qtyordered)- (costprice * qtyordered)) as keuntungan,
-		sys_user.name as nama_sales
+		sys_user.name as nama_sales,
+		right(accountno,3) as accountbank
 		FROM v_order_detail
 		LEFT JOIN sys_user on sys_user.sys_user_id = v_order_detail.salesrep_id
 		WHERE dateordered BETWEEN '$startDate' AND '$endDate'

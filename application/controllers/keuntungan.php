@@ -35,45 +35,52 @@ class Keuntungan extends CI_Controller
 		
 		$invoice = $this->m_order->getKeuntungan($startDate, $endDate)->result();
 
-		//Nomor Invoice
+		//Nomor
 		$sheet->getColumnDimension('A')->setWidth(12);
-		$sheet->setCellValue('A1', 'Nomor Invoice');
+		$sheet->setCellValue('A1', 'No');
+
+		//Nomor Invoice
+		$sheet->getColumnDimension('B')->setWidth(12);
+		$sheet->setCellValue('B1', 'Nomor Invoice');
 
 		//Kode Product
-		$sheet->getColumnDimension('B')->setWidth(12);
-		$sheet->setCellValue('B1', 'Kode Product');
+		$sheet->getColumnDimension('C')->setWidth(12);
+		$sheet->setCellValue('C1', 'Kode Product');
 
 		//Sales
-		$sheet->getColumnDimension('C')->setWidth(12);
-		$sheet->setCellValue('C1', 'Sales');
+		$sheet->getColumnDimension('D')->setWidth(12);
+		$sheet->setCellValue('D1', 'Sales');
 
 		//Harga Modal
-		$sheet->getColumnDimension('D')->setWidth(12);
-		$sheet->setCellValue('D1', 'Harga Modal');
+		$sheet->getColumnDimension('E')->setWidth(12);
+		$sheet->setCellValue('E1', 'Harga Modal');
 
 		//Harga Jual
-		$sheet->getColumnDimension('E')->setWidth(12);
-		$sheet->setCellValue('E1', 'Harga Jual');
+		$sheet->getColumnDimension('F')->setWidth(12);
+		$sheet->setCellValue('F1', 'Harga Jual');
 
 		//pcs
-		$sheet->getColumnDimension('F')->setWidth(12);
-		$sheet->setCellValue('F1', 'Pcs');
+		$sheet->getColumnDimension('G')->setWidth(12);
+		$sheet->setCellValue('G1', 'Pcs');
 
 		//Keuntungan
-		$sheet->getColumnDimension('G')->setWidth(12);
-		$sheet->setCellValue('G1', 'Keuntungan');
+		$sheet->getColumnDimension('H')->setWidth(12);
+		$sheet->setCellValue('H1', 'Keuntungan');
+
+		//Metode Bayar
+		$sheet->getColumnDimension('I')->setWidth(12);
+		$sheet->setCellValue('I1', 'Metode Bayar');	
 
 		//Rekening
-		$sheet->getColumnDimension('H')->setWidth(12);
-		$sheet->setCellValue('H1', 'Rekening');
-		$sheet->getStyle('A1:H1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('808080');
-		$sheet->getStyle('A1:H1')->getFont()->setBold(true);
-		$sheet->getStyle('A1:H1')->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-		$sheet->getStyle('A1:H1')->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-		$sheet->getStyle('A1:H1')->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-		$sheet->getStyle('A1:H1')->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-
-		$sheet->getStyle('A1:H1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+		$sheet->getColumnDimension('J')->setWidth(12);
+		$sheet->setCellValue('J1', 'Rekening');
+		$sheet->getStyle('A1:J1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('808080');
+		$sheet->getStyle('A1:J1')->getFont()->setBold(true);
+		$sheet->getStyle('A1:J1')->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->getStyle('A1:J1')->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->getStyle('A1:J1')->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->getStyle('A1:J1')->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->getStyle('A1:J1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 		/**
 		 * Data excel
@@ -81,18 +88,21 @@ class Keuntungan extends CI_Controller
 
 		$row = 2;
 		$cell = 1;
+		$number = 1;
 		//Nomor Inoice
 		foreach ($invoice as $value) {
-			$sheet->setCellValue('A' . $row, $value->documentno)
-			->setCellValue('B' . $row, $value->product)
-			->setCellValue('C' . $row, $value->nama_sales)
-			->setCellValue('D' . $row, $value->costprice)
-			->setCellValue('E' . $row, $value->unitprice)
-			->setCellValue('F' . $row, $value->qtyordered)
-			->setCellValue('G' . $row, $value->keuntungan)
-			->setCellValue('H' . $row, $value->payment);
+			$sheet->setCellValue('A' . $row, $number)
+			->setCellValue('B' . $row, $value->documentno)
+			->setCellValue('C' . $row, $value->code)
+			->setCellValue('D' . $row, $value->nama_sales)
+			->setCellValue('E' . $row, $value->costprice)
+			->setCellValue('F' . $row, $value->unitprice)
+			->setCellValue('G' . $row, $value->qtyordered)
+			->setCellValue('H' . $row, $value->keuntungan)
+			->setCellValue('I' . $row, $value->payment)
+			->setCellValue('J' . $row, $value->accountbank);
 			$row++;
-
+			$number++;
 		}
 
 		$writer = new Xlsx($spreadsheet);
