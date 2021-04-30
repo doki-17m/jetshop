@@ -96,6 +96,7 @@ class M_inventory extends CI_Model
 
 		$dataLine = [
 			'trx_inventory_id' 	=> $inventory_id,
+			'm_product_id'	 	=> $product_id,
 			'qtyentered' 		=> $qty,
 			'pricelist' 		=> replaceFormat($pricelist),
 			'created_by' 		=> $this->session->userdata('user_id'),
