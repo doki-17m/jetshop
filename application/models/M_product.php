@@ -32,13 +32,14 @@ class M_product extends CI_Model
 			$image = $value->ad_image_id;
 			$row[] = $ID;
 			$row[] = $number;
-			$row[] = showImage($image);
 			$row[] = $value->value;
-			$row[] = $value->name;
+			$row[] = showImage($image);
+			$row[] = $value->brand;
 			$row[] = $value->category;
 			$row[] = $value->qty;
 			$row[] = formatRupiah($value->weight);
 			$row[] = $value->unitmeasure;
+			$row[] = $value->code_purchprice;
 			$row[] = formatRupiah($value->purchprice);
 			$row[] = formatRupiah($value->salesprice);
 			$row[] = isObral($isObral);
@@ -54,7 +55,7 @@ class M_product extends CI_Model
 	{
 		$inventory = $this->m_inventory;
 		$this->value = $post['pro_code'];
-		$this->name = $post['pro_name'];
+		$this->m_brand_id = $post['pro_name'];
 		$this->description = $post['pro_desc'];
 		$this->m_product_category_id = $post['pro_catg'];
 		$this->m_uom_id = $post['pro_uom'];
@@ -66,9 +67,14 @@ class M_product extends CI_Model
 			$this->ad_image_id = $post['pro_img'];
 		}
 		$this->isactive = $post['isactive'];
-		$this->isobral = $post['isobral'];
 		$this->createdby = $this->session->userdata('user_id');
 		$this->updatedby = $this->session->userdata('user_id');
+		$this->code_costprice = strtoupper($post['pro_code_purch']);
+		if (replaceFormat($post['pro_slsidr']) < 125000) {
+			$this->isobral = 'Y';
+		} else {
+			$this->isobral = $post['isobral'];
+		}
 		$this->db->insert($this->_table, $this);
 		$last_id = $this->db->insert_id();
 
@@ -102,7 +108,7 @@ class M_product extends CI_Model
 	public function update($id, $post)
 	{
 		$this->value = $post['pro_code'];
-		$this->name = $post['pro_name'];
+		$this->m_brand_id = $post['pro_name'];
 		$this->description = $post['pro_desc'];
 		if ($post['pro_catg'] !== 'undefined') {
 			$this->m_product_category_id = $post['pro_catg'];
@@ -121,6 +127,12 @@ class M_product extends CI_Model
 		$this->isobral = $post['isobral'];
 		$this->updated_at = date('Y-m-d H:i:s');
 		$this->updatedby = $this->session->userdata('user_id');
+		$this->code_costprice = strtoupper($post['pro_code_purch']);
+		if (replaceFormat($post['pro_slsidr']) < 125000) {
+			$this->isobral = 'Y';
+		} else {
+			$this->isobral = $post['isobral'];
+		}
 		$where = array('m_product_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);
@@ -129,6 +141,7 @@ class M_product extends CI_Model
 	public function delete_image($id)
 	{
 		$this->ad_image_id = NULL;
+		$this->updated_at = date('Y-m-d H:i:s');
 		$where = array('m_product_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);
@@ -143,7 +156,7 @@ class M_product extends CI_Model
 	{
 		$this->db->where('isactive', $active);
 		if (!empty($string)) {
-			$this->db->like('value', $string, 'both');
+			$this->db->like('value', $string, 'after');
 		}
 		return $this->db->get($this->v_product_detail);
 	}

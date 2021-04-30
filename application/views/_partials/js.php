@@ -68,6 +68,7 @@
 <script src="<?php echo base_url('assets/cust/js/User.min.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Sales.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Expense.js')  ?>"></script>
+<script src="<?php echo base_url('assets/cust/js/Brand-js.js')  ?>"></script>
 
 <script>
 	$('#ins_date').daterangepicker({

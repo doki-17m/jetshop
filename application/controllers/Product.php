@@ -11,12 +11,14 @@ class Product extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('m_product');
+		$this->load->model('m_brand');
 	}
 
 	public function index()
 	{
 		$view = $this->views;
-		$this->template->load($view->OVERVIEW, $view->VIEW_PRODUCT);
+		$data['brand'] = $this->m_brand->listBrand('Y')->result();
+		$this->template->load($view->OVERVIEW, $view->VIEW_PRODUCT, $data);
 	}
 
 	public function showAll()
@@ -43,14 +45,11 @@ class Product extends CI_Controller
 					'is_unique'	=> 'This %s already exists.'
 				]
 			],
-			// [
-			// 	'field'		=>	'pro_name',
-			// 	'label'		=>	'Brand Product',
-			// 	'rules'		=>	'required|is_unique[m_product.name]',
-			// 	'errors'	=> 	[
-			// 		'is_unique'	=> 'This %s already exists.'
-			// 	]
-			// ],
+			[
+				'field'		=>	'pro_name',
+				'label'		=>	'Brand Product',
+				'rules'		=>	'required'
+			],
 			[
 				'field'		=>	'pro_name',
 				'label'		=>	'Brand Product',
@@ -71,14 +70,14 @@ class Product extends CI_Controller
 				'label'		=>	'Sales IDR',
 				'rules'		=>	'required'
 			],
-			[
-				'field'		=>	'pro_minorder',
-				'label'		=>	'Minimum Order',
-				'rules'		=>	'required|callback_check_prominorder',
-				'errors'	=> 	[
-					'check_prominorder'	=> 'The %s cannot smaller than 1'
-				]
-			],
+			// [
+			// 	'field'		=>	'pro_minorder',
+			// 	'label'		=>	'Minimum Order',
+			// 	'rules'		=>	'required|callback_check_prominorder',
+			// 	'errors'	=> 	[
+			// 		'check_prominorder'	=> 'The %s cannot smaller than 1'
+			// 	]
+			// ],
 			[
 				'field'		=>	'pro_catg',
 				'label'		=>	'Product Category',
@@ -140,14 +139,11 @@ class Product extends CI_Controller
 					'check_procode'	=> 'This %s already exists.'
 				]
 			],
-			// [
-			// 	'field'		=>	'pro_name',
-			// 	'label'		=>	'Brand Product',
-			// 	'rules'		=>	'required|callback_check_proname',
-			// 	'errors'	=> 	[
-			// 		'check_proname'	=> 'This %s already exists.'
-			// 	]
-			// ],
+			[
+				'field'		=>	'pro_name',
+				'label'		=>	'Brand Product',
+				'rules'		=>	'required'
+			],
 			[
 				'field'		=>	'pro_name',
 				'label'		=>	'Brand Product',

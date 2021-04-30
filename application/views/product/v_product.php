@@ -14,13 +14,14 @@
 						<tr>
 							<th>ID</th>
 							<th>#</th>
+							<th>Product Code</th>
 							<th>Image</th>
-							<th>Code Product</th>
 							<th>Brand</th>
-							<th>Product Category</th>
+							<th>Category</th>
 							<th>Qty</th>
 							<th>Weight</th>
 							<th>UOM</th>
+							<th>Code HRG</th>
 							<th>Purch-IDR</th>
 							<th>Sales-IDR</th>
 							<th>Obral</th>

@@ -36,6 +36,8 @@
 					$this->load->view('account/form_account');
 				} else if ($uri == 'user') {
 					$this->load->view('user/form_user');
+				} else if ($uri == 'brand') {
+					$this->load->view('brand/form_brand');
 				}
 				?>
 			</div>

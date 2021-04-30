@@ -92,7 +92,7 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 			proCategory(setSave, result.m_product_category_id);
 			proUom(setSave, result.m_uom_id);
 			fillPCode.val(result.value);
-			fillPName.val(result.name);
+			fillPName.val(result.m_brand_id).change();
 			fillPDesc.val(result.description);
 			fillPWeight.val(result.weight);
 			fillPQty.val(result.qty);

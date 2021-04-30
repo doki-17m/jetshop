@@ -403,6 +403,26 @@ _tableRma = $('#tb_return').DataTable({
 	'scrollX': true
 });
 
+//defined table job
+_tableBrand = $('#tb_brand').DataTable({
+	'ajax': SITE_URL + SHOWALL,
+	'processing': true,
+	'language': {
+		'processing': '<i class="fas fa-spinner fa-spin fa-1x fa-fw"></i><span> Processing...</span>'
+	},
+	'columnDefs': [{
+			'targets': -1,
+			'orderable': false //nonaktif sort by
+		},
+		{
+			'targets': 0,
+			'visible': false //hide column
+		}
+	],
+	'autoWidth': true,
+	'scrollX': true
+});
+
 function reloadTable(last_url) {
 	if (last_url == 'product')
 		_tablePro.ajax.reload(null, false);
@@ -434,6 +454,8 @@ function reloadTable(last_url) {
 		_tableExp.ajax.reload(null, false);
 	else if (last_url == 'viewSo')
 		_tableSo.ajax.reload(null, false);
+	else if (last_url == 'brand')
+		_tableBrand.ajax.reload(null, false);
 	else
 		console.info(false)
 }

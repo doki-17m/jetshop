@@ -235,6 +235,12 @@ function getForm(form) {
 			'&usr_greeting=' + $('#usr_greeting option:selected').val() +
 			'&usr_job=' + $('#usr_job option:selected').val()
 		];
+	else if (form == 'form_brand')
+		arrForm = [
+			form,
+			braForm.serialize() +
+			'&isactive=' + ActiveValue()
+		];
 	else
 		arrForm = 'Form Not Found';
 
@@ -277,6 +283,8 @@ function resultForm(form, result) {
 		errFormAcc(result);
 	else if (form == 'form_user')
 		errFormUsr(result);
+	else if (form == 'form_brand')
+		errFormBra(result);
 }
 
 //clear error field
@@ -303,6 +311,8 @@ function errorClear(form) {
 		clearAcc();
 	else if (form == 'form_user')
 		clearUsr();
+	else if (form == 'form_brand')
+		clearBra();
 }
 
 //readonly based on value in the form
@@ -330,6 +340,8 @@ function readonly(form, value) {
 		chkdAcc();
 	else if (form == 'form_user')
 		chkdUsr();
+	else if (form == 'form_brand')
+		chkdBra();
 	else
 	if (form == 'form_product')
 		unchkdPro();
@@ -353,6 +365,8 @@ function readonly(form, value) {
 		unchkdAcc();
 	else if (form == 'form_user')
 		unchkdUsr();
+	else if (form == 'form_brand')
+		unchkdBra();
 }
 
 // do close the modal form
@@ -383,6 +397,8 @@ function closeModalForm(form) {
 			unchkdAcc();
 		else if (form == 'form_user')
 			unchkdUsr();
+		else if (form == 'form_brand')
+			unchkdBra();
 	});
 }
 
@@ -435,6 +451,9 @@ function isActive(form) {
 				case 'form_user':
 					unchkdUsr();
 					break;
+				case 'form_brand':
+					unchkdBra();
+					break;
 				default:
 					console.info('Form Not Found');
 			}
@@ -475,6 +494,9 @@ function isActive(form) {
 					break;
 				case 'form_user':
 					chkdUsr();
+					break;
+				case 'form_brand':
+					chkdBra();
 					break;
 				default:
 					console.log('Form Not Found');

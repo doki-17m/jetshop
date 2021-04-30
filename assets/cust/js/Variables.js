@@ -52,7 +52,8 @@ var _tablePro, //Table master data product
 	_tableExp, //Table transaction expense
 	_tableExpLine, //Table transaction expense line
 	_tableRma, //Table transaction return
-	_tableRmaLine; //Table transaction return line
+	_tableRmaLine, //Table transaction return line
+	_tableBrand; //Table transaction return line
 
 
 //Forms
@@ -72,7 +73,8 @@ const soForm = $('#form_so'),
 	lgnForm = $('#form_login'),
 	chgForm = $('#form_chgpass'),
 	expForm = $('#form_expense'),
-	qtyForm = $('#form_quantity');
+	qtyForm = $('#form_quantity'),
+	braForm = $('#form_brand');
 
 //Checkbox
 const proActive = $('#pro_isactive'), //product
@@ -87,7 +89,8 @@ const proActive = $('#pro_isactive'), //product
 	accActive = $('#acc_isactive'), //account
 	usrActive = $('#usr_isactive'), //user
 	jobActive = $('#job_isactive'), //job
-	proObral = $('#pro_isobral'); //product
+	proObral = $('#pro_isobral'), //product
+	braActive = $('#bra_isactive'); //brand
 
 //button
 const btnNewSo = $('#new_so'), //button sales order
@@ -106,7 +109,8 @@ const btnNewSo = $('#new_so'), //button sales order
 	btnNewJob = $('#new_job'), //button job
 	btnNewExp = $('#new_expense'), //button expense
 	btnNewExpLine = $('#new_expenseline'), //button expense line
-	btnNewQty = $('#new_quantity'); //button new quantity
+	btnNewQty = $('#new_quantity'), //button new quantity
+	btnNewBra = $('#new_brand') //button new brand
 
 const btnSave = $('#save_form'),
 	btnSList = $('#save_list'),
