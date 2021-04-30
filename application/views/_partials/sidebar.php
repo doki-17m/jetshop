@@ -51,7 +51,7 @@
 																								echo "active";
 																							} ?>">
 							<i class="far fa-circle nav-icon"></i>
-							<p>Sales Order Details</p>
+							<p>SO Detail</p>
 						</a>
 					</li>
 					<!-- <li class="nav-item">
