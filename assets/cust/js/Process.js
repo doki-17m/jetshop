@@ -20,15 +20,15 @@ btnSave.click(function (evt) {
 		cache: false,
 		dataType: 'JSON',
 		beforeSend: function () {
-			$('.save_form').attr('disabled', true);
+			$('#save_form').attr('disabled', true);
 			$('#close_form1').attr('disabled', true);
-			$('.close_form').attr('disabled', true);
+			$('#close_form').attr('disabled', true);
 			loadingForm(formTarget.prop('id'), 'roundBounce');
 		},
 		complete: function () {
-			$('.save_form').removeAttr('disabled');
+			$('#save_form').removeAttr('disabled');
 			$('#close_form1').removeAttr('disabled');
-			$('.close_form').removeAttr('disabled');
+			$('#close_form').removeAttr('disabled');
 			hideLoadingForm(formTarget.prop('id'));
 		},
 		success: function (result) {

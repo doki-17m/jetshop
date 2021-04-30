@@ -53,15 +53,15 @@ _tableSup.on('click', 'td:not(:last-child)', function (e) {
 		cache: false,
 		dataType: 'JSON',
 		beforeSend: function () {
-			$('.save_form').attr('disabled', true);
+			$('#save_form').attr('disabled', true);
 			$('#close_form1').attr('disabled', true);
-			$('.close_form').attr('disabled', true);
+			$('#close_form').attr('disabled', true);
 			loadingForm(form.prop('id'), 'roundBounce');
 		},
 		complete: function () {
-			$('.save_form').removeAttr('disabled');
+			$('#save_form').removeAttr('disabled');
 			$('#close_form1').removeAttr('disabled');
-			$('.close_form').removeAttr('disabled');
+			$('#close_form').removeAttr('disabled');
 			hideLoadingForm(form.prop('id'));
 		},
 		success: function (result) {
