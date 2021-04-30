@@ -137,7 +137,7 @@ class M_order extends CI_Model
 		if (!empty($product_row)) {
 			$id = $product_row->m_product_id;
 			$sellprice = $product_row->salesprice;
-			$name = $product_row->name;
+			$name = $product_row->value;
 
 			$arrData = array(
 				'id'	=> $id,

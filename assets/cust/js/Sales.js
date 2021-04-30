@@ -4,7 +4,7 @@ const fillSDate = $('[name = pos_date]'),
 	fillSBarcode = $('[name = pos_barcode]');
 // fillSInvoiceNo = $('#documentno');
 
-const msgGrandTotal = $('#grandtotal');
+const msgGrandTotal = $('.grandtotal');
 // msgInvoiceNo = $('#documentno'),
 
 const btnCheckout = $('#btn_checkout'),
@@ -1178,4 +1178,51 @@ $('#pos_isurgent').change(function (evt) {
 		groupPosCustCity.show();
 		groupPosCustAddress.show();
 	}
+});
+
+$(document).on('keydown', 'body', function (e) {
+	var charCode = (e.which) ? e.which : event.keyCode;
+
+	if (charCode == 119) //F8
+	{
+		clearFilPos();
+		autoFocus();
+		$('html, body').animate({
+			scrollTop: $('.row').offset().top
+		}, 100);
+		return false;
+	}
+
+	if (charCode == 120) //F9
+	{
+		clearFilPos();
+		autoFocus();
+		clearTable();
+		return false;
+	}
+
+	if (charCode == 121) //F10
+	{
+		const existDataTable = _tablePOS.data().any();
+
+		if (existDataTable) {
+			checkoutData();
+			btnPos.show();
+			groupPosCustSelect.show();
+			$('#group_pos_total_weight').hide();
+		} else {
+			Toast.fire({
+				type: 'error',
+				title: 'No items in the cart !'
+			});
+		}
+	}
+});
+
+$('#btn_focus').click(function (e) {
+	autoFocus();
+	$('html, body').animate({
+		scrollTop: $('.row').offset().top
+	}, 100);
+	return false;
 });

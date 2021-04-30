@@ -407,7 +407,7 @@ $('#save_qty').click(function (evt) {
 
 	$.ajax({
 		url: url,
-		type: 'GET',
+		type: 'POST',
 		async: false,
 		cache: false,
 		data: formData,
