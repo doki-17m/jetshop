@@ -76,3 +76,10 @@
 		}
 	});
 </script>
+<script>
+	$('#keu_date').daterangepicker({
+		locale: {
+			format: 'DD-MM-YYYY'
+		}
+	});
+</script>

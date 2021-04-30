@@ -365,6 +365,19 @@ class M_order extends CI_Model
 		return $this->db->get($this->v_order_detail);
 	}
 
+	// Keuntungan
+	public function getKeuntungan($startDate, $endDate)
+	{
+		$sql = "SELECT *,
+		((unitprice * qtyordered)- (costprice * qtyordered)) as keuntungan,
+		sys_user.name as nama_sales
+		FROM v_order_detail
+		LEFT JOIN sys_user on sys_user.sys_user_id = v_order_detail.salesrep_id
+		WHERE dateordered BETWEEN '$startDate' AND '$endDate'
+		ORDER BY dateordered ASC";
+		return $this->db->query($sql);
+	}
+
 	public function check_qty($post)
 	{
 		$product = $this->m_product;
