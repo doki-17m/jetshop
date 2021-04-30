@@ -32,7 +32,7 @@ class Keuntungan extends CI_Controller
 		$dateExplode = explode(' - ', $post['keu_date']);
 		$startDate = date('Y-m-d', strtotime($dateExplode[0]));
 		$endDate = date('Y-m-d', strtotime($dateExplode[1]));
-		
+
 		$invoice = $this->m_order->getKeuntungan($startDate, $endDate)->result();
 
 		//Nomor
@@ -69,18 +69,18 @@ class Keuntungan extends CI_Controller
 
 		//Metode Bayar
 		$sheet->getColumnDimension('I')->setWidth(12);
-		$sheet->setCellValue('I1', 'Metode Bayar');	
+		$sheet->setCellValue('I1', 'Metode Bayar');
 
 		//Rekening
 		$sheet->getColumnDimension('J')->setWidth(12);
 		$sheet->setCellValue('J1', 'Rekening');
-		$sheet->getStyle('B1:J1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('808080');
-		$sheet->getStyle('B1:J1')->getFont()->setBold(true);
-		$sheet->getStyle('B1:J1')->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-		$sheet->getStyle('B1:J1')->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-		$sheet->getStyle('B1:J1')->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-		$sheet->getStyle('B1:J1')->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-		$sheet->getStyle('B1:J1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+		$sheet->getStyle('A1:J1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('808080');
+		$sheet->getStyle('A1:J1')->getFont()->setBold(true);
+		$sheet->getStyle('A1:J1')->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->getStyle('A1:J1')->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->getStyle('A1:J1')->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->getStyle('A1:J1')->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->getStyle('A1:J1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 		/**
 		 * Data excel
@@ -92,15 +92,15 @@ class Keuntungan extends CI_Controller
 		//Nomor Inoice
 		foreach ($invoice as $value) {
 			$sheet->setCellValue('A' . $row, $number)
-			->setCellValue('B' . $row, $value->documentno)
-			->setCellValue('C' . $row, $value->code)
-			->setCellValue('D' . $row, $value->nama_sales)
-			->setCellValue('E' . $row, $value->costprice)
-			->setCellValue('F' . $row, $value->unitprice)
-			->setCellValue('G' . $row, $value->qtyordered)
-			->setCellValue('H' . $row, $value->keuntungan)
-			->setCellValue('I' . $row, $value->payment)
-			->setCellValue('J' . $row, $value->accountbank);
+				->setCellValue('B' . $row, $value->documentno)
+				->setCellValue('C' . $row, $value->code)
+				->setCellValue('D' . $row, $value->nama_sales)
+				->setCellValue('E' . $row, $value->costprice)
+				->setCellValue('F' . $row, $value->unitprice)
+				->setCellValue('G' . $row, $value->qtyordered)
+				->setCellValue('H' . $row, $value->keuntungan)
+				->setCellValue('I' . $row, $value->payment)
+				->setCellValue('J' . $row, $value->accountbank);
 			$row++;
 			$number++;
 		}
