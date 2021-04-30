@@ -18,7 +18,7 @@ const errURUsername = $('#error_usr_username'),
 
 const usrIsSales = $('#usr_issalesrep');
 
-usrGreeting(); 
+usrGreeting();
 usrJob();
 
 btnNewUsr.click(function () {
@@ -27,7 +27,7 @@ btnNewUsr.click(function () {
 	Largemodal();
 	modalTitle.text('New User');
 	clearUsr();
-	usrActive.prop('checked', true);	
+	usrActive.prop('checked', true);
 	const formID = usrForm[0]['id'];
 	isActive(formID);
 
@@ -39,7 +39,7 @@ _tableUsr.on('click', 'td:not(:last-child)', function (e) {
 	const formID = usrForm[0]['id'];
 	const row = _tableUsr.row(this).data();
 	ID = row[0]; //index array ID
-	var NAME = row[2];	
+	var NAME = row[2];
 	openModalForm();
 	Scrollmodal();
 	Largemodal();
@@ -49,30 +49,51 @@ _tableUsr.on('click', 'td:not(:last-child)', function (e) {
 	url = SITE_URL + SHOW + ID;
 	setSave = 'update';
 
-	$.getJSON(url, function(result) {
-		fillURUsername.val(result.value);
-		fillURRName.val(result.name);
-		// fillURPass.val(result.password);
-		fillUREmail.val(result.email);
-		fillURPhone.val(result.phone);
-		fillURPhone2.val(result.phone2);
-		fillURAddress.val(result.address);
-		fillURBirthday.val(result.birthday);
-		fillURGre.val(result.m_greeting_id).change();
-		fillURJob.val(result.m_job_id).change();
-		fillURDesc.val(result.description);
+	let form = modalForm.find('form');
 
-		if (result.isactive == active)
-			usrActive.prop('checked', true),
-			readonly(formID, false);
-		else
-			usrActive.prop('checked', false),
-			readonly(formID, true);
+	$.ajax({
+		url: url,
+		type: 'GET',
+		async: false,
+		cache: false,
+		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(form.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(form.prop('id'));
+		},
+		success: function (result) {
+			fillURUsername.val(result.value);
+			fillURRName.val(result.name);
+			// fillURPass.val(result.password);
+			fillUREmail.val(result.email);
+			fillURPhone.val(result.phone);
+			fillURPhone2.val(result.phone2);
+			fillURAddress.val(result.address);
+			fillURBirthday.val(result.birthday);
+			fillURGre.val(result.m_greeting_id).change();
+			fillURJob.val(result.m_job_id).change();
+			fillURDesc.val(result.description);
 
-		if (result.issalesrep == active)
-			usrIsSales.prop('checked', true);
-		else
-			usrIsSales.prop('checked', false);
+			if (result.isactive == active)
+				usrActive.prop('checked', true),
+				readonly(formID, false);
+			else
+				usrActive.prop('checked', false),
+				readonly(formID, true);
+
+			if (result.issalesrep == active)
+				usrIsSales.prop('checked', true);
+			else
+				usrIsSales.prop('checked', false);
+		}
 	});
 });
 
@@ -113,56 +134,56 @@ function errFormUsr(data) {
 function clearUsr() {
 	usrForm[0].reset();
 	errURUsername.html(''),
-	errURName.html(''),
-	errURPass.html(''),
-	errUREmail.html(''),
-	fillURGre.val(null).change(),
-	fillURJob.val(null).change(),
-	fillURUsername.removeClass(isInvalid),
-	fillURRName.removeClass(isInvalid),
-	fillURPass.removeClass(isInvalid),
-	fillUREmail.removeClass(isInvalid);
+		errURName.html(''),
+		errURPass.html(''),
+		errUREmail.html(''),
+		fillURGre.val(null).change(),
+		fillURJob.val(null).change(),
+		fillURUsername.removeClass(isInvalid),
+		fillURRName.removeClass(isInvalid),
+		fillURPass.removeClass(isInvalid),
+		fillUREmail.removeClass(isInvalid);
 }
 
 function chkdUsr() { //checked
 	fillURUsername.prop('readonly', true),
-	fillURRName.prop('readonly', true),
-	fillURPass.prop('readonly', true),
-	fillUREmail.prop('readonly', true),
-	fillURPhone.prop('readonly', true),
-	fillURPhone2.prop('readonly', true),
-	fillURAddress.prop('readonly', true),
-	fillURBirthday.prop('readonly', true),
-	fillURGre.prop('disabled', true),
-	fillURJob.prop('disabled', true),
-	usrIsSales.prop('disabled', true),
-	fillURDesc.prop('readonly', true);
+		fillURRName.prop('readonly', true),
+		fillURPass.prop('readonly', true),
+		fillUREmail.prop('readonly', true),
+		fillURPhone.prop('readonly', true),
+		fillURPhone2.prop('readonly', true),
+		fillURAddress.prop('readonly', true),
+		fillURBirthday.prop('readonly', true),
+		fillURGre.prop('disabled', true),
+		fillURJob.prop('disabled', true),
+		usrIsSales.prop('disabled', true),
+		fillURDesc.prop('readonly', true);
 }
 
 function unchkdUsr() { //unchecked
 	fillURUsername.prop('readonly', false),
-	fillURRName.prop('readonly', false),
-	fillURPass.prop('readonly', false),
-	fillUREmail.prop('readonly', false),
-	fillURPhone.prop('readonly', false),
-	fillURPhone2.prop('readonly', false),
-	fillURAddress.prop('readonly', false),
-	fillURBirthday.prop('readonly', false),
-	fillURGre.prop('disabled', false),
-	fillURJob.prop('disabled', false),
-	usrIsSales.prop('disabled', false),
-	fillURDesc.prop('readonly', false);
+		fillURRName.prop('readonly', false),
+		fillURPass.prop('readonly', false),
+		fillUREmail.prop('readonly', false),
+		fillURPhone.prop('readonly', false),
+		fillURPhone2.prop('readonly', false),
+		fillURAddress.prop('readonly', false),
+		fillURBirthday.prop('readonly', false),
+		fillURGre.prop('disabled', false),
+		fillURJob.prop('disabled', false),
+		usrIsSales.prop('disabled', false),
+		fillURDesc.prop('readonly', false);
 }
 
 function usrGreeting() {
 	url = CUST_URL + GREETING + '/showGreeting';
-	
+
 	$.getJSON(url, function (response) {
 		fillURGre.append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
+		$.each(response, function (idx, elem) {
 			var greeting_id = elem.m_greeting_id;
 			var greeting_name = elem.name;
-			fillURGre.append('<option value="'+greeting_id+'">'+greeting_name+'</option>');
+			fillURGre.append('<option value="' + greeting_id + '">' + greeting_name + '</option>');
 		});
 	});
 }
@@ -172,12 +193,10 @@ function usrJob() {
 
 	$.getJSON(url, function (response) {
 		fillURJob.append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
+		$.each(response, function (idx, elem) {
 			var job_id = elem.m_job_id;
 			var job_name = elem.name;
-			fillURJob.append('<option value="'+job_id+'">'+job_name+'</option>');
+			fillURJob.append('<option value="' + job_id + '">' + job_name + '</option>');
 		});
 	});
 }
-
-

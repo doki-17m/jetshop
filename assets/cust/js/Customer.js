@@ -58,10 +58,26 @@ _tableCus.on('click', 'td:not(:last-child)', function (e) {
 	url = SITE_URL + SHOW + ID;
 	setSave = 'update';
 
+	let form = modalForm.find('form');
+
 	$.ajax({
 		url: url,
 		type: 'GET',
+		async: false,
+		cache: false,
 		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(form.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(form.prop('id'));
+		},
 		success: function (result) {
 			hideCRCity.val(result.city_id),
 				fillCRCc.val(result.value),

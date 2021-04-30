@@ -68,37 +68,58 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 	setSave = 'update';
 	url = SITE_URL + SHOW + ID;
 
-	$.getJSON(url, function (result) {
-		proCategory(setSave, result.m_product_category_id);
-		proUom(setSave, result.m_uom_id);
-		fillPCode.val(result.value);
-		fillPName.val(result.name);
-		fillPDesc.val(result.description);
-		fillPWeight.val(result.weight);
-		fillPQty.val(result.qty);
-		fillPMinOrder.val(result.minorder);
-		fillPPurch.val(formatRupiah(result.purchprice));
-		fillPSales.val(formatRupiah(result.salesprice));
-		var image = result.ad_image_id;
+	let form = modalForm.find('form');
 
-		if (image !== '')
-			setAction = setSave,
-			loadImage(image, setAction),
-			imgSrc = image;
-		else
-			setAction = 'add';
+	$.ajax({
+		url: url,
+		type: 'GET',
+		async: false,
+		cache: false,
+		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(form.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(form.prop('id'));
+		},
+		success: function (result) {
+			proCategory(setSave, result.m_product_category_id);
+			proUom(setSave, result.m_uom_id);
+			fillPCode.val(result.value);
+			fillPName.val(result.name);
+			fillPDesc.val(result.description);
+			fillPWeight.val(result.weight);
+			fillPQty.val(result.qty);
+			fillPMinOrder.val(result.minorder);
+			fillPPurch.val(formatRupiah(result.purchprice));
+			fillPSales.val(formatRupiah(result.salesprice));
+			var image = result.ad_image_id;
 
-		if (result.isactive == active)
-			proActive.prop('checked', true),
-			readonly(formID, false);
-		else
-			proActive.prop('checked', false),
-			readonly(formID, true);
+			if (image !== '')
+				setAction = setSave,
+				loadImage(image, setAction),
+				imgSrc = image;
+			else
+				setAction = 'add';
 
-		if (result.isobral == active)
-			proObral.prop('checked', true);
-		else
-			proObral.prop('checked', false);
+			if (result.isactive == active)
+				proActive.prop('checked', true),
+				readonly(formID, false);
+			else
+				proActive.prop('checked', false),
+				readonly(formID, true);
+
+			if (result.isobral == active)
+				proObral.prop('checked', true);
+			else
+				proObral.prop('checked', false);
+		}
 	});
 });
 
@@ -365,7 +386,7 @@ function addBarcode(id) {
 	})
 }
 
-$('#save_qty').click(function (e) {
+$('#save_qty').click(function (evt) {
 	let radioIn = 'N';
 	let radioOut = 'N';
 
@@ -381,11 +402,26 @@ $('#save_qty').click(function (e) {
 
 	url = CUST_URL + INVENTORY + CREATE;
 
+	let content = $(evt.target).closest('.modal-content');
+	let formTarget = content.find('form');
+
 	$.ajax({
 		url: url,
-		type: 'POST',
+		type: 'GET',
+		async: false,
+		cache: false,
 		data: formData,
 		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_qty').attr('disabled', true);
+			$('#close_qty').attr('disabled', true);
+			loadingForm(formTarget.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_qty').attr('disabled', true);
+			$('#close_qty').attr('disabled', true);
+			hideLoadingForm(formTarget.prop('id'));
+		},
 		success: function (result) {
 			if (result.success) {
 				Toast.fire({

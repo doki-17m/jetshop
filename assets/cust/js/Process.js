@@ -1,5 +1,5 @@
 // process save data form
-btnSave.click(function () {
+btnSave.click(function (evt) {
 	const formProp = document.getElementById('form-all').firstElementChild.id;
 	const form = getForm(formProp);
 	const formID = form[0]; // initial id form when input
@@ -10,11 +10,27 @@ btnSave.click(function () {
 	else
 		url = SITE_URL + EDIT + ID;
 
+	let content = $(evt.target).closest('.modal-content');
+	let formTarget = content.find('form');
+
 	$.ajax({
 		url: url,
 		type: 'POST',
 		data: formData + '&id=' + ID,
+		cache: false,
 		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(formTarget.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(formTarget.prop('id'));
+		},
 		success: function (result) {
 			// console.log(result)
 			resultForm(formID, result);

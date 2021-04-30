@@ -37,19 +37,40 @@ _tableAcc.on('click', 'td:not(:last-child)', function (e) {
 
 	setSave = 'update';
 
-	$.getJSON(url, function (result) {
-		accBank(setSave, result.m_bank_id);
-		fillABank.val(result.bank);
-		fillAAccountNo.val(result.accountno);
-		fillAName.val(result.name);
-		fillADesc.val(result.description);
+	let form = modalForm.find('form');
 
-		if (result.isactive == active)
-			accActive.prop('checked', true),
-			readonly(formID, false);
-		else
-			accActive.prop('checked', false),
-			readonly(formID, true);
+	$.ajax({
+		url: url,
+		type: 'GET',
+		async: false,
+		cache: false,
+		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(form.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(form.prop('id'));
+		},
+		success: function (result) {
+			accBank(setSave, result.m_bank_id);
+			fillABank.val(result.bank);
+			fillAAccountNo.val(result.accountno);
+			fillAName.val(result.name);
+			fillADesc.val(result.description);
+
+			if (result.isactive == active)
+				accActive.prop('checked', true),
+				readonly(formID, false);
+			else
+				accActive.prop('checked', false),
+				readonly(formID, true);
+		}
 	});
 });
 

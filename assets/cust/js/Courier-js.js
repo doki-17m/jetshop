@@ -5,14 +5,14 @@ const fillCOCode = $('[name = cou_code]'),
 //error field form
 const errCOCode = $('#error_cou_code'),
 	errCOName = $('#error_cou_name');
-	
+
 btnNewCou.click(function () {
 	openModalForm();
 	Scrollmodal();
 	modalTitle.text('New Courier');
 	clearCou();
 	couActive.prop('checked', true);
-	
+
 	const formID = couForm[0]['id'];
 	isActive(formID);
 
@@ -26,19 +26,35 @@ _tableCou.on('click', 'td:not(:last-child)', function (e) {
 	ID = row[0]; //index array ID
 	var NAME = row[2];
 	url = SITE_URL + SHOW + ID;
-	
+
 	openModalForm();
 	Scrollmodal();
 	modalTitle.html(NAME);
 	clearCou();
 	isActive(formID);
-	
+
 	setSave = 'update';
+
+	let form = modalForm.find('form');
 
 	$.ajax({
 		url: url,
 		type: 'GET',
+		async: false,
+		cache: false,
 		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(form.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(form.prop('id'));
+		},
 		success: function (result) {
 			fillCOCode.val(result.value);
 			fillCOName.val(result.name);
@@ -76,22 +92,19 @@ function errFormCou(data) {
 function clearCou() {
 	couForm[0].reset();
 	errCOCode.html(''),
-	errCOName.html(''),
-	fillCOCode.removeClass(isInvalid),
-	fillCOName.removeClass(isInvalid);
+		errCOName.html(''),
+		fillCOCode.removeClass(isInvalid),
+		fillCOName.removeClass(isInvalid);
 }
 
 function chkdCou() { //checked
 	fillCOCode.prop('readonly', true),
-	fillCOName.prop('readonly', true),
-	fillCODesc.prop('readonly', true);
+		fillCOName.prop('readonly', true),
+		fillCODesc.prop('readonly', true);
 }
 
 function unchkdCou() { //unchecked
 	fillCOCode.prop('readonly', false),
-	fillCOName.prop('readonly', false),
-	fillCODesc.prop('readonly', false);
+		fillCOName.prop('readonly', false),
+		fillCODesc.prop('readonly', false);
 }
-
-
-

@@ -24,7 +24,7 @@ btnNewSup.click(function () {
 	modalTitle.text('New Supplier');
 	clearSup();
 	supActive.prop('checked', true);
-	formID = supForm[0]['id'];	
+	formID = supForm[0]['id'];
 	isActive(formID);
 	setSave = 'add';
 });
@@ -34,28 +34,44 @@ _tableSup.on('click', 'td:not(:last-child)', function (e) {
 	const formID = supForm[0]['id'];
 	const row = _tableSup.row(this).data();
 	ID = row[0]; //index array ID
-	let NAME = row[3];	
+	let NAME = row[3];
 	openModalForm();
 	Largemodal();
 	Scrollmodal();
-	modalTitle.html('Supplier : ' + NAME);	
+	modalTitle.html('Supplier : ' + NAME);
 	isActive(formID);
-	clearSup();	
+	clearSup();
 	url = SITE_URL + SHOW + ID;
 	setSave = 'update';
+
+	let form = modalForm.find('form');
 
 	$.ajax({
 		url: url,
 		type: 'GET',
+		async: false,
+		cache: false,
 		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(form.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(form.prop('id'));
+		},
 		success: function (result) {
 			fillSRCc.val(result.value),
-			fillSRGre.val(result.m_greeting_id).change(),
-			fillSRName.val(result.name),
-			fillSREmail.val(result.email),
-			fillSRAddress.val(result.address),
-			fillSRPhone.val(result.phone),
-			fillSRPhone2.val(result.phone2)
+				fillSRGre.val(result.m_greeting_id).change(),
+				fillSRName.val(result.name),
+				fillSREmail.val(result.email),
+				fillSRAddress.val(result.address),
+				fillSRPhone.val(result.phone),
+				fillSRPhone2.val(result.phone2)
 			fillSRDesc.val(result.description);
 
 			if (result.isactive == active)
@@ -66,7 +82,7 @@ _tableSup.on('click', 'td:not(:last-child)', function (e) {
 				readonly(formID, true);
 		}
 	});
-	
+
 });
 
 function errFormSup(data) {
@@ -108,41 +124,41 @@ function errFormSup(data) {
 
 function clearSup() {
 	supForm[0].reset(),
-	errSRCc.html(''),
-	errSRName.html(''),
-	errSREmail.html(''),
-	errSRAddress.html(''),
-	errSRPhone.html(''),
-	fillSRGre.val(null).change(),
-	fillSRCc.removeClass(isInvalid),
-	fillSRName.removeClass(isInvalid),
-	fillSREmail.removeClass(isInvalid),
-	fillSRAddress.removeClass(isInvalid),
-	fillSRPhone.removeClass(isInvalid);
+		errSRCc.html(''),
+		errSRName.html(''),
+		errSREmail.html(''),
+		errSRAddress.html(''),
+		errSRPhone.html(''),
+		fillSRGre.val(null).change(),
+		fillSRCc.removeClass(isInvalid),
+		fillSRName.removeClass(isInvalid),
+		fillSREmail.removeClass(isInvalid),
+		fillSRAddress.removeClass(isInvalid),
+		fillSRPhone.removeClass(isInvalid);
 }
 
 function chkdSup() { //checked
 	fillSRCc.prop('readonly', true),
-	fillSRGre.prop('disabled', true),
-	fillSRName.prop('readonly', true),
-	fillSREmail.prop('readonly', true),
-	fillSRAddress.prop('readonly', true),
-	fillSRPhone.prop('readonly', true),
-	fillSRPhone2.prop('readonly', true),
-	fillSRSales.prop('disabled', true),
-	fillSRDesc.prop('readonly', true);
+		fillSRGre.prop('disabled', true),
+		fillSRName.prop('readonly', true),
+		fillSREmail.prop('readonly', true),
+		fillSRAddress.prop('readonly', true),
+		fillSRPhone.prop('readonly', true),
+		fillSRPhone2.prop('readonly', true),
+		fillSRSales.prop('disabled', true),
+		fillSRDesc.prop('readonly', true);
 }
 
 function unchkdSup() { //unchecked
 	fillSRCc.prop('readonly', false),
-	fillSRGre.prop('disabled', false),
-	fillSRName.prop('readonly', false),
-	fillSREmail.prop('readonly', false),
-	fillSRAddress.prop('readonly', false),
-	fillSRPhone.prop('readonly', false),
-	fillSRPhone2.prop('readonly', false),
-	fillSRSales.prop('disabled', false),
-	fillSRDesc.prop('readonly', false);
+		fillSRGre.prop('disabled', false),
+		fillSRName.prop('readonly', false),
+		fillSREmail.prop('readonly', false),
+		fillSRAddress.prop('readonly', false),
+		fillSRPhone.prop('readonly', false),
+		fillSRPhone2.prop('readonly', false),
+		fillSRSales.prop('disabled', false),
+		fillSRDesc.prop('readonly', false);
 }
 
 function supGreeting() {
@@ -150,10 +166,10 @@ function supGreeting() {
 
 	$.getJSON(url, function (response) {
 		fillSRGre.append('<option selected="selected" value="">-- Choose One --</option>');
-		$.each(response, function(idx, elem) {
+		$.each(response, function (idx, elem) {
 			var greeting_id = elem.m_greeting_id;
 			var greeting_name = elem.name;
-			fillSRGre.append('<option value="'+greeting_id+'">'+greeting_name+'</option>');
+			fillSRGre.append('<option value="' + greeting_id + '">' + greeting_name + '</option>');
 		});
 	});
 }

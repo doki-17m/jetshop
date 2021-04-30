@@ -5,14 +5,14 @@ const fillGSk = $('[name = gre_sk]'),
 //error field form
 const errGSk = $('#error_gre_sk'),
 	errGName = $('#error_gre_name');
-	
+
 btnNewGre.click(function () {
 	openModalForm();
 	Scrollmodal();
 	modalTitle.text('New Greeting');
 	clearGre();
 	greActive.prop('checked', true);
-	
+
 	const formID = greForm[0]['id'];
 	isActive(formID);
 
@@ -26,19 +26,34 @@ _tableGre.on('click', 'td:not(:last-child)', function (e) {
 	ID = row[0]; //index array ID
 	var NAME = row[2];
 	url = SITE_URL + SHOW + ID;
-	
+
 	openModalForm();
 	Scrollmodal();
 	modalTitle.html(NAME);
 	clearGre();
 	isActive(formID);
-	
 	setSave = 'update';
+
+	let form = modalForm.find('form');
 
 	$.ajax({
 		url: url,
 		type: 'GET',
+		async: false,
+		cache: false,
 		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(form.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(form.prop('id'));
+		},
 		success: function (result) {
 			fillGSk.val(result.value);
 			fillGName.val(result.name);
@@ -76,22 +91,19 @@ function errFormGre(data) {
 function clearGre() {
 	greForm[0].reset();
 	errGSk.html(''),
-	errGName.html(''),
-	fillGSk.removeClass(isInvalid),
-	fillGName.removeClass(isInvalid);
+		errGName.html(''),
+		fillGSk.removeClass(isInvalid),
+		fillGName.removeClass(isInvalid);
 }
 
 function chkdGre() { //checked
 	fillGSk.prop('readonly', true),
-	fillGName.prop('readonly', true),
-	fillGDesc.prop('readonly', true);
+		fillGName.prop('readonly', true),
+		fillGDesc.prop('readonly', true);
 }
 
 function unchkdGre() { //unchecked
 	fillGSk.prop('readonly', false),
-	fillGName.prop('readonly', false),
-	fillGDesc.prop('readonly', false);
+		fillGName.prop('readonly', false),
+		fillGDesc.prop('readonly', false);
 }
-
-
-

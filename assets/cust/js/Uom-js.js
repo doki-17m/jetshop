@@ -5,14 +5,14 @@ const fillUCd = $('[name = uom_code]'),
 //error field form
 const errUCd = $('#error_uom_code'),
 	errUName = $('#error_uom_name');
-	
+
 btnNewUom.click(function () {
 	openModalForm();
 	Scrollmodal();
 	modalTitle.text('New Uom');
 	clearUom();
 	uomActive.prop('checked', true);
-	
+
 	const formID = uomForm[0]['id'];
 	isActive(formID);
 
@@ -26,19 +26,35 @@ _tableUom.on('click', 'td:not(:last-child)', function (e) {
 	ID = row[0]; //index array ID
 	var NAME = row[2];
 	url = SITE_URL + SHOW + ID;
-	
+
 	openModalForm();
 	Scrollmodal();
 	modalTitle.html(NAME);
 	clearUom();
 	isActive(formID);
-	
+
 	setSave = 'update';
+
+	let form = modalForm.find('form');
 
 	$.ajax({
 		url: url,
 		type: 'GET',
+		async: false,
+		cache: false,
 		dataType: 'JSON',
+		beforeSend: function () {
+			$('.save_form').attr('disabled', true);
+			$('#close_form1').attr('disabled', true);
+			$('.close_form').attr('disabled', true);
+			loadingForm(form.prop('id'), 'roundBounce');
+		},
+		complete: function () {
+			$('.save_form').removeAttr('disabled');
+			$('#close_form1').removeAttr('disabled');
+			$('.close_form').removeAttr('disabled');
+			hideLoadingForm(form.prop('id'));
+		},
 		success: function (result) {
 			fillUCd.val(result.value);
 			fillUName.val(result.name);
@@ -76,19 +92,19 @@ function errFormUom(data) {
 function clearUom() {
 	uomForm[0].reset();
 	errUCd.html(''),
-	errUName.html(''),
-	fillUCd.removeClass(isInvalid),
-	fillUName.removeClass(isInvalid);
+		errUName.html(''),
+		fillUCd.removeClass(isInvalid),
+		fillUName.removeClass(isInvalid);
 }
 
 function chkdUom() { //checked
 	fillUCd.prop('readonly', true),
-	fillUName.prop('readonly', true),
-	fillUDesc.prop('readonly', true);
+		fillUName.prop('readonly', true),
+		fillUDesc.prop('readonly', true);
 }
 
 function unchkdUom() { //unchecked
 	fillUCd.prop('readonly', false),
-	fillUName.prop('readonly', false),
-	fillUDesc.prop('readonly', false);
+		fillUName.prop('readonly', false),
+		fillUDesc.prop('readonly', false);
 }
