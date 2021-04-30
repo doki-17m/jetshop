@@ -17,7 +17,8 @@ _tablePro = $('#tb_product').DataTable({
 	'autoWidth': true,
 	'scrollX': true,
 	'fixedColumns': {
-		'rightColumns': 1,
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
 		'heightMatch': 'auto'
 	}
 });
@@ -81,7 +82,8 @@ _tableSo = $('#tb_sales').DataTable({
 	'autoWidth': true,
 	'scrollX': true,
 	'fixedColumns': {
-		'rightColumns': 2,
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
 		'heightMatch': 'auto'
 	}
 });
@@ -103,7 +105,12 @@ _tableGre = $('#tb_greeting').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 //defined table uom
@@ -123,7 +130,12 @@ _tableUom = $('#tb_uom').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 //defined table customer
@@ -143,7 +155,12 @@ _tableCus = $('#tb_customer').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 _tableSup = $('#tb_supplier').DataTable({
@@ -162,7 +179,12 @@ _tableSup = $('#tb_supplier').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 _tableProv = $('#tb_province').DataTable({
@@ -182,7 +204,12 @@ _tableProv = $('#tb_province').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 _tableCity = $('#tb_city').DataTable({
@@ -202,7 +229,12 @@ _tableCity = $('#tb_city').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 _tableCou = $('#tb_courier').DataTable({
@@ -221,7 +253,12 @@ _tableCou = $('#tb_courier').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 _tableAcc = $('#tb_account').DataTable({
@@ -240,7 +277,12 @@ _tableAcc = $('#tb_account').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 _tableUsr = $('#tb_user').DataTable({
@@ -259,7 +301,12 @@ _tableUsr = $('#tb_user').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 _tablePOS = $('#tb_sales_pos').DataTable({
@@ -321,7 +368,12 @@ _tableExp = $('#tb_expense').DataTable({
 		}
 	],
 	'autoWidth': true,
-	'scrollX': true
+	'scrollX': true,
+	'fixedColumns': {
+		'rightColumns': checkRight(),
+		'leftColumns': checkLeft(),
+		'heightMatch': 'auto'
+	}
 });
 
 _tableExpLine = $('#tb_expenseline').DataTable({
@@ -384,4 +436,16 @@ function reloadTable(last_url) {
 		_tableSo.ajax.reload(null, false);
 	else
 		console.info(false)
+}
+
+/**
+ * 
+ * @returns check column datatable
+ */
+function checkRight() {
+	return $('.table thead th').length > 15 ? 1 : 0;
+}
+
+function checkLeft() {
+	return $('.table thead th').length > 15 ? 3 : 0;
 }
