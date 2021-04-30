@@ -324,9 +324,7 @@ _tablePOS = $('#tb_sales_pos').DataTable({
 	'lengthChange': false,
 	'searching': false,
 	'paging': false,
-	'scrollY': 300,
-	'scrollCollapse': true
-	// 'info': false
+	'info': false
 });
 
 _tableProList = $('#tb_product_list').DataTable({
