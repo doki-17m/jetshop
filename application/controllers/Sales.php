@@ -7,13 +7,14 @@ class Sales extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('m_order');
+		$this->load->model('m_user');
 	}
 
 	public function index()
 	{
 		$view = $this->views;
-		$order = $this->m_order;
-		$data['invoiceno'] = $order->show_invoiceno();
+		$data['invoiceno'] = $this->m_order->show_invoiceno();
+		$data['cashier'] = $this->m_user->detail($this->session->userdata('user_id'))->row();
 		$this->template->load($view->OVERVIEW, $view->VIEW_POS, $data);
 	}
 
