@@ -43,6 +43,8 @@ class M_greeting extends CI_Model
 		$this->name = $post['gre_name'];
 		$this->description = $post['gre_desc'];
 		$this->isactive = $post['isactive'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 		return $this->db->insert($this->_table, $this);
 	}
 
@@ -57,6 +59,8 @@ class M_greeting extends CI_Model
 		$this->name = $post['gre_name'];
 		$this->description = $post['gre_desc'];
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_greeting_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);
@@ -77,11 +81,11 @@ class M_greeting extends CI_Model
 		$this->db->select('value');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'value'				=> $post['gre_sk'],
-					'm_greeting_id !='	=> $post['id']
-					)
-				);
+			array(
+				'value'				=> $post['gre_sk'],
+				'm_greeting_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 
@@ -90,11 +94,11 @@ class M_greeting extends CI_Model
 		$this->db->select('name');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'name'						=> $post['gre_name'],
-					'm_greeting_id !='	=> $post['id']
-					)
-				);
+			array(
+				'name'						=> $post['gre_name'],
+				'm_greeting_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 

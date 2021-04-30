@@ -50,6 +50,8 @@ class M_customer extends CI_Model
 		$this->salesrep_id = $post['cus_sales'];
 		$this->iscustomer = $isCustomer;
 		$this->isactive = $post['isactive'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 		return $this->db->insert($this->_table, $this);
 	}
 
@@ -80,6 +82,8 @@ class M_customer extends CI_Model
 			$this->salesrep_id = $post['cus_sales'];
 		}
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_bpartner_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);

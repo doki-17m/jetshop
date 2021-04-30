@@ -59,6 +59,8 @@ class M_user extends CI_Model
 		$this->m_greeting_id = $post['usr_greeting'];
 		$this->m_job_id = $post['usr_job'];
 		$this->isactive = $post['isactive'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 		return $this->db->insert($this->_table, $this);
 	}
 
@@ -89,6 +91,8 @@ class M_user extends CI_Model
 			$this->m_job_id = $post['usr_job'];
 		}
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('sys_user_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);

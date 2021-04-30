@@ -36,7 +36,7 @@ class M_supplier extends CI_Model
 	}
 
 	public function insert($post, $suppplier)
-	{	
+	{
 		$this->value = $post['sup_code'];
 		$this->name = $post['sup_name'];
 		$this->description = $post['sup_desc'];
@@ -47,6 +47,8 @@ class M_supplier extends CI_Model
 		$this->m_greeting_id = $post['sup_greeting'];
 		$this->isvendor = $suppplier;
 		$this->isactive = $post['isactive'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 		return $this->db->insert($this->_table, $this);
 	}
 
@@ -68,6 +70,8 @@ class M_supplier extends CI_Model
 			$this->m_greeting_id = $post['sup_greeting'];
 		}
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_bpartner_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);

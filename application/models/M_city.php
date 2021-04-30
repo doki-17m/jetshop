@@ -67,6 +67,8 @@ class M_city extends CI_Model
 					'related_city_id'		=> $city_id,
 					'province'				=> $province,
 					'ref_province_id'		=> $province_id,
+					'createdby'				=> $this->session->userdata('user_id'),
+					'updatedby'				=> $this->session->userdata('user_id')
 				);
 				$this->db->insert($this->_table, $arrData);
 				$result[] = $this->db->affected_rows();
@@ -93,6 +95,8 @@ class M_city extends CI_Model
 	public function update($id, $post)
 	{
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_city_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);

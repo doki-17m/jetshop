@@ -43,6 +43,8 @@ class M_category extends CI_Model
 		$this->name = $post['cat_name'];
 		$this->description = $post['cat_desc'];
 		$this->isactive = $post['isactive'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 		return $this->db->insert($this->_table, $this);
 	}
 
@@ -57,6 +59,8 @@ class M_category extends CI_Model
 		$this->name = $post['cat_name'];
 		$this->description = $post['cat_desc'];
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_product_category_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);
@@ -77,11 +81,11 @@ class M_category extends CI_Model
 		$this->db->select('value');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'value'						=> $post['cat_sk'],
-					'm_product_category_id !='	=> $post['id']
-					)
-				);
+			array(
+				'value'						=> $post['cat_sk'],
+				'm_product_category_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 
@@ -90,11 +94,11 @@ class M_category extends CI_Model
 		$this->db->select('name');
 		$this->db->from($this->_table);
 		$this->db->where(
-				array(
-					'name'						=> $post['cat_name'],
-					'm_product_category_id !='	=> $post['id']
-					)
-				);
+			array(
+				'name'						=> $post['cat_name'],
+				'm_product_category_id !='	=> $post['id']
+			)
+		);
 		return $this->db->get();
 	}
 

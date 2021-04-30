@@ -43,6 +43,8 @@ class M_courier extends CI_Model
 		$this->name = $post['cou_name'];
 		$this->description = $post['cou_desc'];
 		$this->isactive = $post['isactive'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 		return $this->db->insert($this->_table, $this);
 	}
 
@@ -57,6 +59,8 @@ class M_courier extends CI_Model
 		$this->name = $post['cou_name'];
 		$this->description = $post['cou_desc'];
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_courier_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);

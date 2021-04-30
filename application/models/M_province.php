@@ -44,12 +44,14 @@ class M_province extends CI_Model
 		$response = array();
 		foreach ($list as $row) :
 			$province_id = $row->province_id;
-			$province = $row->province;			
+			$province = $row->province;
 			if (!in_array($province_id, $arrListID)) {
 				$arrData = array(
 					'name'					=> $province,
 					'province'				=> $province,
-					'related_province_id'	=> $province_id
+					'related_province_id'	=> $province_id,
+					'createdby'				=> $this->session->userdata('user_id'),
+					'updatedby'				=> $this->session->userdata('user_id')
 				);
 				$this->db->insert($this->_table, $arrData);
 				$result[] = $this->db->affected_rows();
@@ -76,6 +78,8 @@ class M_province extends CI_Model
 	public function update($id, $post)
 	{
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_province_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);

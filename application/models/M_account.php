@@ -49,6 +49,8 @@ class M_account extends CI_Model
 		$this->name = $post['acc_name'];
 		$this->description = $post['acc_desc'];
 		$this->isactive = $post['isactive'];
+		$this->createdby = $this->session->userdata('user_id');
+		$this->updatedby = $this->session->userdata('user_id');
 		return $this->db->insert($this->_table, $this);
 	}
 
@@ -64,6 +66,8 @@ class M_account extends CI_Model
 		$this->name = $post['acc_name'];
 		$this->description = $post['acc_desc'];
 		$this->isactive = $post['isactive'];
+		$this->updated_at = date('Y-m-d H:i:s');
+		$this->updatedby = $this->session->userdata('user_id');
 		$where = array('m_account_id' => $id);
 		return $this->db->where($where)
 			->update($this->_table, $this);
