@@ -55,7 +55,7 @@ _tablePro.on('click', 'td:not(:last-child)', function (e) {
 	const formID = proForm[0]['id'];
 	const row = _tablePro.row(this).data();
 	ID = row[0]; //index array ID
-	var NAME = row[3];
+	var NAME = row[2];
 	openModalForm();
 	Scrollmodal();
 	Largemodal();
