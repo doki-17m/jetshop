@@ -269,7 +269,7 @@ class Sales extends CI_Controller
 			'cashier'		=> $row->cashier,
 			'detail1'		=> $baris4,
 			'subtotal'		=> $subtotal,
-			'salesname'		=> ucwords($row->sales_name),
+			'salesname'		=> ucwords($row->salesname),
 			'bpartner'		=> ucwords($row->bpartner)
 		];
 
