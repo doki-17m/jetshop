@@ -83,3 +83,10 @@
 		}
 	});
 </script>
+<script>
+	$('#stock_date').daterangepicker({
+		locale: {
+			format: 'DD-MM-YYYY'
+		}
+	});
+</script>
