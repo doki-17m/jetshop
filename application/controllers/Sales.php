@@ -262,7 +262,7 @@ class Sales extends CI_Controller
 		}
 
 		$result = [
-			'date'			=> date('d M Y'),
+			'date'			=> date('d M Y', strtotime($row->dateordered)),
 			'time'			=> date("H:i"),
 			'printed'		=> date("Y-m-d H:i"),
 			'invoice'		=> $row->documentno,
