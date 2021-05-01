@@ -150,7 +150,12 @@ class Sales extends CI_Controller
 		$post = $this->input->post(NULL, TRUE);
 		$result = $order->insert_line($post);
 		if ($result) {
-			$response = $status->SUCCESS_INSERT_CART;
+			$response =
+				[
+					'success'		=> true,
+					'message'		=> '<h5> Success!</h5> Your cart has been submit successfully!',
+					'order_id'		=> $post['id']
+				];
 		} else {
 			$response = $result;
 		}
@@ -186,6 +191,89 @@ class Sales extends CI_Controller
 		$post = $this->input->post(NULL, TRUE);
 		$response = $order->calculate_cost($post);
 		echo json_encode($response);
+	}
+
+	// membuat fungsi untuk membuat 1 baris tabel, agar dapat dipanggil berkali-kali dgn mudah
+	public function buatBaris4Kolom($kolom1, $kolom2, $kolom3, $kolom4, $escape = null)
+	{
+		// // Mengatur lebar setiap kolom (dalam satuan karakter)
+		$lebar_kolom_1 = 13;
+		$lebar_kolom_2 = 3;
+		$lebar_kolom_3 = 12;
+		$lebar_kolom_4 = 14;
+
+		// Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n 
+		$kolom1 = wordwrap($kolom1, $lebar_kolom_1, "\n", true);
+		$kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
+		$kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
+		$kolom4 = wordwrap($kolom4, $lebar_kolom_4, "\n", true);
+
+		// Merubah hasil wordwrap menjadi array, kolom yang memiliki 2 index array berarti memiliki 2 baris (kena wordwrap)
+		$kolom1Array = explode("\n", $kolom1);
+		$kolom2Array = explode("\n", $kolom2);
+		$kolom3Array = explode("\n", $kolom3);
+		$kolom4Array = explode("\n", $kolom4);
+
+		// Mengambil jumlah baris terbanyak dari kolom-kolom untuk dijadikan titik akhir perulangan
+		$jmlBarisTerbanyak = max(count($kolom1Array), count($kolom2Array), count($kolom3Array), count($kolom4Array));
+
+		// Mendeklarasikan variabel untuk menampung kolom yang sudah di edit
+		$hasilBaris = array();
+
+		// Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
+		for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
+
+			// memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan, 
+			$hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
+			$hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ");
+
+			// memberikan rata kanan pada kolom 3 dan 4 karena akan kita gunakan untuk harga dan total harga
+			$hasilKolom3 = str_pad((isset($kolom3Array[$i]) ? $kolom3Array[$i] : ""), $lebar_kolom_3, " ", STR_PAD_LEFT);
+			$hasilKolom4 = str_pad((isset($kolom4Array[$i]) ? $kolom4Array[$i] : ""), $lebar_kolom_4, " ", STR_PAD_LEFT);
+
+			// Menggabungkan kolom tersebut menjadi 1 baris dan ditampung ke variabel hasil (ada 1 spasi disetiap kolom)
+			$hasilBaris[] = $hasilKolom1 . " " . $hasilKolom2 . $hasilKolom3 . " " . $hasilKolom4;
+		}
+
+		// Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
+		if ($escape === "nl") {
+			return implode("\n", $hasilBaris) . "\n";
+		} else {
+			return implode("\n", $hasilBaris);
+		}
+	}
+
+	public function cetak()
+	{
+		$post = $this->input->post(NULL, TRUE);
+		$data = $this->m_order->detail($post['id']);
+
+		$row = $data->row();
+		$baris4 = [];
+		$subtotal = [];
+		$sumTotal = 0;
+		if ($data->num_rows() > 0) {
+			foreach ($data->result() as $value) :
+				$baris4[] = $this->buatBaris4Kolom(strtoupper($value->code), $value->qtyordered . "x", formatRupiah($value->unitprice), formatRupiah($value->lineamount), "nl");
+				$sumTotal += $value->lineamount;
+			endforeach;
+
+			$subtotal[] = $this->buatBaris4Kolom('Sub Total', "", "Rp.", formatRupiah($sumTotal), "nl");
+		}
+
+		$result = [
+			'date'			=> date('d M Y'),
+			'time'			=> date("H:i"),
+			'printed'		=> date("Y-m-d H:i"),
+			'invoice'		=> $row->documentno,
+			'cashier'		=> $row->cashier,
+			'detail1'		=> $baris4,
+			'subtotal'		=> $subtotal,
+			'salesname'		=> ucwords($row->sales_name),
+			'bpartner'		=> ucwords($row->bpartner)
+		];
+
+		echo json_encode($result);
 	}
 
 	public function checkQty()

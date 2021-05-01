@@ -395,6 +395,7 @@ function saveOrderLine(arrData, last_id) {
 				btnPos.hide();
 				btnPrint.show();
 				btnClosePos.show();
+				btnPrint.val(result.order_id);
 			}
 		}
 	});

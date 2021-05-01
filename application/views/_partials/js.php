@@ -70,6 +70,7 @@
 <script src="<?php echo base_url('assets/cust/js/Expense.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Brand-js.js')  ?>"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/recta/dist/recta.js"></script>
 <script>
 	$('#ins_date').daterangepicker({
 		locale: {
@@ -83,4 +84,72 @@
 			format: 'DD-MM-YYYY'
 		}
 	});
+</script>
+<script>
+	var printer = new Recta('1188118811', '1811')
+
+	// 4 space break
+	let spaceBreak = "   ";
+
+	function printStruk(prder_id) {
+		$.ajax({
+			url: '<?= base_url('sales/cetak') ?>',
+			type: 'POST',
+			data: {
+				id: prder_id
+			},
+			cache: false,
+			dataType: 'JSON',
+			success: function(result) {
+				printer.open().then(function(e) {
+					printer.align('center')
+						.text('JS BOUTIQUESHOP ONLINE')
+						.text('ITC MANGGA DUA LT. 2 BLOK A NO. 113')
+						.text('JAKARTA UTARA')
+						.text('WA 081213369142\n')
+						.text(spaceBreak + '---------------------------------------------');
+
+					printer.align('left')
+						.text(spaceBreak + 'Date: ' + result.date + '	' + 'Time: ' + result.time)
+						.text(spaceBreak + 'Bill No: ' + result.invoice);
+					if (result.cashier !== null) {
+						printer.text(spaceBreak + 'Cashier: ' + result.cashier);
+					} else {
+						printer.text(spaceBreak + 'Cashier: ' + '-');
+					}
+					printer.text(spaceBreak + 'SPG: ' + result.salesname + '\n')
+						.text(spaceBreak + 'Customer: ' + result.bpartner);
+
+					printer.text(spaceBreak + '---------------------------------------------');
+
+					$.each(result.detail1, function(idx, elem) {
+						printer.text(spaceBreak + elem);
+					});
+
+					printer.text(spaceBreak + '---------------------------------------------')
+						.text(spaceBreak + result.subtotal[0] + '\n');
+
+					printer.align('center')
+						.text('Follow IG @jsboutiqueshop')
+						.text('Merchandise cannot be exchanged or refund')
+						.text('Thank you for shopping\n')
+						.text('Printed: ' + result.printed)
+						.feed(6)
+						.cut()
+						.print();
+				})
+
+				// printer.on('open', function(result) {
+				// 	alert(result)
+				// }).on('error', function(error) {
+				// 	alert(error)
+				// })
+			}
+		});
+	}
+
+	$('#btn_print').click(function(evt) {
+		let order_id = $(this).val();
+		printStruk(order_id);
+	})
 </script>

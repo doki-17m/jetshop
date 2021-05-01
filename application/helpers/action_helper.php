@@ -34,7 +34,7 @@ function listAction($id, $string)
 					</center>';
 	} else if ($string === 'P') {
 		$list = '<center>
-						<a class="btn" onclick="Print(' . "'" . $id . "'" . ')" title="Print"><i class="fas fa-print text-primary"></i></a>
+						<a class="btn" onclick="printStruk(' . "'" . $id . "'" . ')" title="Print"><i class="fas fa-print text-primary"></i></a>
 					</center>';
 	} else if ($string === 'DQ') {
 		$list = '<center>

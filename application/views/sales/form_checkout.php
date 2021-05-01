@@ -149,7 +149,7 @@
 					</div>
 					<div class="card-header">
 						<div class="float-right">
-							<button type="button" class="btn btn-outline-primary" id="btn_print"><i class="fas fa-print"></i> Print</button>
+							<button type="button" class="btn btn-outline-primary" value="0" id="btn_print"><i class="fas fa-print"></i> Print</button>
 							<button type="button" class="btn btn-primary" id="btn_pos"><i class="far fa-save"></i> Save</button>
 							<button type="button" class="btn btn-danger" id="btn_close_pos"><i class="fas fa-times"></i> Close</button>
 						</div>

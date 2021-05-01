@@ -341,6 +341,8 @@ class M_order extends CI_Model
 
 	public function detail($id)
 	{
+		$this->db->select('*,
+						parse("Sys_User", salesrep_id, 1) as sales_name');
 		return $this->db->get_where($this->v_order_detail, array('trx_order_id' => $id));
 	}
 
