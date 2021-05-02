@@ -112,7 +112,7 @@
 					printer.align('left')
 						// .text(spaceBreak + 'Date: ' + result.date + '	' + 'Time: ' + result.time)
 						.text(spaceBreak + 'Date: ' + result.date)
-						.text(spaceBreak + 'Bill No: ' + result.invoice);
+						.text(spaceBreak + 'Invoice No: ' + result.invoice);
 					if (result.cashier !== null) {
 						printer.text(spaceBreak + 'Cashier: ' + result.cashier);
 					} else {
