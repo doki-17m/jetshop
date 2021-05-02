@@ -29,13 +29,14 @@ $(document).ready(function (e) {
 
 $(document).on('click', '#close_exp', function (e) {
 	const existDataTable = _tableExpLine.data().any();
-	if (!existDataTable)
-		Toast.fire({
-			type: 'error',
-			title: 'Please add some item.'
-		});
-	else
-		$('#modal_exp').modal('hide');
+	// if (!existDataTable)
+	// 	Toast.fire({
+	// 		type: 'error',
+	// 		title: 'Please add some item.'
+	// 	});
+	// else
+	expForm[0].reset();
+	$('#modal_exp').modal('hide');
 });
 
 btnNewExp.click(function () {
