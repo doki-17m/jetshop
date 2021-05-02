@@ -69,7 +69,6 @@
 <script src="<?php echo base_url('assets/cust/js/Sales.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Expense.js')  ?>"></script>
 <script src="<?php echo base_url('assets/cust/js/Brand-js.js')  ?>"></script>
-<script src="<?php echo base_url('assets/cust/js/Rma.js')  ?>"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/recta/dist/recta.js"></script>
 <script>
