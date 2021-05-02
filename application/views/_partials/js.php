@@ -131,7 +131,8 @@
 
 					printer.align('center')
 						.text('Follow IG @jsboutiqueshop')
-						.text('Merchandise cannot be exchanged or refund')
+						.text('Harap simpan dan sertakan struk ini jika ingin meretur barang')
+						// .text('Mohon sertakan struk ini beserta bara')
 						.text('Thank you for shopping\n')
 						.text('Printed: ' + result.printed)
 						.feed(6)
