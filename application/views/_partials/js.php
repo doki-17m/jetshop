@@ -131,8 +131,8 @@
 
 					printer.align('center')
 						.text('Follow IG @jsboutiqueshop')
-						.text('Harap simpan dan sertakan struk ini jika ingin meretur barang')
-						// .text('Mohon sertakan struk ini beserta bara')
+						.text('Harap simpan dan sertakan struk ini')
+						.text('Jika ingin meretur barang')
 						.text('Thank you for shopping\n')
 						.text('Printed: ' + result.printed)
 						.feed(6)
