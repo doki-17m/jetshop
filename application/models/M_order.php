@@ -292,6 +292,7 @@ class M_order extends CI_Model
 						'trx_order_id'		=> $last_id,
 						'm_product_id' 		=> $product_id,
 						'qtyordered'		=> $qty,
+						'qtyreturn'			=> $qty,
 						'unitprice'			=> $unitprice,
 						'pricelist'			=> $pricelist, //harga jual
 						'lineamount'		=> $amount,
