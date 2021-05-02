@@ -299,7 +299,7 @@ class Product extends CI_Controller
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 		// set margins
-		$pdf->SetMargins(3, 3, 3);
+		$pdf->SetMargins(4, 4, 4);
 
 		// set auto page breaks
 		$pdf->SetAutoPageBreak(TRUE, 0);
@@ -308,8 +308,8 @@ class Product extends CI_Controller
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 		// set some language-dependent strings (optional)
-		if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-			require_once(dirname(__FILE__) . '/lang/eng.php');
+		if (@file_exists(dirname(_FILE_) . '/lang/eng.php')) {
+			require_once(dirname(_FILE_) . '/lang/eng.php');
 			$pdf->setLanguageArray($l);
 		}
 
@@ -326,10 +326,10 @@ class Product extends CI_Controller
 
 		// define barcode style
 		$style = array(
-			'position' => 'C',
+			'position' => 'L',
 			'align' => 'C',
 			'stretch' => false,
-			'fitwidth' => true,
+			'fitwidth' => false,
 			'cellfitalign' => '',
 			'border' => false,
 			'hpadding' => 'auto',
@@ -338,19 +338,22 @@ class Product extends CI_Controller
 			'bgcolor' => false, //array(255,255,255),
 			'text' => true,
 			'font' => 'helvetica',
-			'fontsize' => 6,
+			'fontsize' => 8,
 			'stretchtext' => 4
 		);
+
 
 		// $pdf->write1DBarcode($code, 'C128', 2, 1, '', 18, 0.4, $style, 'N');
 		$product = $this->m_product->detail(0, $code)->row();
 
-		$pdf->SetFont('helvetica', '', 9);
+		$pdf->SetFont('helvetica', '', 8);
+
 
 		// for ($i = 0; $i < 1; $i++) {
-		$pdf->Cell(50, 0, 'JS Online', 0, 1, 'C', 0, '', 0, false, 'C', 'C');
-		$pdf->write1DBarcode($code, 'C128', '', '', '', 14, 0.4, $style, 'N');
-		$pdf->Cell(50, 0, 'Rp. ' . formatRupiah($product->salesprice), 0, 1, 'C', 0, '', 1, false, 'A', 'C');
+		$pdf->Cell(33, 0, 'JS Online', 0, 1, 'C', 0, '', 0, false, 'C', 'C');
+		$pdf->Cell(42, 0, ($product->code_purchprice), 0, 1, 'R', 0, '', 0, false, 'A', 'C');
+		$pdf->Cell(47, 0, 'Rp.' . formatRupiah($product->salesprice), 0, 1, 'R', 0, '', 0, false, 'A', 'C');
+		$pdf->write1DBarcode($code, 'C128', 19, 5, '', 15, 0.4, $style, 'N');
 		// }
 
 		//Close and output PDF document
