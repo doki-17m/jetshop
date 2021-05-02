@@ -15,6 +15,9 @@
 					<div class="form-group row">
 						<label for="pos_cashier" class="col-sm-3 col-form-label">Cashier</label>
 						<div class="col-sm-9">
+							<input type="hidden" class="form-control" id="pos_cashier_id" name="pos_cashier_id" value="<?php if ($cashier->m_job_id == 1) {
+																															echo $cashier->sys_user_id;
+																														} ?>" readonly>
 							<input type="text" class="form-control" id="pos_cashier" name="pos_cashier" value="<?php if ($cashier->m_job_id == 1) {
 																													echo $cashier->name;
 																												} ?>" readonly>

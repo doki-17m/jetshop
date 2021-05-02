@@ -227,7 +227,7 @@ function indecrementVal(id, e, field, action) {
 
 function saveOrder(table) {
 	var dateTrx = fillSDate.val();
-	var cashier = fillSCashier.val();
+	var cashier = $('#pos_cashier_id').val();
 	// var invoiceno = fillSInvoiceNo.html();
 	var ismember = MemberValue();
 	var courier = $('#pos_courier option:selected').val();
