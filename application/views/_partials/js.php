@@ -133,7 +133,7 @@
 						.text('Follow IG @jsboutiqueshop')
 						.text('Harap simpan dan sertakan struk ini')
 						.text('Jika ingin meretur barang')
-						.text('Thank you for shopping\n')
+						.text('Terima kasih sudah berbelanja\n')
 						.text('Printed: ' + result.printed)
 						.feed(6)
 						.cut()
